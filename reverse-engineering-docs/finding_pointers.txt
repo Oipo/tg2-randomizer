@@ -1,0 +1,83 @@
+Use this as a quick triage sheet when you find 3-byte values in an SNES ROM.
+Pointer Cheat Sheet When you see a 3-byte little-endian value like:
+7C 82 0A
+read it as:
+0A:827C
+because SNES 24-bit pointers in ROM data are usually stored low, high, bank.
+1. LoROM Pointer Typical shape:
+bank varies moderately
+address is usually in $8000-$FFFF
+converting with LoROM lands on sensible ROM data
+Formula:
+pc = (bank & 0x7F) * 0x8000 + (addr & 0x7FFF)
+Good signs:
+many values have high byte 80-FF
+converted offsets cluster into real-looking tables/graphics/compressed blobs
+mirrored banks like 0A, 8A, 8A all make sense
+Example:
+7C 82 0A -> 0A:827C -> PC 0x05027C
+2. HiROM Pointer Typical shape:
+bank often in $C0-$FF in docs/ASM, though mirrors exist
+address can use the whole $0000-$FFFF range
+LoROM conversion looks wrong, HiROM conversion looks sane
+Formula:
+pc = (bank & 0x3F) * 0x10000 + addr
+Good signs:
+pointers often look like C3:1234, C8:8000, etc.
+target data sits on 0x10000 boundaries more naturally than 0x8000
+ROM header says HiROM map mode
+3. Raw PC Offsets Typical shape:
+values directly match file positions without SNES mapping
+often found in tools, hacks, custom formats, not original SNES code/data
+third byte may exceed what bank mapping would naturally imply
+Good signs:
+value = low + high<<8 + bank<<16 points straight to useful data
+LoROM/HiROM conversion makes things worse
+references can land below 0x8000-style SNES rules and still be valid
+Example:
+34 12 05 -> raw PC 0x051234
+4. “Looks Like a Pointer” But Isn’t A 3-byte field can also be:
+packed coordinates
+[tile id, palette id, flags]
+[x, y, type]
+script opcodes/arguments
+compressed data bytes that coincidentally decode to valid addresses
+Good signs it is not a pointer:
+too many values land in code garbage or empty space
+every possible interpretation “sort of works”
+columns have strong low-range structure like 00-1F, 00/FF, repeated small enums
+the same field is clearly being used as flags elsewhere
+Practical Test Order When you find a candidate 3-byte field, test in this order:
+1.
+Read it as little-endian SNES pointer: bb aa cc -> cc:aabb
+2.
+Try LoROM conversion
+3.
+If the ROM is HiROM, try HiROM conversion
+4.
+Check whether the target bytes look like:
+code
+graphics
+tilemap
+table
+compressed blob
+5.
+Check whether many entries in the same column point to the same region family
+If only one or two entries “work,” it is probably coincidence.
+What “Sensible Data” Looks Like Useful target types usually look like this:
+Code:
+lots of 65c816 opcodes like A9, 8D, 20, 22, C2, E2, AD
+Graphics:
+bitplane-looking bytes like 00 FF, F0 0F, AA 55, repeated patterns
+Tilemaps:
+lots of 16-bit little-endian tile numbers like 28 00 29 00 2A 00
+Tables:
+regular stride, repeated field structure, small enums in fixed columns
+Compressed data:
+messy but often starts with recurring control-byte patterns, not obvious code
+Fast Heuristics These are the ones I actually rely on:
+If addresses are mostly $8000-$FFFF, suspect LoROM/HiROM before raw PC.
+If conversion repeatedly lands in 0x080000, 0x084000, 0x086C00-style resource regions, that is promising.
+If a whole column decodes into one family of targets, it is probably a real pointer column.
+If another column is all 00, FF, or 00-1F, that column is probably attributes, not pointers.
+If shuffling one table breaks gameplay but not UI/minimap, there is probably a parallel sibling table with map/tile references

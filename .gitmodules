@@ -1,6 +1,8 @@
 [submodule "extern/Lyra"]
 	path = extern/Lyra
 	url = https://github.com/bfgroup/Lyra.git
+	shallow = true
 [submodule "extern/spdlog"]
 	path = extern/spdlog
 	url = https://github.com/gabime/spdlog.git
+	shallow = true

@@ -1,0 +1,94 @@
+TARGET tile-ish 0x84000 0x84200
+ BLOCK 050400
+  row 34 f+3 snes=50C004 -> 084004 bytes=25 58 70 04 C0 50 00 09
+  row 35 f+3 snes=50C001 -> 084001 bytes=78 5B 34 01 C0 50 00 05
+ BLOCK 050800
+  row 28 f+3 snes=50C000 -> 084000 bytes=C1 51 38 00 C0 50 00 05
+  row 33 f+3 snes=50C000 -> 084000 bytes=3B 51 40 00 C0 50 00 05
+ BLOCK 050A00
+  row 07 f+3 snes=50C000 -> 084000 bytes=F3 58 40 00 C0 50 00 0F
+  row 10 f+3 snes=50C015 -> 084015 bytes=00 5C 00 15 C0 50 00 05
+  row 11 f+3 snes=50C002 -> 084002 b
+EC06 -> 086C06 bytes=AC 10 00 06 EC 10 00 0D
+  row 04 f+3 snes=10EC00 -> 086C00 bytes=95 14 5C 00 EC 10 00 07
+  row 05 f+3 snes=10EC00 -> 086C00 bytes=2B 15 68 00 EC 10 00 07
+  row 07 f+3 snes=10EC00 -> 086C00 bytes=69 13 54 00 EC 10 00 05
+  row 08 f+3 snes=10EC01 -> 086C01 bytes=95 14 50 01 EC 10 34 05
+  row 28 f+3 snes=50ED05 -> 086D05 bytes=ED 50 01 05 ED 50 01 0B
+  row 31 f+3 snes=50ED05 -> 086D05 bytes=ED 50 01 05 ED 50 01 0B
+  row 35 f+3 snes=50ED05 -> 086D05 bytes=ED 50 35 05 ED 50 01 07
+
+00 DC 82 0D 00 00 00 02 00 | snes 0D82DC -> pc 0682DC | clear | flag 00
+01 14 83 0D 00 00 00 02 00 | snes 0D8314 -> pc 068314 | clear | flag 00
+02 BC 84 11 00 00 00 06 00 | snes 1184BC -> pc 0884BC | night | flag 00
+03 E0 95 25 00 00 00 03 FF | snes 2595E0 -> pc 0295E0 | rain | flag FF
+04 E4 89 13 00 00 00 05 00 | snes 1389E4 -> pc 0989E4 | fog | flag 00
+05 34 8A 14 00 00 00 02 00 | snes 148A34 -> pc 0A0A34 | clear | flag 00
+06 20 94 20 00 00 00 02 00 | snes 209420 -> pc 001420 | clear | flag 00
+… 3.6K chars omitted, open in editor for full output …
+57 78 87 15 00 00 00 02 00 | snes 158778 -> pc 0A8778 | clear | flag 00
+58 5C 8B 1A 00 00 00 06 00 | snes 1A8B5C -> pc 0D0B5C | night | flag 00
+59 88 99 22 00 00 00 04 00 | snes 229988 -> pc 011988 | snow | flag 00
+60 F0 8A 1A 00 00 00 06 00 | snes 1A8AF0 -> pc 0D0AF0 | night | flag 00
+61 88 8A 19 00 00 00 02 00 | snes 198A88 -> pc 0C8A88 | clear | flag 00
+62 80 8E 23 00 00 00 04 00 | snes 238E80 -> pc 018E80 | snow | flag 00
+63 C8 92 1D 00 00 00 05 00 | snes 1D92C8 -> pc 0E92C8 | fog | flag 00
+
+00 DC 82 0D 00 00 00 02 00 | 01 14 83 0D 00 00 00 02 00 | 02 BC 84 11 00 00 00 06 00 | 03 E0 95 25 00 00 00 03 FF
+04 E4 89 13 00 00 00 05 00 | 05 34 8A 14 00 00 00 02 00 | 06 20 94 20 00 00 00 02 00 | 07 78 95 19 00 00 00 02 00
+08 4C 83 10 00 00 00 02 00 | 09 10 8F 1F 00 00 00 03 FF | 10 7C 97 21 00 00 00 02 00 | 11 8C 98 1F 00 00 00 06 FF
+12 00 82 08 00 00 00 02 00 | 13 7C 82 0A 00 00 00 02 00 | 14 84 84 0D 00 00 00 06 00 | 15 80 88 13 00 00 00 02 00
+16 CC 83 0D 00 00 00 02 00 | 17 24 8D 16 00 00 00 06 00 | 18 90 8F 1B 00 00 00 02 00 | 19 00 90 1E 00 00 00 03 FF
+20 04 84 0E 00 00 00 03 FF | 21 54 85 17 00 00 00 02 00 | 22 98 86 13 00 00 00 05 00 | 23 80 8D 20 00 00 00 04 00
+24 A8 82 0C 00 00 00 06 FF | 25 3C 8C 1D 00 00 00 02 00 | 26 04 8E 1E 00 00 00 02 00 | 27 40 93 1D 00 00 00 02 00
+28 24 82 0A 00 00 00 02 00 | 29 40 84 10 00 00 00 02 00 | 30 D0 88 18 00 00 00 02 00 | 31 78 96 1C 00 00 00 02 00
+32 FC 85 12 00 00 00 02 00 | 33 E8 86 0F 00 00 00 02 00 | 34 34 89 15 00 00 00 03 FF | 35 8C 89 15 00 00 00 02 00
+36 48 86 13 00 00 00 02 00 | 37 04 91 1B 00 00 00 02 00 | 38 50 92 1D 00 00 00 06 00 | 39 A4 94 1B 00 00 00 02 00
+40 24 88 16 00 00 00 02 00 | 41 04 98 21 00 00 00 06 FF | 42 EC 96 23 00 00 00 02 00 | 43 0C 99 1E 00 00 00 02 00
+44 B4 85 11 00 00 00 02 00 | 45 D0 87 14 00 00 00 04 00 | 46 EC 91 18 00 00 00 04 00 | 47 14 95 18 00 00 00 05 00
+48 04 85 13 00 00 00 02 00 | 49 B4 8C 1B 00 00 00 02 00 | 50 7C 90 21 00 00 00 02 00 | 51 74 91 1D 00 00 00 06 00
+52 50 82 0A 00 00 00 02 00 | 53 90 83 0E 00 00 00 06 FF | 54 C8 8B 1C 00 00 00 03 FF | 55 B8 93 19 00 00 00 02 00
+56 28 87 13 00 00 00 02 00 | 57 78 87 15 00 00 00 02 00 | 58 5C 8B 1A 00 00 00 06 00 | 59 88 99 22 00 00 00 04 00
+60 F0 8A 1A 00 00 00 06 00 | 61 88 8A 19 00 00 00 02 00 | 62 80 8E 23 00 00 00 04 00 | 63 C8 92 1D 00 00 00 05 00
+
+Decoded structure, from the data itself:
+Bytes 0..2: 24-bit SNES-style LoROM resource reference. On this 1 MiB ROM, banks above physical size mirror, so I resolved them with LoROM mirroring. Examples: track 13 -> 0A:827C -> PC 0x05027C, track 20 -> 0E:8404 -> PC 0x070404.
+Bytes 3..5: always 00 00 00 in the stock table. This looks like a null secondary reference or reserved field.
+Byte 6: weather. 02=clear, 03=rain, 04=snow, 05=fog, 06=night. 07=space is supported by main.cpp but unused in the stock table.
+Byte 7: binary effect flag. FF appears on all rain tracks and 4 night tracks (11, 24, 41, 53), 00 everywhere else. This is probably an extra lighting/palette/surface flag, not the course order itself.
+Nearby Tables I found multiple adjacent 64-entry, 8-byte sibling tables:
+0x50200–0x503FF
+0x50400–0x505FF
+0x50600–0x507FF
+0x50800–0x509FF
+0x50A00–0x50BFF
+0x50C00–0x50DFF
+0x50E00–0x50FFF
+0x51000–0x511FF
+0x51200–0x513FF
+The clearest immediate sibling is 0x50200–0x503FF. Three track-table entries point directly into it:
+Track 13 -> 0x05027C -> row 15
+Track 28 -> 0x050224 -> row 04
+Track 52 -> 0x050250 -> row 10
+From 0x50400 onward, the rows stop looking like [ptr][000][weather][flag] and start looking like denser records, most likely ptrA(3) + ptrB(3) + attr6 + attr7. That is important, because it means the game is carrying parallel per-track resource tables right next to the one you already found.
+There are also repeated local references into 0x50D17 and 0x50D57, which makes 0x50C00–0x50DFF look especially “live” rather than dead padding.
+Minimap Leads The best minimap candidates are the second 24-bit references inside the later sibling tables, especially 0x50A00–0x51200.
+Two target regions stand out:
+90:C000 or 50:C000 -> mirrored PC 0x084000
+10:EC00 or 50:ED00 -> mirrored PC 0x086C00/0x086D00
+Why these matter:
+0x084000 looks like a tile index/tilemap table, not code:
+starts 28 00 29 00 2A 00 ... 41 00
+0x086C00 looks like planar graphics/CHR data:
+starts 00 F0 00 FF FF 00 00 00 ...
+Concrete rows that reference them:
+0x050A38: F3 58 40 00 C0 50 00 0F -> second ref 50:C000 -> 0x084000
+0x050C18: 41 92 2D 00 C0 90 31 05 -> second ref 90:C000 -> 0x084000
+0x050800 row 00: 9B 14 4C 00 EC 10 00 05 -> second ref 10:EC00 -> 0x086C00
+0x050C88 row 17: 00 10 00 00 EC 10 2C 03 -> second ref 10:EC00 -> 0x086C00
+
+Other potential hits might be
+0x51300
+0x51400
+0x51500
+0x51600

@@ -1,0 +1,99 @@
+All addresses listed in this file were corrupted to contain 0x3D for each byte (hard overwrite)
+0x50000–0x5133F: changes the track table and track data, but minimap stays the same, this range is not the minimap selector
+0x48000–0x48FFF: changes the track rendering, but the minimap stays the same, this range is not the minimap selector
+0x49000–0x4FFFF: changes the rendering code, seemed to render part of the track distorted on the top half of the screen, behind the HUD. HUD not affected, this range is not the minimap selector
+0x84000–0x86FFF: similar effect as 0x48000–0x48FFF, this range is not the minimap selector
+
+Interpretation of the “track behind HUD” artifact That artifact is useful too. It suggests the corrupted 0x49xxxx data is probably involved in:
+* screen layout
+* windowing
+* layer setup
+* tile placement
+* or HUD composition
+
+
+Finding the minimap approach so far:
+* set a breakpoint at $8885AA
+* Check CPU memory $33A-$33F
+* Check 0x80 bytes of CPU memory at $7F0A80, $7F1CA0 and $7F2A00
+
+Hitting breakpoint on track 1:
+$7F0A80:
+3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A
+7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A
+7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+
+$7F1CA0:
+FE FF 3F 00 3E 00 3E 00 3E 00 FE 00 FE FF 3F 00
+00 00 00 00 17 00 17 00 17 00 17 00 00 00 00 00
+B5 FF FF 00 31 30 31 30 31 30 01 00 B5 FF FF 00
+B4 00 00 00 FF 00 FF 00 FF 00 FF 00 B4 00 00 00
+7F 00 38 00 B8 00 BB FF 7F 00 38 00 38 00 B8 00
+00 00 5F 00 5F 00 03 00 00 00 5F 00 5F 00 5F 00
+FE 00 1C 00 1D 00 DD FF FE 00 1C 00 1C 00 1D 00
+00 00 FA 00 FA 00 C0 00 00 00 FA 00 FA 00 FA 00
+
+
+
+$7F2A00:
+1F 00 3B 04 7F 00 7B 04 7F 00 3A 05 3F 00 7B 04
+02 00 05 00 02 00 05 00 02 00 05 00 02 00 05 00
+7C 00 EE 10 7F 00 EF 10 7F 00 AE 50 7E 00 EF 10
+A0 00 50 00 A0 00 50 00 A0 00 50 00 A0 00 50 00
+00 00 00 00 1F 00 3B 04 3F 00 3B 04 1D 02 1B 04
+00 00 00 00 02 00 05 00 02 00 05 00 02 00 05 00
+00 00 00 00 7C 00 EE 10 7E 00 EE 10 5C A0 EC 10
+00 00 00 00 A0 00 50 00 A0 00 50 00 A0 00 50 00
+
+
+track 1 33A-33F
+breakpoint 1: B2 00 80 0A 60 08
+breakpoint 2: C0 57 A0 1C E0 03
+breakpoint 3: C0 59 00 2A C0 02
+
+Hitting breakpoint on track 2:
+$7F0A80:
+3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A
+7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A
+7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+
+$7F1CA0:
+FE FF 3F 00 3E 00 3E 00 3E 00 FE 00 FE FF 3F 00
+00 00 00 00 17 00 17 00 17 00 17 00 00 00 00 00
+B5 FF FF 00 31 30 31 30 31 30 01 00 B5 FF FF 00
+B4 00 00 00 FF 00 FF 00 FF 00 FF 00 B4 00 00 00
+7F 00 38 00 B8 00 BB FF 7F 00 38 00 38 00 B8 00
+00 00 5F 00 5F 00 03 00 00 00 5F 00 5F 00 5F 00
+FE 00 1C 00 1D 00 DD FF FE 00 1C 00 1C 00 1D 00
+00 00 FA 00 FA 00 C0 00 00 00 FA 00 FA 00 FA 00
+
+
+
+$7F2A00:
+1F 00 3B 04 7F 00 7B 04 7F 00 3A 05 3F 00 7B 04
+02 00 05 00 02 00 05 00 02 00 05 00 02 00 05 00
+7C 00 EE 10 7F 00 EF 10 7F 00 AE 50 7E 00 EF 10
+A0 00 50 00 A0 00 50 00 A0 00 50 00 A0 00 50 00
+00 00 00 00 1F 00 3B 04 3F 00 3B 04 1D 02 1B 04
+00 00 00 00 02 00 05 00 02 00 05 00 02 00 05 00
+00 00 00 00 7C 00 EE 10 7E 00 EE 10 5C A0 EC 10
+00 00 00 00 A0 00 50 00 A0 00 50 00 A0 00 50 00
+
+track 2 33A-33F
+breakpoint 1: 00 52 80 0A 60 08
+breakpoint 2: 80 57 A0 1C E0 03
+breakpoint 3: 80 59 00 2A C0 02
+
+Separately set a breakpoint on a write to $033A. PC $888516 ROM $40516, A: 00B2, X: 0510, Y:0008, D: 0300, DB: 7E
