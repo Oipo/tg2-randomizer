@@ -1,0 +1,2737 @@
+                     --------sub start--------
+888000  C2 30          REP #$30
+888002  8B             PHB
+888003  0B             PHD
+888004  F4 7E 7E       PEA #$7E7E
+888007  AB             PLB
+888008  AB             PLB
+888009  A9 00 03       LDA #$0300
+88800C  5B             TCD
+88800D  64 2A          STZ $2A
+88800F  64 2C          STZ $2C
+888011  64 2E          STZ $2E
+888013  64 30          STZ $30
+888015  A9 20 00       LDA #$0020
+888018  85 3A          STA $3A
+88801A  64 3C          STZ $3C
+88801C  AD 08 01       LDA $0108
+88801F  0A             ASL
+888020  0A             ASL
+888021  0A             ASL
+888022  AA             TAX
+888023  BF 02 80 8A    LDA $8A8002,X
+888027  0A             ASL
+888028  0A             ASL
+888029  0A             ASL
+88802A  0A             ASL
+88802B  0A             ASL
+88802C  0A             ASL
+88802D  8D 0A 01       STA $010A
+888030  BF 00 80 8A    LDA $8A8000,X
+888034  85 3E          STA $3E
+888036  85 24          STA $24
+888038  AA             TAX
+888039  BF 00 00 8A    LDA $8A0000,X
+88803D  85 40          STA $40
+88803F  BF 02 00 8A    LDA $8A0002,X
+888043  85 42          STA $42
+888045  38             SEC
+888046  A5 3E          LDA $3E
+888048  E5 24          SBC $24
+88804A  4A             LSR
+88804B  4A             LSR
+88804C  AA             TAX
+88804D  BD 00 62       LDA $6200,X
+888050  29 FF 00       AND #$00FF
+888053  85 22          STA $22
+888055  38             SEC
+888056  A9 20 00       LDA #$0020
+888059  E5 3A          SBC $3A
+88805B  0A             ASL
+88805C  0A             ASL
+88805D  0A             ASL
+88805E  0A             ASL
+88805F  A8             TAY
+888060  A5 42          LDA $42
+888062  29 00 3F       AND #$3F00
+888065  4A             LSR
+888066  4A             LSR
+888067  4A             LSR
+888068  65 3C          ADC $3C
+88806A  AA             TAX
+88806B  BF 00 80 89    LDA $898000,X
+88806F  99 00 90       STA $9000,Y
+888072  99 00 92       STA $9200,Y
+888075  A5 42          LDA $42
+888077  29 FC 00       AND #$00FC
+88807A  0A             ASL
+88807B  0A             ASL
+88807C  0A             ASL
+88807D  65 3C          ADC $3C
+88807F  AA             TAX
+888080  BF 00 88 89    LDA $898800,X
+888084  99 02 90       STA $9002,Y
+888087  99 02 92       STA $9202,Y
+88808A  A5 41          LDA $41
+88808C  29 F0 03       AND #$03F0
+88808F  0A             ASL
+888090  65 3C          ADC $3C
+888092  AA             TAX
+888093  BF 40 8C 89    LDA $898C40,X
+888097  99 04 90       STA $9004,Y
+88809A  99 04 92       STA $9204,Y
+88809D  A5 40          LDA $40
+88809F  29 C0 0F       AND #$0FC0
+8880A2  0A             ASL
+8880A3  0A             ASL
+8880A4  0A             ASL
+8880A5  EB             XBA
+8880A6  AA             TAX
+8880A7  BF C0 90 89    LDA $8990C0,X
+8880AB  1A             INC
+8880AC  1A             INC
+8880AD  1A             INC
+8880AE  85 44          STA $44
+8880B0  A5 40          LDA $40
+8880B2  29 3F 00       AND #$003F
+8880B5  0A             ASL
+8880B6  0A             ASL
+8880B7  0A             ASL
+8880B8  0A             ASL
+8880B9  85 46          STA $46
+8880BB  64 48          STZ $48
+8880BD  A5 3C          LDA $3C
+8880BF  F0 47          BEQ $888108
+8880C1  0A             ASL
+8880C2  85 4A          STA $4A
+8880C4  A5 48          LDA $48
+8880C6  F0 04          BEQ $8880CC
+8880C8  C6 48          DEC $48
+8880CA  80 38          BRA $888104
+8880CC  A6 44          LDX $44
+8880CE  8A             TXA
+8880CF  1A             INC
+8880D0  1A             INC
+8880D1  1A             INC
+8880D2  1A             INC
+8880D3  85 44          STA $44
+8880D5  AD 20 01       LDA $0120
+8880D8  F0 1B          BEQ $8880F5
+8880DA  3A             DEC
+8880DB  F0 0D          BEQ $8880EA
+8880DD  BF 02 00 89    LDA $890002,X
+8880E1  29 F0 3F       AND #$3FF0
+8880E4  4A             LSR
+8880E5  4A             LSR
+8880E6  4A             LSR
+8880E7  4A             LSR
+8880E8  80 12          BRA $8880FC
+8880EA               --------unidentified--------
+8880F4               ----------------
+8880F5  BF 00 00 89    LDA $890000,X
+8880F9  29 FF 03       AND #$03FF
+8880FC  AA             TAX
+8880FD  29 80 03       AND #$0380
+888100  D0 02          BNE $888104
+888102  86 48          STX $48
+888104  C6 4A          DEC $4A
+888106  D0 BC          BNE $8880C4
+888108  A5 48          LDA $48
+88810A  F0 08          BEQ $888114
+88810C  C6 48          DEC $48
+88810E  A9 00 00       LDA #$0000
+888111  82 9C 00       BRL $8881B0
+888114  A6 44          LDX $44
+888116  8A             TXA
+888117  1A             INC
+888118  1A             INC
+888119  1A             INC
+88811A  1A             INC
+88811B  85 44          STA $44
+88811D  AD 20 01       LDA $0120
+888120  F0 1B          BEQ $88813D
+888122  3A             DEC
+888123  F0 0D          BEQ $888132
+888125  BF 02 00 89    LDA $890002,X
+888129  29 F0 3F       AND #$3FF0
+88812C  4A             LSR
+88812D  4A             LSR
+88812E  4A             LSR
+88812F  4A             LSR
+888130  80 12          BRA $888144
+888132               --------unidentified--------
+88813C               ----------------
+88813D  BF 00 00 89    LDA $890000,X
+888141  29 FF 03       AND #$03FF
+888144  AA             TAX
+888145  29 80 03       AND #$0380
+888148  D0 04          BNE $88814E
+88814A  86 48          STX $48
+88814C  80 62          BRA $8881B0
+88814E  86 4A          STX $4A
+888150  0A             ASL
+888151  0A             ASL
+888152  EB             XBA
+888153  AA             TAX
+888154  BF BB EA 88    LDA $88EABB,X
+888158  25 22          AND $22
+88815A  F0 05          BEQ $888161
+88815C  A9 00 00       LDA #$0000
+88815F  80 4F          BRA $8881B0
+888161  18             CLC
+888162  8A             TXA
+888163  65 46          ADC $46
+888165  AA             TAX
+888166  BF EB B1 89    LDA $89B1EB,X
+88816A  10 38          BPL $8881A4
+88816C  89 00 40       BIT #$4000
+88816F  D0 3F          BNE $8881B0
+888171  85 4C          STA $4C
+888173  A6 2E          LDX $2E
+888175  A5 30          LDA $30
+888177  9D 00 98       STA $9800,X
+88817A  E8             INX
+88817B  E8             INX
+88817C  8A             TXA
+88817D  29 FF 01       AND #$01FF
+888180  85 2E          STA $2E
+888182  A5 4C          LDA $4C
+888184  29 FF 3F       AND #$3FFF
+888187  18             CLC
+888188  65 30          ADC $30
+88818A  C5 00          CMP $00
+88818C  D0 03          BNE $888191
+88818E  A9 00 00       LDA #$0000
+888191  A6 30          LDX $30
+888193  85 30          STA $30
+888195  A9 40 00       LDA #$0040
+888198  1D 00 64       ORA $6400,X
+88819B  9D 00 64       STA $6400,X
+88819E  8A             TXA
+88819F  09 00 80       ORA #$8000
+8881A2  80 0C          BRA $8881B0
+8881A4  29 FF 00       AND #$00FF
+8881A7  85 4C          STA $4C
+8881A9  A5 49          LDA $49
+8881AB  29 00 7F       AND #$7F00
+8881AE  05 4C          ORA $4C
+8881B0  99 06 90       STA $9006,Y
+8881B3  99 06 92       STA $9206,Y
+8881B6  A5 48          LDA $48
+8881B8  F0 08          BEQ $8881C2
+8881BA  C6 48          DEC $48
+8881BC  A9 00 00       LDA #$0000
+8881BF  82 9C 00       BRL $88825E
+8881C2  A6 44          LDX $44
+8881C4  8A             TXA
+8881C5  1A             INC
+8881C6  1A             INC
+8881C7  1A             INC
+8881C8  1A             INC
+8881C9  85 44          STA $44
+8881CB  AD 20 01       LDA $0120
+8881CE  F0 1B          BEQ $8881EB
+8881D0  3A             DEC
+8881D1  F0 0D          BEQ $8881E0
+8881D3  BF 02 00 89    LDA $890002,X
+8881D7  29 F0 3F       AND #$3FF0
+8881DA  4A             LSR
+8881DB  4A             LSR
+8881DC  4A             LSR
+8881DD  4A             LSR
+8881DE  80 12          BRA $8881F2
+8881E0               --------unidentified--------
+8881EA               ----------------
+8881EB  BF 00 00 89    LDA $890000,X
+8881EF  29 FF 03       AND #$03FF
+8881F2  AA             TAX
+8881F3  29 80 03       AND #$0380
+8881F6  D0 04          BNE $8881FC
+8881F8  86 48          STX $48
+8881FA  80 62          BRA $88825E
+8881FC  86 4A          STX $4A
+8881FE  0A             ASL
+8881FF  0A             ASL
+888200  EB             XBA
+888201  AA             TAX
+888202  BF BB EA 88    LDA $88EABB,X
+888206  25 22          AND $22
+888208  F0 05          BEQ $88820F
+88820A  A9 00 00       LDA #$0000
+88820D  80 4F          BRA $88825E
+88820F  18             CLC
+888210  8A             TXA
+888211  65 46          ADC $46
+888213  AA             TAX
+888214  BF EB B1 89    LDA $89B1EB,X
+888218  10 38          BPL $888252
+88821A  89 00 40       BIT #$4000
+88821D  D0 3F          BNE $88825E
+88821F  85 4C          STA $4C
+888221  A6 2E          LDX $2E
+888223  A5 30          LDA $30
+888225  9D 00 98       STA $9800,X
+888228  E8             INX
+888229  E8             INX
+88822A  8A             TXA
+88822B  29 FF 01       AND #$01FF
+88822E  85 2E          STA $2E
+888230  A5 4C          LDA $4C
+888232  29 FF 3F       AND #$3FFF
+888235  18             CLC
+888236  65 30          ADC $30
+888238  C5 00          CMP $00
+88823A  D0 03          BNE $88823F
+88823C  A9 00 00       LDA #$0000
+88823F  A6 30          LDX $30
+888241  85 30          STA $30
+888243  A9 40 00       LDA #$0040
+888246  1D 00 64       ORA $6400,X
+888249  9D 00 64       STA $6400,X
+88824C  8A             TXA
+88824D  09 00 80       ORA #$8000
+888250  80 0C          BRA $88825E
+888252  29 FF 00       AND #$00FF
+888255  85 4C          STA $4C
+888257  A5 49          LDA $49
+888259  29 00 7F       AND #$7F00
+88825C  05 4C          ORA $4C
+88825E  99 08 90       STA $9008,Y
+888261  99 08 92       STA $9208,Y
+888264  A5 48          LDA $48
+888266  F0 08          BEQ $888270
+888268  C6 48          DEC $48
+88826A  A9 00 00       LDA #$0000
+88826D  82 9C 00       BRL $88830C
+888270  A6 44          LDX $44
+888272  8A             TXA
+888273  1A             INC
+888274  1A             INC
+888275  1A             INC
+888276  1A             INC
+888277  85 44          STA $44
+888279  AD 20 01       LDA $0120
+88827C  F0 1B          BEQ $888299
+88827E  3A             DEC
+88827F  F0 0D          BEQ $88828E
+888281  BF 02 00 89    LDA $890002,X
+888285  29 F0 3F       AND #$3FF0
+888288  4A             LSR
+888289  4A             LSR
+88828A  4A             LSR
+88828B  4A             LSR
+88828C  80 12          BRA $8882A0
+88828E               --------unidentified--------
+888298               ----------------
+888299  BF 00 00 89    LDA $890000,X
+88829D  29 FF 03       AND #$03FF
+8882A0  AA             TAX
+8882A1  29 80 03       AND #$0380
+8882A4  D0 04          BNE $8882AA
+8882A6  86 48          STX $48
+8882A8  80 62          BRA $88830C
+8882AA  86 4A          STX $4A
+8882AC  0A             ASL
+8882AD  0A             ASL
+8882AE  EB             XBA
+8882AF  AA             TAX
+8882B0  BF BB EA 88    LDA $88EABB,X
+8882B4  25 22          AND $22
+8882B6  F0 05          BEQ $8882BD
+8882B8  A9 00 00       LDA #$0000
+8882BB  80 4F          BRA $88830C
+8882BD  18             CLC
+8882BE  8A             TXA
+8882BF  65 46          ADC $46
+8882C1  AA             TAX
+8882C2  BF EB B1 89    LDA $89B1EB,X
+8882C6  10 38          BPL $888300
+8882C8  89 00 40       BIT #$4000
+8882CB  D0 3F          BNE $88830C
+8882CD  85 4C          STA $4C
+8882CF  A6 2E          LDX $2E
+8882D1  A5 30          LDA $30
+8882D3  9D 00 98       STA $9800,X
+8882D6  E8             INX
+8882D7  E8             INX
+8882D8  8A             TXA
+8882D9  29 FF 01       AND #$01FF
+8882DC  85 2E          STA $2E
+8882DE  A5 4C          LDA $4C
+8882E0  29 FF 3F       AND #$3FFF
+8882E3  18             CLC
+8882E4  65 30          ADC $30
+8882E6  C5 00          CMP $00
+8882E8  D0 03          BNE $8882ED
+8882EA  A9 00 00       LDA #$0000
+8882ED  A6 30          LDX $30
+8882EF  85 30          STA $30
+8882F1  A9 40 00       LDA #$0040
+8882F4  1D 00 64       ORA $6400,X
+8882F7  9D 00 64       STA $6400,X
+8882FA  8A             TXA
+8882FB  09 00 80       ORA #$8000
+8882FE  80 0C          BRA $88830C
+888300  29 FF 00       AND #$00FF
+888303  85 4C          STA $4C
+888305  A5 49          LDA $49
+888307  29 00 7F       AND #$7F00
+88830A  05 4C          ORA $4C
+88830C  99 0A 90       STA $900A,Y
+88830F  99 0A 92       STA $920A,Y
+888312  A5 48          LDA $48
+888314  F0 08          BEQ $88831E
+888316  C6 48          DEC $48
+888318  A9 00 00       LDA #$0000
+88831B  82 9C 00       BRL $8883BA
+88831E  A6 44          LDX $44
+888320  8A             TXA
+888321  1A             INC
+888322  1A             INC
+888323  1A             INC
+888324  1A             INC
+888325  85 44          STA $44
+888327  AD 20 01       LDA $0120
+88832A  F0 1B          BEQ $888347
+88832C  3A             DEC
+88832D  F0 0D          BEQ $88833C
+88832F  BF 02 00 89    LDA $890002,X
+888333  29 F0 3F       AND #$3FF0
+888336  4A             LSR
+888337  4A             LSR
+888338  4A             LSR
+888339  4A             LSR
+88833A  80 12          BRA $88834E
+88833C               --------unidentified--------
+888346               ----------------
+888347  BF 00 00 89    LDA $890000,X
+88834B  29 FF 03       AND #$03FF
+88834E  AA             TAX
+88834F  29 80 03       AND #$0380
+888352  D0 04          BNE $888358
+888354  86 48          STX $48
+888356  80 62          BRA $8883BA
+888358  86 4A          STX $4A
+88835A  0A             ASL
+88835B  0A             ASL
+88835C  EB             XBA
+88835D  AA             TAX
+88835E  BF BB EA 88    LDA $88EABB,X
+888362  25 22          AND $22
+888364  F0 05          BEQ $88836B
+888366  A9 00 00       LDA #$0000
+888369  80 4F          BRA $8883BA
+88836B  18             CLC
+88836C  8A             TXA
+88836D  65 46          ADC $46
+88836F  AA             TAX
+888370  BF EB B1 89    LDA $89B1EB,X
+888374  10 38          BPL $8883AE
+888376  89 00 40       BIT #$4000
+888379  D0 3F          BNE $8883BA
+88837B  85 4C          STA $4C
+88837D  A6 2E          LDX $2E
+88837F  A5 30          LDA $30
+888381  9D 00 98       STA $9800,X
+888384  E8             INX
+888385  E8             INX
+888386  8A             TXA
+888387  29 FF 01       AND #$01FF
+88838A  85 2E          STA $2E
+88838C  A5 4C          LDA $4C
+88838E  29 FF 3F       AND #$3FFF
+888391  18             CLC
+888392  65 30          ADC $30
+888394  C5 00          CMP $00
+888396  D0 03          BNE $88839B
+888398  A9 00 00       LDA #$0000
+88839B  A6 30          LDX $30
+88839D  85 30          STA $30
+88839F  A9 40 00       LDA #$0040
+8883A2  1D 00 64       ORA $6400,X
+8883A5  9D 00 64       STA $6400,X
+8883A8  8A             TXA
+8883A9  09 00 80       ORA #$8000
+8883AC  80 0C          BRA $8883BA
+8883AE  29 FF 00       AND #$00FF
+8883B1  85 4C          STA $4C
+8883B3  A5 49          LDA $49
+8883B5  29 00 7F       AND #$7F00
+8883B8  05 4C          ORA $4C
+8883BA  99 0C 90       STA $900C,Y
+8883BD  99 0C 92       STA $920C,Y
+8883C0  A9 00 00       LDA #$0000
+8883C3  99 0E 90       STA $900E,Y
+8883C6  99 0E 92       STA $920E,Y
+8883C9  A5 3C          LDA $3C
+8883CB  18             CLC
+8883CC  69 02 00       ADC #$0002
+8883CF  29 1E 00       AND #$001E
+8883D2  85 3C          STA $3C
+8883D4  D0 15          BNE $8883EB
+8883D6  18             CLC
+8883D7  A5 3E          LDA $3E
+8883D9  69 04 00       ADC #$0004
+8883DC  85 3E          STA $3E
+8883DE  AA             TAX
+8883DF  BF 00 00 8A    LDA $8A0000,X
+8883E3  85 40          STA $40
+8883E5  BF 02 00 8A    LDA $8A0002,X
+8883E9  85 42          STA $42
+8883EB  C6 3A          DEC $3A
+8883ED  F0 03          BEQ $8883F2
+8883EF  82 53 FC       BRL $888045
+8883F2  AD 00 62       LDA $6200
+8883F5  29 FF 00       AND #$00FF
+8883F8  85 24          STA $24
+8883FA  9C 16 02       STZ $0216
+8883FD  9C 18 02       STZ $0218
+888400  9C 1A 02       STZ $021A
+888403  9C 1C 02       STZ $021C
+888406  9C 1E 02       STZ $021E
+888409  9C 20 02       STZ $0220
+88840C  A9 80 00       LDA #$0080
+88840F  8D 26 02       STA $0226
+888412  9C 0C 02       STZ $020C
+888415  A9 20 00       LDA #$0020
+888418  8D 0E 02       STA $020E
+88841B  64 04          STZ $04
+88841D  A9 7C 00       LDA #$007C
+888420  85 02          STA $02
+888422  AD 08 01       LDA $0108
+888425  0A             ASL
+888426  0A             ASL
+888427  0A             ASL
+888428  AA             TAX
+888429  18             CLC
+88842A  BF 00 80 8A    LDA $8A8000,X
+88842E  85 3A          STA $3A
+888430  AA             TAX
+888431  BF 00 00 8A    LDA $8A0000,X
+888435  85 3C          STA $3C
+888437  A9 04 00       LDA #$0004
+88843A  85 3E          STA $3E
+88843C  64 10          STZ $10
+88843E  A5 3C          LDA $3C
+888440  29 C0 0F       AND #$0FC0
+888443  0A             ASL
+888444  0A             ASL
+888445  0A             ASL
+888446  EB             XBA
+888447  AA             TAX
+888448  BF C0 90 89    LDA $8990C0,X
+88844C  3A             DEC
+88844D  AA             TAX
+88844E  A5 10          LDA $10
+888450  F0 06          BEQ $888458
+888452  C6 10          DEC $10
+888454  E6 0E          INC $0E
+888456  80 35          BRA $88848D
+888458  64 0E          STZ $0E
+88845A  E8             INX
+88845B  E8             INX
+88845C  E8             INX
+88845D  E8             INX
+88845E  AD 20 01       LDA $0120
+888461  F0 1B          BEQ $88847E
+888463  3A             DEC
+888464  F0 0D          BEQ $888473
+888466  BF 02 00 89    LDA $890002,X
+88846A  29 F0 3F       AND #$3FF0
+88846D  4A             LSR
+88846E  4A             LSR
+88846F  4A             LSR
+888470  4A             LSR
+888471  80 12          BRA $888485
+888473               --------unidentified--------
+88847D               ----------------
+88847E  BF 00 00 89    LDA $890000,X
+888482  29 FF 03       AND #$03FF
+888485  A8             TAY
+888486  29 80 03       AND #$0380
+888489  D0 02          BNE $88848D
+88848B  84 10          STY $10
+88848D  C6 3E          DEC $3E
+88848F  D0 BD          BNE $88844E
+888491  86 08          STX $08
+888493  A6 3A          LDX $3A
+888495  BF 04 00 8A    LDA $8A0004,X
+888499  85 3C          STA $3C
+88849B  A9 40 00       LDA #$0040
+88849E  85 3E          STA $3E
+8884A0  64 0C          STZ $0C
+8884A2  A5 3C          LDA $3C
+8884A4  29 C0 0F       AND #$0FC0
+8884A7  0A             ASL
+8884A8  0A             ASL
+8884A9  0A             ASL
+8884AA  EB             XBA
+8884AB  AA             TAX
+8884AC  BF C0 90 89    LDA $8990C0,X
+8884B0  3A             DEC
+8884B1  AA             TAX
+8884B2  A5 0C          LDA $0C
+8884B4  F0 06          BEQ $8884BC
+8884B6  C6 0C          DEC $0C
+8884B8  E6 0A          INC $0A
+8884BA  80 35          BRA $8884F1
+8884BC  64 0A          STZ $0A
+8884BE  E8             INX
+8884BF  E8             INX
+8884C0  E8             INX
+8884C1  E8             INX
+8884C2  AD 20 01       LDA $0120
+8884C5  F0 1B          BEQ $8884E2
+8884C7  3A             DEC
+8884C8  F0 0D          BEQ $8884D7
+8884CA  BF 02 00 89    LDA $890002,X
+8884CE  29 F0 3F       AND #$3FF0
+8884D1  4A             LSR
+8884D2  4A             LSR
+8884D3  4A             LSR
+8884D4  4A             LSR
+8884D5  80 12          BRA $8884E9
+8884D7               --------unidentified--------
+8884E1               ----------------
+8884E2  BF 00 00 89    LDA $890000,X
+8884E6  29 FF 03       AND #$03FF
+8884E9  A8             TAY
+8884EA  29 80 03       AND #$0380
+8884ED  D0 02          BNE $8884F1
+8884EF  84 0C          STY $0C
+8884F1  C6 3E          DEC $3E
+8884F3  D0 BD          BNE $8884B2
+8884F5  86 06          STX $06
+8884F7  A9 48 00       LDA #$0048
+8884FA  85 5E          STA $5E
+8884FC  85 62          STA $62
+8884FE  A5 5A          LDA $5A
+888500  D0 03          BNE $888505
+888502  82 BB 00       BRL $8885C0
+888505  A0 00 00       LDY #$0000
+888508  A9 48 00       LDA #$0048
+88850B  D9 00 58       CMP $5800,Y
+88850E  B0 03          BCS $888513
+888510  82 A0 00       BRL $8885B3
+888513  B9 02 58       LDA $5802,Y
+888516  85 3A          STA $3A
+888518  C8             INY
+888519  C8             INY
+88851A  C8             INY
+88851B  C8             INY
+88851C  EB             XBA
+88851D  29 FF 00       AND #$00FF
+888520  D0 0A          BNE $88852C
+888522  A5 3A          LDA $3A
+888524  29 FF 00       AND #$00FF
+888527  0A             ASL
+888528  85 6E          STA $6E
+88852A  80 DC          BRA $888508
+88852C  0A             ASL
+88852D  0A             ASL
+88852E  AA             TAX
+88852F  8B             PHB
+888530  E2 20          SEP #$20
+888532  BF E5 DB 8B    LDA $8BDBE5,X
+888536  48             PHA
+888537  C2 20          REP #$20
+888539  BF E3 DB 8B    LDA $8BDBE3,X
+88853D  AA             TAX
+88853E  AB             PLB
+88853F  BD 08 00       LDA $0008,X
+888542  AA             TAX
+888543  BD 02 00       LDA $0002,X
+888546  AA             TAX
+888547  AB             PLB
+888548  A5 3A          LDA $3A
+88854A  29 FF 00       AND #$00FF
+88854D  0A             ASL
+88854E  9D F0 1C       STA $1CF0,X
+888551  0A             ASL
+888552  0A             ASL
+888553  0A             ASL
+888554  0A             ASL
+888555  69 00 40       ADC #$4000
+888558  85 3A          STA $3A
+88855A  BD F0 1B       LDA $1BF0,X
+88855D  85 3C          STA $3C
+88855F  8A             TXA
+888560  0A             ASL
+888561  0A             ASL
+888562  0A             ASL
+888563  AA             TAX
+888564  38             SEC
+888565  BF 4F F3 8B    LDA $8BF34F,X
+888569  FF 4D F3 8B    SBC $8BF34D,X
+88856D  F0 99          BEQ $888508
+88856F  85 3E          STA $3E
+888571  18             CLC
+888572  BF 4D F3 8B    LDA $8BF34D,X
+888576  65 3C          ADC $3C
+888578  85 3C          STA $3C
+88857A  F4 00 7E       PEA #$7E00
+88857D  AB             PLB
+88857E  E2 20          SEP #$20
+888580  A9 00          LDA #$00
+888582  8D 0B 42       STA $420B
+888585  A9 7F          LDA #$7F
+888587  8D 74 43       STA $4374
+88858A  A9 80          LDA #$80
+88858C  8D 15 21       STA $2115
+88858F  C2 20          REP #$20
+888591  A5 3A          LDA $3A
+888593  8D 16 21       STA $2116
+888596  A9 01 18       LDA #$1801
+888599  8D 70 43       STA $4370
+88859C  A5 3C          LDA $3C
+88859E  8D 72 43       STA $4372
+8885A1  A5 3E          LDA $3E
+8885A3  8D 75 43       STA $4375
+8885A6  E2 20          SEP #$20
+8885A8  A9 80          LDA #$80
+8885AA  8D 0B 42       STA $420B
+8885AD  C2 20          REP #$20
+8885AF  AB             PLB
+8885B0  82 55 FF       BRL $888508
+8885B3  C0 00 00       CPY #$0000
+8885B6  D0 02          BNE $8885BA
+8885B8  A4 5A          LDY $5A
+8885BA  88             DEY
+8885BB  88             DEY
+8885BC  88             DEY
+8885BD  88             DEY
+8885BE  84 6A          STY $6A
+8885C0  A5 5C          LDA $5C
+8885C2  F0 1E          BEQ $8885E2
+8885C4  A0 00 00       LDY #$0000
+8885C7  A9 48 00       LDA #$0048
+8885CA  D9 00 5D       CMP $5D00,Y
+8885CD  90 06          BCC $8885D5
+8885CF  C8             INY
+8885D0  C8             INY
+8885D1  C8             INY
+8885D2  C8             INY
+8885D3  80 F5          BRA $8885CA
+8885D5  C0 00 00       CPY #$0000
+8885D8  D0 02          BNE $8885DC
+8885DA  A4 5C          LDY $5C
+8885DC  88             DEY
+8885DD  88             DEY
+8885DE  88             DEY
+8885DF  88             DEY
+8885E0  84 6A          STY $6A
+8885E2  2B             PLD
+8885E3  AB             PLB
+8885E4  6B             RTL
+                     ----------------
+                     --------sub start--------
+8885E5  C2 30          REP #$30
+8885E7  8B             PHB
+8885E8  0B             PHD
+8885E9  F4 7E 7E       PEA #$7E7E
+8885EC  AB             PLB
+8885ED  AB             PLB
+8885EE  A9 00 03       LDA #$0300
+8885F1  5B             TCD
+8885F2  64 32          STZ $32
+8885F4  64 34          STZ $34
+8885F6  64 36          STZ $36
+8885F8  64 38          STZ $38
+8885FA  A9 20 00       LDA #$0020
+8885FD  85 3A          STA $3A
+8885FF  64 3C          STZ $3C
+888601  AD 08 01       LDA $0108
+888604  0A             ASL
+888605  0A             ASL
+888606  0A             ASL
+888607  AA             TAX
+888608  BF 02 80 8A    LDA $8A8002,X
+88860C  0A             ASL
+88860D  0A             ASL
+88860E  0A             ASL
+88860F  0A             ASL
+888610  0A             ASL
+888611  0A             ASL
+888612  8D 0A 01       STA $010A
+888615  BF 00 80 8A    LDA $8A8000,X
+888619  85 3E          STA $3E
+88861B  85 28          STA $28
+88861D  AA             TAX
+88861E  BF 00 00 8A    LDA $8A0000,X
+888622  85 40          STA $40
+888624  BF 02 00 8A    LDA $8A0002,X
+888628  85 42          STA $42
+88862A  38             SEC
+88862B  A5 3E          LDA $3E
+88862D  E5 28          SBC $28
+88862F  4A             LSR
+888630  4A             LSR
+888631  AA             TAX
+888632  BD 00 62       LDA $6200,X
+888635  29 FF 00       AND #$00FF
+888638  85 26          STA $26
+88863A  38             SEC
+88863B  A9 20 00       LDA #$0020
+88863E  E5 3A          SBC $3A
+888640  0A             ASL
+888641  0A             ASL
+888642  0A             ASL
+888643  0A             ASL
+888644  A8             TAY
+888645  A5 42          LDA $42
+888647  29 00 3F       AND #$3F00
+88864A  4A             LSR
+88864B  4A             LSR
+88864C  4A             LSR
+88864D  65 3C          ADC $3C
+88864F  AA             TAX
+888650  BF 00 80 89    LDA $898000,X
+888654  99 00 94       STA $9400,Y
+888657  99 00 96       STA $9600,Y
+88865A  A5 42          LDA $42
+88865C  29 FC 00       AND #$00FC
+88865F  0A             ASL
+888660  0A             ASL
+888661  0A             ASL
+888662  65 3C          ADC $3C
+888664  AA             TAX
+888665  BF 00 88 89    LDA $898800,X
+888669  99 02 94       STA $9402,Y
+88866C  99 02 96       STA $9602,Y
+88866F  A5 41          LDA $41
+888671  29 F0 03       AND #$03F0
+888674  0A             ASL
+888675  65 3C          ADC $3C
+888677  AA             TAX
+888678  BF 40 8C 89    LDA $898C40,X
+88867C  99 04 94       STA $9404,Y
+88867F  99 04 96       STA $9604,Y
+888682  A5 40          LDA $40
+888684  29 C0 0F       AND #$0FC0
+888687  0A             ASL
+888688  0A             ASL
+888689  0A             ASL
+88868A  EB             XBA
+88868B  AA             TAX
+88868C  BF C0 90 89    LDA $8990C0,X
+888690  1A             INC
+888691  1A             INC
+888692  1A             INC
+888693  85 44          STA $44
+888695  A5 40          LDA $40
+888697  29 3F 00       AND #$003F
+88869A  0A             ASL
+88869B  0A             ASL
+88869C  0A             ASL
+88869D  0A             ASL
+88869E  85 46          STA $46
+8886A0  64 48          STZ $48
+8886A2  A5 3C          LDA $3C
+8886A4  F0 47          BEQ $8886ED
+8886A6  0A             ASL
+8886A7  85 4A          STA $4A
+8886A9  A5 48          LDA $48
+8886AB  F0 04          BEQ $8886B1
+8886AD  C6 48          DEC $48
+8886AF  80 38          BRA $8886E9
+8886B1  A6 44          LDX $44
+8886B3  8A             TXA
+8886B4  1A             INC
+8886B5  1A             INC
+8886B6  1A             INC
+8886B7  1A             INC
+8886B8  85 44          STA $44
+8886BA  AD 20 01       LDA $0120
+8886BD  F0 1B          BEQ $8886DA
+8886BF  3A             DEC
+8886C0  F0 0D          BEQ $8886CF
+8886C2  BF 02 00 89    LDA $890002,X
+8886C6  29 F0 3F       AND #$3FF0
+8886C9  4A             LSR
+8886CA  4A             LSR
+8886CB  4A             LSR
+8886CC  4A             LSR
+8886CD  80 12          BRA $8886E1
+8886CF               --------unidentified--------
+8886D9               ----------------
+8886DA  BF 00 00 89    LDA $890000,X
+8886DE  29 FF 03       AND #$03FF
+8886E1  AA             TAX
+8886E2  29 80 03       AND #$0380
+8886E5  D0 02          BNE $8886E9
+8886E7  86 48          STX $48
+8886E9  C6 4A          DEC $4A
+8886EB  D0 BC          BNE $8886A9
+8886ED  A5 48          LDA $48
+8886EF  F0 08          BEQ $8886F9
+8886F1  C6 48          DEC $48
+8886F3  A9 00 00       LDA #$0000
+8886F6  82 9C 00       BRL $888795
+8886F9  A6 44          LDX $44
+8886FB  8A             TXA
+8886FC  1A             INC
+8886FD  1A             INC
+8886FE  1A             INC
+8886FF  1A             INC
+888700  85 44          STA $44
+888702  AD 20 01       LDA $0120
+888705  F0 1B          BEQ $888722
+888707  3A             DEC
+888708  F0 0D          BEQ $888717
+88870A  BF 02 00 89    LDA $890002,X
+88870E  29 F0 3F       AND #$3FF0
+888711  4A             LSR
+888712  4A             LSR
+888713  4A             LSR
+888714  4A             LSR
+888715  80 12          BRA $888729
+888717               --------unidentified--------
+888721               ----------------
+888722  BF 00 00 89    LDA $890000,X
+888726  29 FF 03       AND #$03FF
+888729  AA             TAX
+88872A  29 80 03       AND #$0380
+88872D  D0 04          BNE $888733
+88872F  86 48          STX $48
+888731  80 62          BRA $888795
+888733  86 4A          STX $4A
+888735  0A             ASL
+888736  0A             ASL
+888737  EB             XBA
+888738  AA             TAX
+888739  BF BB EA 88    LDA $88EABB,X
+88873D  25 26          AND $26
+88873F  F0 05          BEQ $888746
+888741  A9 00 00       LDA #$0000
+888744  80 4F          BRA $888795
+888746  18             CLC
+888747  8A             TXA
+888748  65 46          ADC $46
+88874A  AA             TAX
+88874B  BF EB B1 89    LDA $89B1EB,X
+88874F  10 38          BPL $888789
+888751  89 00 40       BIT #$4000
+888754  D0 3F          BNE $888795
+888756  85 4C          STA $4C
+888758  A6 36          LDX $36
+88875A  A5 38          LDA $38
+88875C  9D 00 9A       STA $9A00,X
+88875F  E8             INX
+888760  E8             INX
+888761  8A             TXA
+888762  29 FF 01       AND #$01FF
+888765  85 36          STA $36
+888767  A5 4C          LDA $4C
+888769  29 FF 3F       AND #$3FFF
+88876C  18             CLC
+88876D  65 38          ADC $38
+88876F  C5 00          CMP $00
+888771  D0 03          BNE $888776
+888773  A9 00 00       LDA #$0000
+888776  A6 38          LDX $38
+888778  85 38          STA $38
+88877A  A9 20 00       LDA #$0020
+88877D  1D 00 64       ORA $6400,X
+888780  9D 00 64       STA $6400,X
+888783  8A             TXA
+888784  09 00 80       ORA #$8000
+888787  80 0C          BRA $888795
+888789  29 FF 00       AND #$00FF
+88878C  85 4C          STA $4C
+88878E  A5 49          LDA $49
+888790  29 00 7F       AND #$7F00
+888793  05 4C          ORA $4C
+888795  99 06 94       STA $9406,Y
+888798  99 06 96       STA $9606,Y
+88879B  A5 48          LDA $48
+88879D  F0 08          BEQ $8887A7
+88879F  C6 48          DEC $48
+8887A1  A9 00 00       LDA #$0000
+8887A4  82 9C 00       BRL $888843
+8887A7  A6 44          LDX $44
+8887A9  8A             TXA
+8887AA  1A             INC
+8887AB  1A             INC
+8887AC  1A             INC
+8887AD  1A             INC
+8887AE  85 44          STA $44
+8887B0  AD 20 01       LDA $0120
+8887B3  F0 1B          BEQ $8887D0
+8887B5  3A             DEC
+8887B6  F0 0D          BEQ $8887C5
+8887B8  BF 02 00 89    LDA $890002,X
+8887BC  29 F0 3F       AND #$3FF0
+8887BF  4A             LSR
+8887C0  4A             LSR
+8887C1  4A             LSR
+8887C2  4A             LSR
+8887C3  80 12          BRA $8887D7
+8887C5               --------unidentified--------
+8887CF               ----------------
+8887D0  BF 00 00 89    LDA $890000,X
+8887D4  29 FF 03       AND #$03FF
+8887D7  AA             TAX
+8887D8  29 80 03       AND #$0380
+8887DB  D0 04          BNE $8887E1
+8887DD  86 48          STX $48
+8887DF  80 62          BRA $888843
+8887E1  86 4A          STX $4A
+8887E3  0A             ASL
+8887E4  0A             ASL
+8887E5  EB             XBA
+8887E6  AA             TAX
+8887E7  BF BB EA 88    LDA $88EABB,X
+8887EB  25 26          AND $26
+8887ED  F0 05          BEQ $8887F4
+8887EF  A9 00 00       LDA #$0000
+8887F2  80 4F          BRA $888843
+8887F4  18             CLC
+8887F5  8A             TXA
+8887F6  65 46          ADC $46
+8887F8  AA             TAX
+8887F9  BF EB B1 89    LDA $89B1EB,X
+8887FD  10 38          BPL $888837
+8887FF  89 00 40       BIT #$4000
+888802  D0 3F          BNE $888843
+888804  85 4C          STA $4C
+888806  A6 36          LDX $36
+888808  A5 38          LDA $38
+88880A  9D 00 9A       STA $9A00,X
+88880D  E8             INX
+88880E  E8             INX
+88880F  8A             TXA
+888810  29 FF 01       AND #$01FF
+888813  85 36          STA $36
+888815  A5 4C          LDA $4C
+888817  29 FF 3F       AND #$3FFF
+88881A  18             CLC
+88881B  65 38          ADC $38
+88881D  C5 00          CMP $00
+88881F  D0 03          BNE $888824
+888821  A9 00 00       LDA #$0000
+888824  A6 38          LDX $38
+888826  85 38          STA $38
+888828  A9 20 00       LDA #$0020
+88882B  1D 00 64       ORA $6400,X
+88882E  9D 00 64       STA $6400,X
+888831  8A             TXA
+888832  09 00 80       ORA #$8000
+888835  80 0C          BRA $888843
+888837  29 FF 00       AND #$00FF
+88883A  85 4C          STA $4C
+88883C  A5 49          LDA $49
+88883E  29 00 7F       AND #$7F00
+888841  05 4C          ORA $4C
+888843  99 08 94       STA $9408,Y
+888846  99 08 96       STA $9608,Y
+888849  A5 48          LDA $48
+88884B  F0 08          BEQ $888855
+88884D  C6 48          DEC $48
+88884F  A9 00 00       LDA #$0000
+888852  82 9C 00       BRL $8888F1
+888855  A6 44          LDX $44
+888857  8A             TXA
+888858  1A             INC
+888859  1A             INC
+88885A  1A             INC
+88885B  1A             INC
+88885C  85 44          STA $44
+88885E  AD 20 01       LDA $0120
+888861  F0 1B          BEQ $88887E
+888863  3A             DEC
+888864  F0 0D          BEQ $888873
+888866  BF 02 00 89    LDA $890002,X
+88886A  29 F0 3F       AND #$3FF0
+88886D  4A             LSR
+88886E  4A             LSR
+88886F  4A             LSR
+888870  4A             LSR
+888871  80 12          BRA $888885
+888873               --------unidentified--------
+88887D               ----------------
+88887E  BF 00 00 89    LDA $890000,X
+888882  29 FF 03       AND #$03FF
+888885  AA             TAX
+888886  29 80 03       AND #$0380
+888889  D0 04          BNE $88888F
+88888B  86 48          STX $48
+88888D  80 62          BRA $8888F1
+88888F  86 4A          STX $4A
+888891  0A             ASL
+888892  0A             ASL
+888893  EB             XBA
+888894  AA             TAX
+888895  BF BB EA 88    LDA $88EABB,X
+888899  25 26          AND $26
+88889B  F0 05          BEQ $8888A2
+88889D  A9 00 00       LDA #$0000
+8888A0  80 4F          BRA $8888F1
+8888A2  18             CLC
+8888A3  8A             TXA
+8888A4  65 46          ADC $46
+8888A6  AA             TAX
+8888A7  BF EB B1 89    LDA $89B1EB,X
+8888AB  10 38          BPL $8888E5
+8888AD  89 00 40       BIT #$4000
+8888B0  D0 3F          BNE $8888F1
+8888B2  85 4C          STA $4C
+8888B4  A6 36          LDX $36
+8888B6  A5 38          LDA $38
+8888B8  9D 00 9A       STA $9A00,X
+8888BB  E8             INX
+8888BC  E8             INX
+8888BD  8A             TXA
+8888BE  29 FF 01       AND #$01FF
+8888C1  85 36          STA $36
+8888C3  A5 4C          LDA $4C
+8888C5  29 FF 3F       AND #$3FFF
+8888C8  18             CLC
+8888C9  65 38          ADC $38
+8888CB  C5 00          CMP $00
+8888CD  D0 03          BNE $8888D2
+8888CF  A9 00 00       LDA #$0000
+8888D2  A6 38          LDX $38
+8888D4  85 38          STA $38
+8888D6  A9 20 00       LDA #$0020
+8888D9  1D 00 64       ORA $6400,X
+8888DC  9D 00 64       STA $6400,X
+8888DF  8A             TXA
+8888E0  09 00 80       ORA #$8000
+8888E3  80 0C          BRA $8888F1
+8888E5  29 FF 00       AND #$00FF
+8888E8  85 4C          STA $4C
+8888EA  A5 49          LDA $49
+8888EC  29 00 7F       AND #$7F00
+8888EF  05 4C          ORA $4C
+8888F1  99 0A 94       STA $940A,Y
+8888F4  99 0A 96       STA $960A,Y
+8888F7  A5 48          LDA $48
+8888F9  F0 08          BEQ $888903
+8888FB  C6 48          DEC $48
+8888FD  A9 00 00       LDA #$0000
+888900  82 9C 00       BRL $88899F
+888903  A6 44          LDX $44
+888905  8A             TXA
+888906  1A             INC
+888907  1A             INC
+888908  1A             INC
+888909  1A             INC
+88890A  85 44          STA $44
+88890C  AD 20 01       LDA $0120
+88890F  F0 1B          BEQ $88892C
+888911  3A             DEC
+888912  F0 0D          BEQ $888921
+888914  BF 02 00 89    LDA $890002,X
+888918  29 F0 3F       AND #$3FF0
+88891B  4A             LSR
+88891C  4A             LSR
+88891D  4A             LSR
+88891E  4A             LSR
+88891F  80 12          BRA $888933
+888921               --------unidentified--------
+88892B               ----------------
+88892C  BF 00 00 89    LDA $890000,X
+888930  29 FF 03       AND #$03FF
+888933  AA             TAX
+888934  29 80 03       AND #$0380
+888937  D0 04          BNE $88893D
+888939  86 48          STX $48
+88893B  80 62          BRA $88899F
+88893D  86 4A          STX $4A
+88893F  0A             ASL
+888940  0A             ASL
+888941  EB             XBA
+888942  AA             TAX
+888943  BF BB EA 88    LDA $88EABB,X
+888947  25 26          AND $26
+888949  F0 05          BEQ $888950
+88894B  A9 00 00       LDA #$0000
+88894E  80 4F          BRA $88899F
+888950  18             CLC
+888951  8A             TXA
+888952  65 46          ADC $46
+888954  AA             TAX
+888955  BF EB B1 89    LDA $89B1EB,X
+888959  10 38          BPL $888993
+88895B  89 00 40       BIT #$4000
+88895E  D0 3F          BNE $88899F
+888960  85 4C          STA $4C
+888962  A6 36          LDX $36
+888964  A5 38          LDA $38
+888966  9D 00 9A       STA $9A00,X
+888969  E8             INX
+88896A  E8             INX
+88896B  8A             TXA
+88896C  29 FF 01       AND #$01FF
+88896F  85 36          STA $36
+888971  A5 4C          LDA $4C
+888973  29 FF 3F       AND #$3FFF
+888976  18             CLC
+888977  65 38          ADC $38
+888979  C5 00          CMP $00
+88897B  D0 03          BNE $888980
+88897D  A9 00 00       LDA #$0000
+888980  A6 38          LDX $38
+888982  85 38          STA $38
+888984  A9 20 00       LDA #$0020
+888987  1D 00 64       ORA $6400,X
+88898A  9D 00 64       STA $6400,X
+88898D  8A             TXA
+88898E  09 00 80       ORA #$8000
+888991  80 0C          BRA $88899F
+888993  29 FF 00       AND #$00FF
+888996  85 4C          STA $4C
+888998  A5 49          LDA $49
+88899A  29 00 7F       AND #$7F00
+88899D  05 4C          ORA $4C
+88899F  99 0C 94       STA $940C,Y
+8889A2  99 0C 96       STA $960C,Y
+8889A5  A9 00 00       LDA #$0000
+8889A8  99 0E 94       STA $940E,Y
+8889AB  99 0E 96       STA $960E,Y
+8889AE  A5 3C          LDA $3C
+8889B0  18             CLC
+8889B1  69 02 00       ADC #$0002
+8889B4  29 1E 00       AND #$001E
+8889B7  85 3C          STA $3C
+8889B9  D0 15          BNE $8889D0
+8889BB  18             CLC
+8889BC  A5 3E          LDA $3E
+8889BE  69 04 00       ADC #$0004
+8889C1  85 3E          STA $3E
+8889C3  AA             TAX
+8889C4  BF 00 00 8A    LDA $8A0000,X
+8889C8  85 40          STA $40
+8889CA  BF 02 00 8A    LDA $8A0002,X
+8889CE  85 42          STA $42
+8889D0  C6 3A          DEC $3A
+8889D2  F0 03          BEQ $8889D7
+8889D4  82 53 FC       BRL $88862A
+8889D7  AD 00 62       LDA $6200
+8889DA  29 FF 00       AND #$00FF
+8889DD  85 28          STA $28
+8889DF  9C 52 02       STZ $0252
+8889E2  9C 54 02       STZ $0254
+8889E5  9C 56 02       STZ $0256
+8889E8  9C 58 02       STZ $0258
+8889EB  9C 5A 02       STZ $025A
+8889EE  9C 5C 02       STZ $025C
+8889F1  A9 80 00       LDA #$0080
+8889F4  8D 62 02       STA $0262
+8889F7  9C 48 02       STZ $0248
+8889FA  A9 20 00       LDA #$0020
+8889FD  8D 4A 02       STA $024A
+888A00  64 14          STZ $14
+888A02  A9 7C 00       LDA #$007C
+888A05  85 12          STA $12
+888A07  AD 08 01       LDA $0108
+888A0A  0A             ASL
+888A0B  0A             ASL
+888A0C  0A             ASL
+888A0D  AA             TAX
+888A0E  18             CLC
+888A0F  BF 00 80 8A    LDA $8A8000,X
+888A13  85 3A          STA $3A
+888A15  AA             TAX
+888A16  BF 00 00 8A    LDA $8A0000,X
+888A1A  85 3C          STA $3C
+888A1C  A9 04 00       LDA #$0004
+888A1F  85 3E          STA $3E
+888A21  64 20          STZ $20
+888A23  A5 3C          LDA $3C
+888A25  29 C0 0F       AND #$0FC0
+888A28  0A             ASL
+888A29  0A             ASL
+888A2A  0A             ASL
+888A2B  EB             XBA
+888A2C  AA             TAX
+888A2D  BF C0 90 89    LDA $8990C0,X
+888A31  3A             DEC
+888A32  AA             TAX
+888A33  A5 20          LDA $20
+888A35  F0 06          BEQ $888A3D
+888A37  C6 20          DEC $20
+888A39  E6 1E          INC $1E
+888A3B  80 35          BRA $888A72
+888A3D  64 1E          STZ $1E
+888A3F  E8             INX
+888A40  E8             INX
+888A41  E8             INX
+888A42  E8             INX
+888A43  AD 20 01       LDA $0120
+888A46  F0 1B          BEQ $888A63
+888A48  3A             DEC
+888A49  F0 0D          BEQ $888A58
+888A4B  BF 02 00 89    LDA $890002,X
+888A4F  29 F0 3F       AND #$3FF0
+888A52  4A             LSR
+888A53  4A             LSR
+888A54  4A             LSR
+888A55  4A             LSR
+888A56  80 12          BRA $888A6A
+888A58               --------unidentified--------
+888A62               ----------------
+888A63  BF 00 00 89    LDA $890000,X
+888A67  29 FF 03       AND #$03FF
+888A6A  A8             TAY
+888A6B  29 80 03       AND #$0380
+888A6E  D0 02          BNE $888A72
+888A70  84 20          STY $20
+888A72  C6 3E          DEC $3E
+888A74  D0 BD          BNE $888A33
+888A76  86 18          STX $18
+888A78  A6 3A          LDX $3A
+888A7A  BF 04 00 8A    LDA $8A0004,X
+888A7E  85 3C          STA $3C
+888A80  A9 40 00       LDA #$0040
+888A83  85 3E          STA $3E
+888A85  64 1C          STZ $1C
+888A87  A5 3C          LDA $3C
+888A89  29 C0 0F       AND #$0FC0
+888A8C  0A             ASL
+888A8D  0A             ASL
+888A8E  0A             ASL
+888A8F  EB             XBA
+888A90  AA             TAX
+888A91  BF C0 90 89    LDA $8990C0,X
+888A95  3A             DEC
+888A96  AA             TAX
+888A97  A5 1C          LDA $1C
+888A99  F0 06          BEQ $888AA1
+888A9B  C6 1C          DEC $1C
+888A9D  E6 1A          INC $1A
+888A9F  80 35          BRA $888AD6
+888AA1  64 1A          STZ $1A
+888AA3  E8             INX
+888AA4  E8             INX
+888AA5  E8             INX
+888AA6  E8             INX
+888AA7  AD 20 01       LDA $0120
+888AAA  F0 1B          BEQ $888AC7
+888AAC  3A             DEC
+888AAD  F0 0D          BEQ $888ABC
+888AAF  BF 02 00 89    LDA $890002,X
+888AB3  29 F0 3F       AND #$3FF0
+888AB6  4A             LSR
+888AB7  4A             LSR
+888AB8  4A             LSR
+888AB9  4A             LSR
+888ABA  80 12          BRA $888ACE
+888ABC               --------unidentified--------
+888AC6               ----------------
+888AC7  BF 00 00 89    LDA $890000,X
+888ACB  29 FF 03       AND #$03FF
+888ACE  A8             TAY
+888ACF  29 80 03       AND #$0380
+888AD2  D0 02          BNE $888AD6
+888AD4  84 1C          STY $1C
+888AD6  C6 3E          DEC $3E
+888AD8  D0 BD          BNE $888A97
+888ADA  86 16          STX $16
+888ADC  A9 48 00       LDA #$0048
+888ADF  85 60          STA $60
+888AE1  85 64          STA $64
+888AE3  A5 5A          LDA $5A
+888AE5  D0 03          BNE $888AEA
+888AE7  82 BB 00       BRL $888BA5
+888AEA  A0 00 00       LDY #$0000
+888AED  A9 48 00       LDA #$0048
+888AF0  D9 00 58       CMP $5800,Y
+888AF3  B0 03          BCS $888AF8
+888AF5  82 A0 00       BRL $888B98
+888AF8  B9 02 58       LDA $5802,Y
+888AFB  85 3A          STA $3A
+888AFD  C8             INY
+888AFE  C8             INY
+888AFF  C8             INY
+888B00  C8             INY
+888B01  EB             XBA
+888B02  29 FF 00       AND #$00FF
+888B05  D0 0A          BNE $888B11
+888B07  A5 3A          LDA $3A
+888B09  29 FF 00       AND #$00FF
+888B0C  0A             ASL
+888B0D  85 70          STA $70
+888B0F  80 DC          BRA $888AED
+888B11  0A             ASL
+888B12  0A             ASL
+888B13  AA             TAX
+888B14  8B             PHB
+888B15  E2 20          SEP #$20
+888B17  BF E5 DB 8B    LDA $8BDBE5,X
+888B1B  48             PHA
+888B1C  C2 20          REP #$20
+888B1E  BF E3 DB 8B    LDA $8BDBE3,X
+888B22  AA             TAX
+888B23  AB             PLB
+888B24  BD 08 00       LDA $0008,X
+888B27  AA             TAX
+888B28  BD 02 00       LDA $0002,X
+888B2B  AA             TAX
+888B2C  AB             PLB
+888B2D  A5 3A          LDA $3A
+888B2F  29 FF 00       AND #$00FF
+888B32  0A             ASL
+888B33  9D F8 1D       STA $1DF8,X
+888B36  0A             ASL
+888B37  0A             ASL
+888B38  0A             ASL
+888B39  0A             ASL
+888B3A  69 00 50       ADC #$5000
+888B3D  85 3A          STA $3A
+888B3F  BD F0 1B       LDA $1BF0,X
+888B42  85 3C          STA $3C
+888B44  8A             TXA
+888B45  0A             ASL
+888B46  0A             ASL
+888B47  0A             ASL
+888B48  AA             TAX
+888B49  38             SEC
+888B4A  BF 4F F3 8B    LDA $8BF34F,X
+888B4E  FF 4D F3 8B    SBC $8BF34D,X
+888B52  F0 99          BEQ $888AED
+888B54  85 3E          STA $3E
+888B56  18             CLC
+888B57  BF 4D F3 8B    LDA $8BF34D,X
+888B5B  65 3C          ADC $3C
+888B5D  85 3C          STA $3C
+888B5F  F4 00 7E       PEA #$7E00
+888B62  AB             PLB
+888B63  E2 20          SEP #$20
+888B65  A9 00          LDA #$00
+888B67  8D 0B 42       STA $420B
+888B6A  A9 7F          LDA #$7F
+888B6C  8D 74 43       STA $4374
+888B6F  A9 80          LDA #$80
+888B71  8D 15 21       STA $2115
+888B74  C2 20          REP #$20
+888B76  A5 3A          LDA $3A
+888B78  8D 16 21       STA $2116
+888B7B  A9 01 18       LDA #$1801
+888B7E  8D 70 43       STA $4370
+888B81  A5 3C          LDA $3C
+888B83  8D 72 43       STA $4372
+888B86  A5 3E          LDA $3E
+888B88  8D 75 43       STA $4375
+888B8B  E2 20          SEP #$20
+888B8D  A9 80          LDA #$80
+888B8F  8D 0B 42       STA $420B
+888B92  C2 20          REP #$20
+888B94  AB             PLB
+888B95  82 55 FF       BRL $888AED
+888B98  C0 00 00       CPY #$0000
+888B9B  D0 02          BNE $888B9F
+888B9D  A4 5A          LDY $5A
+888B9F  88             DEY
+888BA0  88             DEY
+888BA1  88             DEY
+888BA2  88             DEY
+888BA3  84 6C          STY $6C
+888BA5  A5 5C          LDA $5C
+888BA7  F0 1E          BEQ $888BC7
+888BA9  A0 00 00       LDY #$0000
+888BAC  A9 48 00       LDA #$0048
+888BAF  D9 00 5D       CMP $5D00,Y
+888BB2  90 06          BCC $888BBA
+888BB4  C8             INY
+888BB5  C8             INY
+888BB6  C8             INY
+888BB7  C8             INY
+888BB8  80 F5          BRA $888BAF
+888BBA  C0 00 00       CPY #$0000
+888BBD  D0 02          BNE $888BC1
+888BBF  A4 5C          LDY $5C
+888BC1  88             DEY
+888BC2  88             DEY
+888BC3  88             DEY
+888BC4  88             DEY
+888BC5  84 6C          STY $6C
+888BC7  2B             PLD
+888BC8  AB             PLB
+888BC9  6B             RTL
+                     ----------------
+                     --------sub start--------
+888BCA  C2 30          REP #$30
+888BCC  8B             PHB
+888BCD  0B             PHD
+888BCE  F4 00 00       PEA #$0000
+888BD1  AB             PLB
+888BD2  AB             PLB
+888BD3  A9 00 03       LDA #$0300
+888BD6  5B             TCD
+888BD7  AD 14 02       LDA $0214
+888BDA  30 03          BMI $888BDF
+888BDC  82 A3 0E       BRL $889A82
+888BDF  F4 7E 7E       PEA #$7E7E
+888BE2  AB             PLB
+888BE3  AB             PLB
+888BE4  AE 0E 02       LDX $020E
+888BE7  18             CLC
+888BE8  AD 0C 02       LDA $020C
+888BEB  6D 12 02       ADC $0212
+888BEE  8D 0C 02       STA $020C
+888BF1  AD 0E 02       LDA $020E
+888BF4  6D 14 02       ADC $0214
+888BF7  A8             TAY
+888BF8  B0 04          BCS $888BFE
+888BFA  18             CLC
+888BFB  6D 0A 01       ADC $010A
+888BFE  8D 0E 02       STA $020E
+888C01  84 3A          STY $3A
+888C03  8A             TXA
+888C04  38             SEC
+888C05  E5 3A          SBC $3A
+888C07  F0 5B          BEQ $888C64
+888C09  86 3C          STX $3C
+888C0B  85 3E          STA $3E
+888C0D  8A             TXA
+888C0E  29 03 00       AND #$0003
+888C11  85 40          STA $40
+888C13  0A             ASL
+888C14  6D 26 02       ADC $0226
+888C17  A8             TAY
+888C18  B9 16 90       LDA $9016,Y
+888C1B  C9 00 C0       CMP #$C000
+888C1E  90 1B          BCC $888C3B
+888C20  29 0F 00       AND #$000F
+888C23  C9 02 00       CMP #$0002
+888C26  90 13          BCC $888C3B
+888C28  49 01 00       EOR #$0001
+888C2B  0A             ASL
+888C2C  AA             TAX
+888C2D  AD 3C 01       LDA $013C
+888C30  1F 7F EA 88    ORA $88EA7F,X
+888C34  3F 9B EA 88    AND $88EA9B,X
+888C38  8D 3C 01       STA $013C
+888C3B  88             DEY
+888C3C  88             DEY
+888C3D  A5 40          LDA $40
+888C3F  3A             DEC
+888C40  29 03 00       AND #$0003
+888C43  85 40          STA $40
+888C45  D0 06          BNE $888C4D
+888C47  98             TYA
+888C48  38             SEC
+888C49  E9 08 00       SBC #$0008
+888C4C  A8             TAY
+888C4D  C6 3E          DEC $3E
+888C4F  D0 C7          BNE $888C18
+888C51  A4 3A          LDY $3A
+888C53  A6 3C          LDX $3C
+888C55  98             TYA
+888C56  29 FC FF       AND #$FFFC
+888C59  85 3A          STA $3A
+888C5B  8A             TXA
+888C5C  29 FC FF       AND #$FFFC
+888C5F  38             SEC
+888C60  E5 3A          SBC $3A
+888C62  D0 03          BNE $888C67
+888C64  82 12 0C       BRL $889879
+888C67  4A             LSR
+888C68  4A             LSR
+888C69  85 3A          STA $3A
+888C6B  AE 26 02       LDX $0226
+888C6E  BD 02 90       LDA $9002,X
+888C71  8D C0 02       STA $02C0
+888C74  A5 04          LDA $04
+888C76  D0 03          BNE $888C7B
+888C78  AD 0A 01       LDA $010A
+888C7B  38             SEC
+888C7C  E9 04 00       SBC #$0004
+888C7F  85 04          STA $04
+888C81  A5 02          LDA $02
+888C83  D0 03          BNE $888C88
+888C85  AD 0A 01       LDA $010A
+888C88  38             SEC
+888C89  E9 04 00       SBC #$0004
+888C8C  85 02          STA $02
+888C8E  AD 26 02       LDA $0226
+888C91  C9 80 00       CMP #$0080
+888C94  D0 03          BNE $888C99
+888C96  A9 80 02       LDA #$0280
+888C99  38             SEC
+888C9A  E9 10 00       SBC #$0010
+888C9D  8D 26 02       STA $0226
+888CA0  38             SEC
+888CA1  E9 80 00       SBC #$0080
+888CA4  A8             TAY
+888CA5  A5 04          LDA $04
+888CA7  29 3C 00       AND #$003C
+888CAA  4A             LSR
+888CAB  85 3C          STA $3C
+888CAD  AD 08 01       LDA $0108
+888CB0  0A             ASL
+888CB1  0A             ASL
+888CB2  0A             ASL
+888CB3  AA             TAX
+888CB4  A5 04          LDA $04
+888CB6  29 C0 FF       AND #$FFC0
+888CB9  4A             LSR
+888CBA  4A             LSR
+888CBB  4A             LSR
+888CBC  4A             LSR
+888CBD  86 3E          STX $3E
+888CBF  85 40          STA $40
+888CC1  4A             LSR
+888CC2  4A             LSR
+888CC3  AA             TAX
+888CC4  BD 00 62       LDA $6200,X
+888CC7  29 FF 00       AND #$00FF
+888CCA  85 24          STA $24
+888CCC  A6 3E          LDX $3E
+888CCE  18             CLC
+888CCF  A5 40          LDA $40
+888CD1  7F 00 80 8A    ADC $8A8000,X
+888CD5  AA             TAX
+888CD6  BF 00 00 8A    LDA $8A0000,X
+888CDA  85 3E          STA $3E
+888CDC  BF 02 00 8A    LDA $8A0002,X
+888CE0  85 40          STA $40
+888CE2  A5 40          LDA $40
+888CE4  29 00 3F       AND #$3F00
+888CE7  4A             LSR
+888CE8  4A             LSR
+888CE9  4A             LSR
+888CEA  65 3C          ADC $3C
+888CEC  AA             TAX
+888CED  BF 00 80 89    LDA $898000,X
+888CF1  99 00 90       STA $9000,Y
+888CF4  99 00 92       STA $9200,Y
+888CF7  A5 40          LDA $40
+888CF9  29 FC 00       AND #$00FC
+888CFC  0A             ASL
+888CFD  0A             ASL
+888CFE  0A             ASL
+888CFF  65 3C          ADC $3C
+888D01  AA             TAX
+888D02  BF 00 88 89    LDA $898800,X
+888D06  99 02 90       STA $9002,Y
+888D09  99 02 92       STA $9202,Y
+888D0C  A5 3F          LDA $3F
+888D0E  29 F0 03       AND #$03F0
+888D11  0A             ASL
+888D12  65 3C          ADC $3C
+888D14  AA             TAX
+888D15  BF 40 8C 89    LDA $898C40,X
+888D19  99 04 90       STA $9004,Y
+888D1C  99 04 92       STA $9204,Y
+888D1F  A5 3C          LDA $3C
+888D21  49 1E 00       EOR #$001E
+888D24  D0 34          BNE $888D5A
+888D26  64 10          STZ $10
+888D28  64 0E          STZ $0E
+888D2A  A5 3E          LDA $3E
+888D2C  29 C0 0F       AND #$0FC0
+888D2F  0A             ASL
+888D30  0A             ASL
+888D31  0A             ASL
+888D32  EB             XBA
+888D33  AA             TAX
+888D34  BF C0 90 89    LDA $8990C0,X
+888D38  85 08          STA $08
+888D3A  AD 20 01       LDA $0120
+888D3D  C9 03 00       CMP #$0003
+888D40  90 04          BCC $888D46
+888D42  A9 02 00       LDA #$0002
+888D45  18             CLC
+888D46  65 08          ADC $08
+888D48  AA             TAX
+888D49  BF 00 00 89    LDA $890000,X
+888D4D  29 FF 00       AND #$00FF
+888D50  0A             ASL
+888D51  0A             ASL
+888D52  18             CLC
+888D53  69 07 00       ADC #$0007
+888D56  65 08          ADC $08
+888D58  85 08          STA $08
+888D5A  B9 0C 92       LDA $920C,Y
+888D5D  10 2A          BPL $888D89
+888D5F  89 00 40       BIT #$4000
+888D62  D0 25          BNE $888D89
+888D64  29 FF 3F       AND #$3FFF
+888D67  85 30          STA $30
+888D69  AA             TAX
+888D6A  E2 20          SEP #$20
+888D6C  BD 00 64       LDA $6400,X
+888D6F  29 DF          AND #$DF
+888D71  89 10          BIT #$10
+888D73  F0 06          BEQ $888D7B
+888D75  89 20          BIT #$20
+888D77  D0 02          BNE $888D7B
+888D79  09 80          ORA #$80
+888D7B  9D 00 64       STA $6400,X
+888D7E  C2 20          REP #$20
+888D80  A5 2E          LDA $2E
+888D82  3A             DEC
+888D83  3A             DEC
+888D84  29 FF 01       AND #$01FF
+888D87  85 2E          STA $2E
+888D89  B9 0A 92       LDA $920A,Y
+888D8C  10 2A          BPL $888DB8
+888D8E  89 00 40       BIT #$4000
+888D91  D0 25          BNE $888DB8
+888D93  29 FF 3F       AND #$3FFF
+888D96  85 30          STA $30
+888D98  AA             TAX
+888D99  E2 20          SEP #$20
+888D9B  BD 00 64       LDA $6400,X
+888D9E  29 DF          AND #$DF
+888DA0  89 10          BIT #$10
+888DA2  F0 06          BEQ $888DAA
+888DA4  89 20          BIT #$20
+888DA6  D0 02          BNE $888DAA
+888DA8  09 80          ORA #$80
+888DAA  9D 00 64       STA $6400,X
+888DAD  C2 20          REP #$20
+888DAF  A5 2E          LDA $2E
+888DB1  3A             DEC
+888DB2  3A             DEC
+888DB3  29 FF 01       AND #$01FF
+888DB6  85 2E          STA $2E
+888DB8  B9 08 92       LDA $9208,Y
+888DBB  10 2A          BPL $888DE7
+888DBD  89 00 40       BIT #$4000
+888DC0  D0 25          BNE $888DE7
+888DC2  29 FF 3F       AND #$3FFF
+888DC5  85 30          STA $30
+888DC7  AA             TAX
+888DC8  E2 20          SEP #$20
+888DCA  BD 00 64       LDA $6400,X
+888DCD  29 DF          AND #$DF
+888DCF  89 10          BIT #$10
+888DD1  F0 06          BEQ $888DD9
+888DD3  89 20          BIT #$20
+888DD5  D0 02          BNE $888DD9
+888DD7  09 80          ORA #$80
+888DD9  9D 00 64       STA $6400,X
+888DDC  C2 20          REP #$20
+888DDE  A5 2E          LDA $2E
+888DE0  3A             DEC
+888DE1  3A             DEC
+888DE2  29 FF 01       AND #$01FF
+888DE5  85 2E          STA $2E
+888DE7  B9 06 92       LDA $9206,Y
+888DEA  10 2A          BPL $888E16
+888DEC  89 00 40       BIT #$4000
+888DEF  D0 25          BNE $888E16
+888DF1  29 FF 3F       AND #$3FFF
+888DF4  85 30          STA $30
+888DF6  AA             TAX
+888DF7  E2 20          SEP #$20
+888DF9  BD 00 64       LDA $6400,X
+888DFC  29 DF          AND #$DF
+888DFE  89 10          BIT #$10
+888E00  F0 06          BEQ $888E08
+888E02  89 20          BIT #$20
+888E04  D0 02          BNE $888E08
+888E06  09 80          ORA #$80
+888E08  9D 00 64       STA $6400,X
+888E0B  C2 20          REP #$20
+888E0D  A5 2E          LDA $2E
+888E0F  3A             DEC
+888E10  3A             DEC
+888E11  29 FF 01       AND #$01FF
+888E14  85 2E          STA $2E
+888E16  A5 3E          LDA $3E
+888E18  29 3F 00       AND #$003F
+888E1B  0A             ASL
+888E1C  0A             ASL
+888E1D  0A             ASL
+888E1E  0A             ASL
+888E1F  85 42          STA $42
+888E21  A6 08          LDX $08
+888E23  AD 20 01       LDA $0120
+888E26  D0 03          BNE $888E2B
+888E28  82 CC 04       BRL $8892F7
+888E2B               --------unidentified--------
+8892F6               ----------------
+8892F7  A5 0E          LDA $0E
+8892F9  F0 0A          BEQ $889305
+8892FB  E6 10          INC $10
+8892FD  C6 0E          DEC $0E
+8892FF  A9 00 00       LDA #$0000
+889302  82 81 00       BRL $889386
+889305  64 10          STZ $10
+889307  CA             DEX
+889308  CA             DEX
+889309  CA             DEX
+88930A  CA             DEX
+88930B  BF 00 00 89    LDA $890000,X
+88930F  29 FF 03       AND #$03FF
+889312  85 44          STA $44
+889314  29 80 03       AND #$0380
+889317  D0 0C          BNE $889325
+889319  A5 44          LDA $44
+88931B  85 0E          STA $0E
+88931D  A9 01 00       LDA #$0001
+889320  85 10          STA $10
+889322  3A             DEC
+889323  80 61          BRA $889386
+889325  86 46          STX $46
+889327  0A             ASL
+889328  0A             ASL
+889329  EB             XBA
+88932A  AA             TAX
+88932B  BF BB EA 88    LDA $88EABB,X
+88932F  25 24          AND $24
+889331  F0 07          BEQ $88933A
+889333  A9 00 00       LDA #$0000
+889336  A6 46          LDX $46
+889338  80 E1          BRA $88931B
+88933A  18             CLC
+88933B  8A             TXA
+88933C  65 42          ADC $42
+88933E  AA             TAX
+88933F  BF EB B1 89    LDA $89B1EB,X
+889343  10 33          BPL $889378
+889345  89 00 40       BIT #$4000
+889348  D0 3A          BNE $889384
+88934A  29 FF 3F       AND #$3FFF
+88934D  49 FF FF       EOR #$FFFF
+889350  38             SEC
+889351  65 2C          ADC $2C
+889353  B0 02          BCS $889357
+889355  65 00          ADC $00
+889357  85 2C          STA $2C
+889359  A5 2A          LDA $2A
+88935B  3A             DEC
+88935C  3A             DEC
+88935D  29 FF 01       AND #$01FF
+889360  85 2A          STA $2A
+889362  AA             TAX
+889363  A5 2C          LDA $2C
+889365  9D 00 98       STA $9800,X
+889368  AA             TAX
+889369  A9 40 00       LDA #$0040
+88936C  1D 00 64       ORA $6400,X
+88936F  9D 00 64       STA $6400,X
+889372  8A             TXA
+889373  09 00 80       ORA #$8000
+889376  80 0C          BRA $889384
+889378               --------unidentified--------
+889383               ----------------
+889384  A6 46          LDX $46
+889386  99 0C 90       STA $900C,Y
+889389  99 0C 92       STA $920C,Y
+88938C  A5 0E          LDA $0E
+88938E  F0 0A          BEQ $88939A
+889390  E6 10          INC $10
+889392  C6 0E          DEC $0E
+889394  A9 00 00       LDA #$0000
+889397  82 81 00       BRL $88941B
+88939A  64 10          STZ $10
+88939C  CA             DEX
+88939D  CA             DEX
+88939E  CA             DEX
+88939F  CA             DEX
+8893A0  BF 00 00 89    LDA $890000,X
+8893A4  29 FF 03       AND #$03FF
+8893A7  85 44          STA $44
+8893A9  29 80 03       AND #$0380
+8893AC  D0 0C          BNE $8893BA
+8893AE  A5 44          LDA $44
+8893B0  85 0E          STA $0E
+8893B2  A9 01 00       LDA #$0001
+8893B5  85 10          STA $10
+8893B7  3A             DEC
+8893B8  80 61          BRA $88941B
+8893BA               --------unidentified--------
+88941A               ----------------
+88941B  99 0A 90       STA $900A,Y
+88941E  99 0A 92       STA $920A,Y
+889421  A5 0E          LDA $0E
+889423  F0 0A          BEQ $88942F
+889425  E6 10          INC $10
+889427  C6 0E          DEC $0E
+889429  A9 00 00       LDA #$0000
+88942C  82 81 00       BRL $8894B0
+88942F  64 10          STZ $10
+889431  CA             DEX
+889432  CA             DEX
+889433  CA             DEX
+889434  CA             DEX
+889435  BF 00 00 89    LDA $890000,X
+889439  29 FF 03       AND #$03FF
+88943C  85 44          STA $44
+88943E  29 80 03       AND #$0380
+889441  D0 0C          BNE $88944F
+889443  A5 44          LDA $44
+889445  85 0E          STA $0E
+889447  A9 01 00       LDA #$0001
+88944A  85 10          STA $10
+88944C  3A             DEC
+88944D  80 61          BRA $8894B0
+88944F  86 46          STX $46
+889451  0A             ASL
+889452  0A             ASL
+889453  EB             XBA
+889454  AA             TAX
+889455  BF BB EA 88    LDA $88EABB,X
+889459  25 24          AND $24
+88945B  F0 07          BEQ $889464
+88945D  A9 00 00       LDA #$0000
+889460  A6 46          LDX $46
+889462  80 E1          BRA $889445
+889464  18             CLC
+889465  8A             TXA
+889466  65 42          ADC $42
+889468  AA             TAX
+889469  BF EB B1 89    LDA $89B1EB,X
+88946D  10 33          BPL $8894A2
+88946F  89 00 40       BIT #$4000
+889472  D0 3A          BNE $8894AE
+889474  29 FF 3F       AND #$3FFF
+889477  49 FF FF       EOR #$FFFF
+88947A  38             SEC
+88947B  65 2C          ADC $2C
+88947D  B0 02          BCS $889481
+88947F  65 00          ADC $00
+889481  85 2C          STA $2C
+889483  A5 2A          LDA $2A
+889485  3A             DEC
+889486  3A             DEC
+889487  29 FF 01       AND #$01FF
+88948A  85 2A          STA $2A
+88948C  AA             TAX
+88948D  A5 2C          LDA $2C
+88948F  9D 00 98       STA $9800,X
+889492  AA             TAX
+889493  A9 40 00       LDA #$0040
+889496  1D 00 64       ORA $6400,X
+889499  9D 00 64       STA $6400,X
+88949C  8A             TXA
+88949D  09 00 80       ORA #$8000
+8894A0  80 0C          BRA $8894AE
+8894A2               --------unidentified--------
+8894AD               ----------------
+8894AE  A6 46          LDX $46
+8894B0  99 08 90       STA $9008,Y
+8894B3  99 08 92       STA $9208,Y
+8894B6  A5 0E          LDA $0E
+8894B8  F0 0A          BEQ $8894C4
+8894BA  E6 10          INC $10
+8894BC  C6 0E          DEC $0E
+8894BE  A9 00 00       LDA #$0000
+8894C1  82 81 00       BRL $889545
+8894C4  64 10          STZ $10
+8894C6  CA             DEX
+8894C7  CA             DEX
+8894C8  CA             DEX
+8894C9  CA             DEX
+8894CA  BF 00 00 89    LDA $890000,X
+8894CE  29 FF 03       AND #$03FF
+8894D1  85 44          STA $44
+8894D3  29 80 03       AND #$0380
+8894D6  D0 0C          BNE $8894E4
+8894D8  A5 44          LDA $44
+8894DA  85 0E          STA $0E
+8894DC  A9 01 00       LDA #$0001
+8894DF  85 10          STA $10
+8894E1  3A             DEC
+8894E2  80 61          BRA $889545
+8894E4  86 46          STX $46
+8894E6  0A             ASL
+8894E7  0A             ASL
+8894E8  EB             XBA
+8894E9  AA             TAX
+8894EA  BF BB EA 88    LDA $88EABB,X
+8894EE  25 24          AND $24
+8894F0  F0 07          BEQ $8894F9
+8894F2  A9 00 00       LDA #$0000
+8894F5  A6 46          LDX $46
+8894F7  80 E1          BRA $8894DA
+8894F9  18             CLC
+8894FA  8A             TXA
+8894FB  65 42          ADC $42
+8894FD  AA             TAX
+8894FE  BF EB B1 89    LDA $89B1EB,X
+889502  10 33          BPL $889537
+889504  89 00 40       BIT #$4000
+889507  D0 3A          BNE $889543
+889509  29 FF 3F       AND #$3FFF
+88950C  49 FF FF       EOR #$FFFF
+88950F  38             SEC
+889510  65 2C          ADC $2C
+889512  B0 02          BCS $889516
+889514  65 00          ADC $00
+889516  85 2C          STA $2C
+889518  A5 2A          LDA $2A
+88951A  3A             DEC
+88951B  3A             DEC
+88951C  29 FF 01       AND #$01FF
+88951F  85 2A          STA $2A
+889521  AA             TAX
+889522  A5 2C          LDA $2C
+889524  9D 00 98       STA $9800,X
+889527  AA             TAX
+889528  A9 40 00       LDA #$0040
+88952B  1D 00 64       ORA $6400,X
+88952E  9D 00 64       STA $6400,X
+889531  8A             TXA
+889532  09 00 80       ORA #$8000
+889535  80 0C          BRA $889543
+889537               --------unidentified--------
+889542               ----------------
+889543  A6 46          LDX $46
+889545  99 06 90       STA $9006,Y
+889548  99 06 92       STA $9206,Y
+88954B  86 08          STX $08
+88954D  A6 06          LDX $06
+88954F  AD 20 01       LDA $0120
+889552  D0 03          BNE $889557
+889554  82 8C 01       BRL $8896E3
+889557               --------unidentified--------
+8896E2               ----------------
+8896E3  A5 0A          LDA $0A
+8896E5  F0 08          BEQ $8896EF
+8896E7  C6 0A          DEC $0A
+8896E9  F0 1F          BEQ $88970A
+8896EB  E6 0C          INC $0C
+8896ED  80 21          BRA $889710
+8896EF  BF 00 00 89    LDA $890000,X
+8896F3  29 FF 03       AND #$03FF
+8896F6  85 42          STA $42
+8896F8  29 80 03       AND #$0380
+8896FB  D0 0D          BNE $88970A
+8896FD  A5 42          LDA $42
+8896FF  F0 09          BEQ $88970A
+889701  85 0A          STA $0A
+889703  A9 01 00       LDA #$0001
+889706  85 0C          STA $0C
+889708  80 06          BRA $889710
+88970A  64 0C          STZ $0C
+88970C  CA             DEX
+88970D  CA             DEX
+88970E  CA             DEX
+88970F  CA             DEX
+889710  A5 0A          LDA $0A
+889712  F0 08          BEQ $88971C
+889714  C6 0A          DEC $0A
+889716  F0 1F          BEQ $889737
+889718  E6 0C          INC $0C
+88971A  80 21          BRA $88973D
+88971C  BF 00 00 89    LDA $890000,X
+889720  29 FF 03       AND #$03FF
+889723  85 42          STA $42
+889725  29 80 03       AND #$0380
+889728  D0 0D          BNE $889737
+88972A  A5 42          LDA $42
+88972C  F0 09          BEQ $889737
+88972E  85 0A          STA $0A
+889730  A9 01 00       LDA #$0001
+889733  85 0C          STA $0C
+889735  80 06          BRA $88973D
+889737  64 0C          STZ $0C
+889739  CA             DEX
+88973A  CA             DEX
+88973B  CA             DEX
+88973C  CA             DEX
+88973D  A5 0A          LDA $0A
+88973F  F0 08          BEQ $889749
+889741  C6 0A          DEC $0A
+889743  F0 1F          BEQ $889764
+889745  E6 0C          INC $0C
+889747  80 21          BRA $88976A
+889749  BF 00 00 89    LDA $890000,X
+88974D  29 FF 03       AND #$03FF
+889750  85 42          STA $42
+889752  29 80 03       AND #$0380
+889755  D0 0D          BNE $889764
+889757  A5 42          LDA $42
+889759  F0 09          BEQ $889764
+88975B  85 0A          STA $0A
+88975D  A9 01 00       LDA #$0001
+889760  85 0C          STA $0C
+889762  80 06          BRA $88976A
+889764  64 0C          STZ $0C
+889766  CA             DEX
+889767  CA             DEX
+889768  CA             DEX
+889769  CA             DEX
+88976A  A5 0A          LDA $0A
+88976C  F0 08          BEQ $889776
+88976E  C6 0A          DEC $0A
+889770  F0 1F          BEQ $889791
+889772  E6 0C          INC $0C
+889774  80 21          BRA $889797
+889776  BF 00 00 89    LDA $890000,X
+88977A  29 FF 03       AND #$03FF
+88977D  85 42          STA $42
+88977F  29 80 03       AND #$0380
+889782  D0 0D          BNE $889791
+889784  A5 42          LDA $42
+889786  F0 09          BEQ $889791
+889788  85 0A          STA $0A
+88978A  A9 01 00       LDA #$0001
+88978D  85 0C          STA $0C
+88978F  80 06          BRA $889797
+889791  64 0C          STZ $0C
+889793  CA             DEX
+889794  CA             DEX
+889795  CA             DEX
+889796  CA             DEX
+889797  86 06          STX $06
+889799  A5 02          LDA $02
+88979B  29 3C 00       AND #$003C
+88979E  49 3C 00       EOR #$003C
+8897A1  D0 4A          BNE $8897ED
+8897A3  64 0C          STZ $0C
+8897A5  64 0A          STZ $0A
+8897A7  AD 08 01       LDA $0108
+8897AA  0A             ASL
+8897AB  0A             ASL
+8897AC  0A             ASL
+8897AD  AA             TAX
+8897AE  A5 02          LDA $02
+8897B0  29 C0 FF       AND #$FFC0
+8897B3  4A             LSR
+8897B4  4A             LSR
+8897B5  4A             LSR
+8897B6  4A             LSR
+8897B7  7F 00 80 8A    ADC $8A8000,X
+8897BB  AA             TAX
+8897BC  BF 00 00 8A    LDA $8A0000,X
+8897C0  29 C0 0F       AND #$0FC0
+8897C3  0A             ASL
+8897C4  0A             ASL
+8897C5  0A             ASL
+8897C6  EB             XBA
+8897C7  AA             TAX
+8897C8  BF C0 90 89    LDA $8990C0,X
+8897CC  85 06          STA $06
+8897CE  AD 20 01       LDA $0120
+8897D1  C9 03 00       CMP #$0003
+8897D4  90 04          BCC $8897DA
+8897D6  A9 02 00       LDA #$0002
+8897D9  18             CLC
+8897DA  65 06          ADC $06
+8897DC  AA             TAX
+8897DD  BF 00 00 89    LDA $890000,X
+8897E1  29 FF 00       AND #$00FF
+8897E4  0A             ASL
+8897E5  0A             ASL
+8897E6  1A             INC
+8897E7  1A             INC
+8897E8  38             SEC
+8897E9  65 06          ADC $06
+8897EB  85 06          STA $06
+8897ED  A9 00 00       LDA #$0000
+8897F0  99 0E 90       STA $900E,Y
+8897F3  99 0E 92       STA $920E,Y
+8897F6  AE 26 02       LDX $0226
+8897F9  BD 02 90       LDA $9002,X
+8897FC  8D C4 02       STA $02C4
+8897FF  F4 00 7E       PEA #$7E00
+889802  AB             PLB
+889803  A2 00 00       LDX #$0000
+889806  AD C4 02       LDA $02C4
+889809  10 01          BPL $88980C
+88980B  CA             DEX
+88980C  86 48          STX $48
+88980E  E2 20          SEP #$20
+889810  8D 1B 21       STA $211B
+889813  EB             XBA
+889814  8D 1B 21       STA $211B
+889817  A9 10          LDA #$10
+889819  8D 1C 21       STA $211C
+88981C  AD 36 21       LDA $2136
+88981F  85 48          STA $48
+889821  C2 20          REP #$20
+889823  38             SEC
+889824  AD 1A 02       LDA $021A
+889827  ED 34 21       SBC $2134
+88982A  8D 1A 02       STA $021A
+88982D  AD 1C 02       LDA $021C
+889830  E5 48          SBC $48
+889832  8D 1C 02       STA $021C
+889835  A2 00 00       LDX #$0000
+889838  38             SEC
+889839  AD C0 02       LDA $02C0
+88983C  ED C4 02       SBC $02C4
+88983F  10 01          BPL $889842
+889841  CA             DEX
+889842  86 48          STX $48
+889844  E2 20          SEP #$20
+889846  8D 1B 21       STA $211B
+889849  EB             XBA
+88984A  8D 1B 21       STA $211B
+88984D  A9 0A          LDA #$0A
+88984F  8D 1C 21       STA $211C
+889852  AD 36 21       LDA $2136
+889855  85 48          STA $48
+889857  C2 20          REP #$20
+889859  38             SEC
+88985A  AD 1A 02       LDA $021A
+88985D  ED 34 21       SBC $2134
+889860  8D 1A 02       STA $021A
+889863  AD 1C 02       LDA $021C
+889866  E5 48          SBC $48
+889868  8D 1C 02       STA $021C
+88986B  AD C4 02       LDA $02C4
+88986E  8D C0 02       STA $02C0
+889871  AB             PLB
+889872  C6 3A          DEC $3A
+889874  F0 03          BEQ $889879
+889876  82 FB F3       BRL $888C74
+889879  AC 0E 02       LDY $020E
+88987C  AD 0C 02       LDA $020C
+88987F  29 00 F8       AND #$F800
+889882  D0 01          BNE $889885
+889884  88             DEY
+889885  98             TYA
+889886  18             CLC
+889887  69 4C 00       ADC #$004C
+88988A  CD 0A 01       CMP $010A
+88988D  90 03          BCC $889892
+88988F  ED 0A 01       SBC $010A
+889892  85 3A          STA $3A
+889894  A5 5C          LDA $5C
+889896  D0 03          BNE $88989B
+889898  82 A3 01       BRL $889A3E
+88989B  A4 6A          LDY $6A
+88989D  A5 3A          LDA $3A
+88989F  C5 62          CMP $62
+8898A1  F0 F5          BEQ $889898
+8898A3  B0 1B          BCS $8898C0
+8898A5  82 C3 00       BRL $88996B
+8898A8               --------unidentified--------
+88996A               ----------------
+88996B  B9 04 5D       LDA $5D04,Y
+88996E  C9 FF FF       CMP #$FFFF
+889971  D0 18          BNE $88998B
+889973  A5 3A          LDA $3A
+889975  CD 00 5D       CMP $5D00
+889978  B0 11          BCS $88998B
+88997A  82 BB 00       BRL $889A38
+88997D  C0 FC FF       CPY #$FFFC
+889980  D0 09          BNE $88998B
+889982  A4 5C          LDY $5C
+889984  88             DEY
+889985  88             DEY
+889986  88             DEY
+889987  88             DEY
+889988  82 AD 00       BRL $889A38
+88998B  A5 3A          LDA $3A
+88998D  D9 00 5D       CMP $5D00,Y
+889990  90 03          BCC $889995
+889992  82 A3 00       BRL $889A38
+889995  B9 02 5D       LDA $5D02,Y
+889998  85 3C          STA $3C
+88999A  88             DEY
+88999B  88             DEY
+88999C  88             DEY
+88999D  88             DEY
+88999E  EB             XBA
+88999F  29 FF 00       AND #$00FF
+8899A2  D0 0A          BNE $8899AE
+8899A4  A5 3C          LDA $3C
+8899A6  29 FF 00       AND #$00FF
+8899A9  0A             ASL
+8899AA  85 6E          STA $6E
+8899AC  80 CF          BRA $88997D
+8899AE               --------unidentified--------
+889A37               ----------------
+889A38  A5 3A          LDA $3A
+889A3A  85 62          STA $62
+889A3C  84 6A          STY $6A
+889A3E  A5 5A          LDA $5A
+889A40  F0 3D          BEQ $889A7F
+889A42  A4 66          LDY $66
+889A44  A5 3A          LDA $3A
+889A46  C5 5E          CMP $5E
+889A48  F0 35          BEQ $889A7F
+889A4A  90 08          BCC $889A54
+889A4C  A4 5A          LDY $5A
+889A4E  88             DEY
+889A4F  88             DEY
+889A50  88             DEY
+889A51  88             DEY
+889A52  80 0F          BRA $889A63
+889A54  B9 04 58       LDA $5804,Y
+889A57  C9 FF FF       CMP #$FFFF
+889A5A  D0 07          BNE $889A63
+889A5C  A5 3A          LDA $3A
+889A5E  CD 00 58       CMP $5800
+889A61  90 16          BCC $889A79
+889A63  A5 3A          LDA $3A
+889A65  D9 00 58       CMP $5800,Y
+889A68  B0 0F          BCS $889A79
+889A6A  88             DEY
+889A6B  88             DEY
+889A6C  88             DEY
+889A6D  88             DEY
+889A6E  C0 FC FF       CPY #$FFFC
+889A71  D0 F0          BNE $889A63
+889A73  A4 5A          LDY $5A
+889A75  88             DEY
+889A76  88             DEY
+889A77  88             DEY
+889A78  88             DEY
+889A79  A5 3A          LDA $3A
+889A7B  85 5E          STA $5E
+889A7D  84 66          STY $66
+889A7F  82 B9 0E       BRL $88A93B
+889A82  F4 7E 7E       PEA #$7E7E
+889A85  AB             PLB
+889A86  AB             PLB
+889A87  AE 0E 02       LDX $020E
+889A8A  18             CLC
+889A8B  AD 0C 02       LDA $020C
+889A8E  6D 12 02       ADC $0212
+889A91  8D 0C 02       STA $020C
+889A94  AD 0E 02       LDA $020E
+889A97  6D 14 02       ADC $0214
+889A9A  A8             TAY
+889A9B  B0 05          BCS $889AA2
+889A9D  CD 0A 01       CMP $010A
+889AA0  90 03          BCC $889AA5
+889AA2  ED 0A 01       SBC $010A
+889AA5  8D 0E 02       STA $020E
+889AA8  86 3A          STX $3A
+889AAA  98             TYA
+889AAB  38             SEC
+889AAC  E5 3A          SBC $3A
+889AAE  F0 58          BEQ $889B08
+889AB0  84 3C          STY $3C
+889AB2  85 3E          STA $3E
+889AB4  8A             TXA
+889AB5  29 03 00       AND #$0003
+889AB8  85 40          STA $40
+889ABA  0A             ASL
+889ABB  6D 26 02       ADC $0226
+889ABE  A8             TAY
+889ABF  C8             INY
+889AC0  C8             INY
+889AC1  A5 40          LDA $40
+889AC3  1A             INC
+889AC4  29 03 00       AND #$0003
+889AC7  85 40          STA $40
+889AC9  D0 06          BNE $889AD1
+889ACB  98             TYA
+889ACC  18             CLC
+889ACD  69 08 00       ADC #$0008
+889AD0  A8             TAY
+889AD1  B9 16 90       LDA $9016,Y
+889AD4  C9 00 C0       CMP #$C000
+889AD7  90 18          BCC $889AF1
+889AD9  29 0F 00       AND #$000F
+889ADC  C9 02 00       CMP #$0002
+889ADF  90 10          BCC $889AF1
+889AE1  0A             ASL
+889AE2  AA             TAX
+889AE3  AD 3C 01       LDA $013C
+889AE6  1F 7F EA 88    ORA $88EA7F,X
+889AEA  3F 9B EA 88    AND $88EA9B,X
+889AEE  8D 3C 01       STA $013C
+889AF1  C6 3E          DEC $3E
+889AF3  D0 CA          BNE $889ABF
+889AF5  A6 3A          LDX $3A
+889AF7  A4 3C          LDY $3C
+889AF9  8A             TXA
+889AFA  29 FC FF       AND #$FFFC
+889AFD  85 3A          STA $3A
+889AFF  98             TYA
+889B00  29 FC FF       AND #$FFFC
+889B03  38             SEC
+889B04  E5 3A          SBC $3A
+889B06  D0 03          BNE $889B0B
+889B08  82 50 0C       BRL $88A75B
+889B0B  4A             LSR
+889B0C  4A             LSR
+889B0D  85 3A          STA $3A
+889B0F  AE 26 02       LDX $0226
+889B12  BD 02 90       LDA $9002,X
+889B15  8D C4 02       STA $02C4
+889B18  A5 04          LDA $04
+889B1A  CD 0A 01       CMP $010A
+889B1D  D0 03          BNE $889B22
+889B1F  A9 00 00       LDA #$0000
+889B22  18             CLC
+889B23  69 04 00       ADC #$0004
+889B26  85 04          STA $04
+889B28  A5 02          LDA $02
+889B2A  CD 0A 01       CMP $010A
+889B2D  D0 03          BNE $889B32
+889B2F  A9 00 00       LDA #$0000
+889B32  18             CLC
+889B33  69 04 00       ADC #$0004
+889B36  85 02          STA $02
+889B38  AD 26 02       LDA $0226
+889B3B  38             SEC
+889B3C  E9 80 00       SBC #$0080
+889B3F  A8             TAY
+889B40  A5 02          LDA $02
+889B42  29 3C 00       AND #$003C
+889B45  4A             LSR
+889B46  85 3C          STA $3C
+889B48  AD 08 01       LDA $0108
+889B4B  0A             ASL
+889B4C  0A             ASL
+889B4D  0A             ASL
+889B4E  AA             TAX
+889B4F  A5 02          LDA $02
+889B51  29 C0 FF       AND #$FFC0
+889B54  4A             LSR
+889B55  4A             LSR
+889B56  4A             LSR
+889B57  4A             LSR
+889B58  86 3E          STX $3E
+889B5A  85 40          STA $40
+889B5C  4A             LSR
+889B5D  4A             LSR
+889B5E  AA             TAX
+889B5F  BD 00 62       LDA $6200,X
+889B62  29 FF 00       AND #$00FF
+889B65  85 22          STA $22
+889B67  A6 3E          LDX $3E
+889B69  18             CLC
+889B6A  A5 40          LDA $40
+889B6C  7F 00 80 8A    ADC $8A8000,X
+889B70  AA             TAX
+889B71  BF 00 00 8A    LDA $8A0000,X
+889B75  85 3E          STA $3E
+889B77  BF 02 00 8A    LDA $8A0002,X
+889B7B  85 40          STA $40
+889B7D  A5 40          LDA $40
+889B7F  29 00 3F       AND #$3F00
+889B82  4A             LSR
+889B83  4A             LSR
+889B84  4A             LSR
+889B85  65 3C          ADC $3C
+889B87  AA             TAX
+889B88  BF 00 80 89    LDA $898000,X
+889B8C  99 00 90       STA $9000,Y
+889B8F  99 00 92       STA $9200,Y
+889B92  A5 40          LDA $40
+889B94  29 FC 00       AND #$00FC
+889B97  0A             ASL
+889B98  0A             ASL
+889B99  0A             ASL
+889B9A  65 3C          ADC $3C
+889B9C  AA             TAX
+889B9D  BF 00 88 89    LDA $898800,X
+889BA1  99 02 90       STA $9002,Y
+889BA4  99 02 92       STA $9202,Y
+889BA7  A5 3F          LDA $3F
+889BA9  29 F0 03       AND #$03F0
+889BAC  0A             ASL
+889BAD  65 3C          ADC $3C
+889BAF  AA             TAX
+889BB0  BF 40 8C 89    LDA $898C40,X
+889BB4  99 04 90       STA $9004,Y
+889BB7  99 04 92       STA $9204,Y
+889BBA  A5 3C          LDA $3C
+889BBC  D0 15          BNE $889BD3
+889BBE  64 0A          STZ $0A
+889BC0  64 0C          STZ $0C
+889BC2  A5 3E          LDA $3E
+889BC4  29 C0 0F       AND #$0FC0
+889BC7  0A             ASL
+889BC8  0A             ASL
+889BC9  0A             ASL
+889BCA  EB             XBA
+889BCB  AA             TAX
+889BCC  BF C0 90 89    LDA $8990C0,X
+889BD0  3A             DEC
+889BD1  85 06          STA $06
+889BD3  A6 08          LDX $08
+889BD5  AD 20 01       LDA $0120
+889BD8  D0 03          BNE $889BDD
+889BDA  82 8C 01       BRL $889D69
+889BDD               --------unidentified--------
+889D68               ----------------
+889D69  A5 10          LDA $10
+889D6B  F0 08          BEQ $889D75
+889D6D  C6 10          DEC $10
+889D6F  F0 1F          BEQ $889D90
+889D71  E6 0E          INC $0E
+889D73  80 21          BRA $889D96
+889D75  BF 00 00 89    LDA $890000,X
+889D79  29 FF 03       AND #$03FF
+889D7C  85 42          STA $42
+889D7E  29 80 03       AND #$0380
+889D81  D0 0D          BNE $889D90
+889D83  A5 42          LDA $42
+889D85  F0 09          BEQ $889D90
+889D87  85 10          STA $10
+889D89  A9 01 00       LDA #$0001
+889D8C  85 0E          STA $0E
+889D8E  80 06          BRA $889D96
+889D90  64 0E          STZ $0E
+889D92  E8             INX
+889D93  E8             INX
+889D94  E8             INX
+889D95  E8             INX
+889D96  A5 10          LDA $10
+889D98  F0 08          BEQ $889DA2
+889D9A  C6 10          DEC $10
+889D9C  F0 1F          BEQ $889DBD
+889D9E  E6 0E          INC $0E
+889DA0  80 21          BRA $889DC3
+889DA2  BF 00 00 89    LDA $890000,X
+889DA6  29 FF 03       AND #$03FF
+889DA9  85 42          STA $42
+889DAB  29 80 03       AND #$0380
+889DAE  D0 0D          BNE $889DBD
+889DB0  A5 42          LDA $42
+889DB2  F0 09          BEQ $889DBD
+889DB4  85 10          STA $10
+889DB6  A9 01 00       LDA #$0001
+889DB9  85 0E          STA $0E
+889DBB  80 06          BRA $889DC3
+889DBD  64 0E          STZ $0E
+889DBF  E8             INX
+889DC0  E8             INX
+889DC1  E8             INX
+889DC2  E8             INX
+889DC3  A5 10          LDA $10
+889DC5  F0 08          BEQ $889DCF
+889DC7  C6 10          DEC $10
+889DC9  F0 1F          BEQ $889DEA
+889DCB  E6 0E          INC $0E
+889DCD  80 21          BRA $889DF0
+889DCF  BF 00 00 89    LDA $890000,X
+889DD3  29 FF 03       AND #$03FF
+889DD6  85 42          STA $42
+889DD8  29 80 03       AND #$0380
+889DDB  D0 0D          BNE $889DEA
+889DDD  A5 42          LDA $42
+889DDF  F0 09          BEQ $889DEA
+889DE1  85 10          STA $10
+889DE3  A9 01 00       LDA #$0001
+889DE6  85 0E          STA $0E
+889DE8  80 06          BRA $889DF0
+889DEA  64 0E          STZ $0E
+889DEC  E8             INX
+889DED  E8             INX
+889DEE  E8             INX
+889DEF  E8             INX
+889DF0  A5 10          LDA $10
+889DF2  F0 08          BEQ $889DFC
+889DF4  C6 10          DEC $10
+889DF6  F0 1F          BEQ $889E17
+889DF8  E6 0E          INC $0E
+889DFA  80 21          BRA $889E1D
+889DFC  BF 00 00 89    LDA $890000,X
+889E00  29 FF 03       AND #$03FF
+889E03  85 42          STA $42
+889E05  29 80 03       AND #$0380
+889E08  D0 0D          BNE $889E17
+889E0A  A5 42          LDA $42
+889E0C  F0 09          BEQ $889E17
+889E0E  85 10          STA $10
+889E10  A9 01 00       LDA #$0001
+889E13  85 0E          STA $0E
+889E15  80 06          BRA $889E1D
+889E17  64 0E          STZ $0E
+889E19  E8             INX
+889E1A  E8             INX
+889E1B  E8             INX
+889E1C  E8             INX
+889E1D  86 08          STX $08
+889E1F  A5 04          LDA $04
+889E21  29 3C 00       AND #$003C
+889E24  D0 2E          BNE $889E54
+889E26  64 0E          STZ $0E
+889E28  64 10          STZ $10
+889E2A  AD 08 01       LDA $0108
+889E2D  0A             ASL
+889E2E  0A             ASL
+889E2F  0A             ASL
+889E30  AA             TAX
+889E31  A5 04          LDA $04
+889E33  29 C0 FF       AND #$FFC0
+889E36  4A             LSR
+889E37  4A             LSR
+889E38  4A             LSR
+889E39  4A             LSR
+889E3A  7F 00 80 8A    ADC $8A8000,X
+889E3E  AA             TAX
+889E3F  BF 00 00 8A    LDA $8A0000,X
+889E43  29 C0 0F       AND #$0FC0
+889E46  0A             ASL
+889E47  0A             ASL
+889E48  0A             ASL
+889E49  EB             XBA
+889E4A  AA             TAX
+889E4B  BF C0 90 89    LDA $8990C0,X
+889E4F  1A             INC
+889E50  1A             INC
+889E51  1A             INC
+889E52  85 08          STA $08
+889E54  B9 06 90       LDA $9006,Y
+889E57  10 39          BPL $889E92
+889E59  89 00 40       BIT #$4000
+889E5C  D0 34          BNE $889E92
+889E5E  29 FF 3F       AND #$3FFF
+889E61  AA             TAX
+889E62  E2 20          SEP #$20
+889E64  BD 00 64       LDA $6400,X
+889E67  29 DF          AND #$DF
+889E69  89 10          BIT #$10
+889E6B  F0 06          BEQ $889E73
+889E6D  89 20          BIT #$20
+889E6F  D0 02          BNE $889E73
+889E71  09 80          ORA #$80
+889E73  9D 00 64       STA $6400,X
+889E76  C2 20          REP #$20
+889E78  A5 2A          LDA $2A
+889E7A  1A             INC
+889E7B  1A             INC
+889E7C  29 FF 01       AND #$01FF
+889E7F  85 2A          STA $2A
+889E81  C5 2E          CMP $2E
+889E83  D0 04          BNE $889E89
+889E85  A5 30          LDA $30
+889E87  80 07          BRA $889E90
+889E89  AA             TAX
+889E8A  BD 00 98       LDA $9800,X
+889E8D  29 FF 3F       AND #$3FFF
+889E90  85 2C          STA $2C
+889E92  B9 08 90       LDA $9008,Y
+889E95  10 39          BPL $889ED0
+889E97  89 00 40       BIT #$4000
+889E9A  D0 34          BNE $889ED0
+889E9C  29 FF 3F       AND #$3FFF
+889E9F  AA             TAX
+889EA0  E2 20          SEP #$20
+889EA2  BD 00 64       LDA $6400,X
+889EA5  29 DF          AND #$DF
+889EA7  89 10          BIT #$10
+889EA9  F0 06          BEQ $889EB1
+889EAB  89 20          BIT #$20
+889EAD  D0 02          BNE $889EB1
+889EAF  09 80          ORA #$80
+889EB1  9D 00 64       STA $6400,X
+889EB4  C2 20          REP #$20
+889EB6  A5 2A          LDA $2A
+889EB8  1A             INC
+889EB9  1A             INC
+889EBA  29 FF 01       AND #$01FF
+889EBD  85 2A          STA $2A
+889EBF  C5 2E          CMP $2E
+889EC1  D0 04          BNE $889EC7
+889EC3  A5 30          LDA $30
+889EC5  80 07          BRA $889ECE
+889EC7  AA             TAX
+889EC8  BD 00 98       LDA $9800,X
+889ECB  29 FF 3F       AND #$3FFF
+889ECE  85 2C          STA $2C
+889ED0  B9 0A 90       LDA $900A,Y
+889ED3  10 39          BPL $889F0E
+889ED5  89 00 40       BIT #$4000
+889ED8  D0 34          BNE $889F0E
+889EDA  29 FF 3F       AND #$3FFF
+889EDD  AA             TAX
+889EDE  E2 20          SEP #$20
+889EE0  BD 00 64       LDA $6400,X
+889EE3  29 DF          AND #$DF
+889EE5  89 10          BIT #$10
+889EE7  F0 06          BEQ $889EEF
+889EE9  89 20          BIT #$20
+889EEB  D0 02          BNE $889EEF
+889EED  09 80          ORA #$80
+889EEF  9D 00 64       STA $6400,X
+889EF2  C2 20          REP #$20
+889EF4  A5 2A          LDA $2A
+889EF6  1A             INC
+889EF7  1A             INC
+889EF8  29 FF 01       AND #$01FF
+889EFB  85 2A          STA $2A
+889EFD  C5 2E          CMP $2E
+889EFF  D0 04          BNE $889F05
+889F01  A5 30          LDA $30
+889F03  80 07          BRA $889F0C
+889F05  AA             TAX
+889F06  BD 00 98       LDA $9800,X
+889F09  29 FF 3F       AND #$3FFF
+889F0C  85 2C          STA $2C
+889F0E  B9 0C 90       LDA $900C,Y
+889F11  10 39          BPL $889F4C
+889F13  89 00 40       BIT #$4000
+889F16  D0 34          BNE $889F4C
+889F18  29 FF 3F       AND #$3FFF
+889F1B  AA             TAX
+889F1C  E2 20          SEP #$20
+889F1E  BD 00 64       LDA $6400,X
+889F21  29 DF          AND #$DF
+889F23  89 10          BIT #$10
+889F25  F0 06          BEQ $889F2D
+889F27  89 20          BIT #$20
+889F29  D0 02          BNE $889F2D
+889F2B  09 80          ORA #$80
+889F2D  9D 00 64       STA $6400,X
+889F30  C2 20          REP #$20
+889F32  A5 2A          LDA $2A
+889F34  1A             INC
+889F35  1A             INC
+889F36  29 FF 01       AND #$01FF
+889F39  85 2A          STA $2A
+889F3B  C5 2E          CMP $2E
+889F3D  D0 04          BNE $889F43
+889F3F  A5 30          LDA $30
+889F41  80 07          BRA $889F4A
+889F43  AA             TAX
+889F44  BD 00 98       LDA $9800,X
+889F47  29 FF 3F       AND #$3FFF
+889F4A  85 2C          STA $2C
+889F4C  A5 3E          LDA $3E
+889F4E  29 3F 00       AND #$003F
+889F51  0A             ASL
+889F52  0A             ASL
+889F53  0A             ASL
+889F54  0A             ASL
+889F55  85 42          STA $42
+889F57  A6 06          LDX $06
+889F59  AD 20 01       LDA $0120
+889F5C  D0 03          BNE $889F61
+889F5E  82 F4 04       BRL $88A455
+889F61               --------unidentified--------
+
+Track 1, Before executing instruction at PC 888039, A:82DC, X:82DC,Y:040,D:0300,DB:7E,
+$8A82DC and 8 bytes on are: B6 04 35 08 C0 00 00 05
+After executing instruction at PC 888043, 0x340-03x4F: B6 04 35 08
+
+Track 2, breakpoint at PC 888039. Not executed that instruction yet. A:8314,X:8314,Y:0040,D:0300,DB:7E
+8A8314 and 8 bytes on: B6 24 39 00 80 30 00 1E
+$340-$344 after executing 888043: B6 24 39 00
+
+#active breakpoints: $40AFB, $4054E, $405AA, $40516, $40B33, $40BE4, $40CF1, $41995, $41A79, $41A87
+
+Multiple listings means that when pressing "continue" in the debugger, that breakpoint got hit again. A line starting with # means a comment for the next line.
+Track 1, breakpoint at PC 888516, A:00B2,X:926E,Y:0000,D:0300,DB:7E; CPU MEM $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $035A, $035C, $036A, $036E: 2C 34 00 00
+Track 1, breakpoint at PC 888516, A:5B90,X:926E,Y:0004,D:0300,DB:7E; CPU MEM $5800-$582F: all 0 bytes; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $035A, $035C, $036A, $036E: 2C 34 00 00
+# Didn't calculate WRAM MEM offset for 88854E, outside of $1BE0-$1CFF were mostly 00 so I grabbed what looked interesting.
+Track 1, breakpoint at PC 88854E, A:0120,X:00A2,Y:0008,D:0300,DB:7E; WRAM MEM $1BE0-$1CFF: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF A0 65 FF FF FF FF FF FF FF FF E0 12 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF C0 2C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 60 48 FF FF FF FF 80 20 60 3C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00; WRAM MEM 0x1F00 for 0x20 bytes: F8 0F 00 10 18 00 08 00 0A 00 FE 11 00 12 1C 00 02 00 0A 00 FC 13 00 14 1A 00 04 00 0A 00 00 00; WRAM MEM $1D90-$1DA0: all 0 bytes
+Track 1, breakpoint at PC 8885AA, A:0880,X:0510,Y:0008,D:0300,DB:7E; CPU MEM $2115-$2116: 00 00; CPU MEM $4370-4376: 01 18 80 0A 7F 60 08; CPU MEM $7F0A80-$7F12DF: 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 30 78 30 78 30 78 30 78 30 78 30 78 30 78 30 78 78 00 78 00 78 00 78 00 78 00 78 00 78 00 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 30 78 30 78 30 78 30 78 30 78 30 78 30 78 30 78 78 00 78 00 78 00 78 00 78 00 78 00 78 00 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 60 60 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 00 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 81 66 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 30 78 30 78 30 78 30 78 30 78 30 78 30 78 84 48 78 00 78 00 78 00 78 00 78 00 78 00 78 00 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 30 78 30 78 30 78 30 78 30 78 30 78 30 78 30 78 78 00 78 00 78 00 78 00 78 00 78 00 78 00 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 20 90 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E0 E0 60 C0 60 C0 00 00 00 00 00 00 00 00 00 00 E0 00 E0 00 E0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 40 40 C0 00 00 00 00 00 00 00 00 00 00 00 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 40 40 C0 40 C0 00 00 00 00 00 00 00 00 00 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 C0 C0 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 00 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 00 80 00 80 00 80 00 80 00 80 00 80 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 00 40 00 40 00 40 00 40 00 40 00 40 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 00 80 00 80 00 80 00 80 00 80 00 80 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 00 40 00 40 00 40 00 40 00 40 00 40 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 3C 3C 5A 3C 5A 3C 5A 00 00 00 00 00 00 00 00 7E 00 7E 00 7E 00 7E 00 00 00 30 30 30 78 30 78 30 78 30 78 30 78 30 78 00 00 78 00 78 00 78 00 78 00 78 00 78 00 78 00 00 00 00 00 00 00 C0 C0 C0 40 C0 40 C0 40 C0 40 00 00 00 00 00 00 C0 00 C0 00 C0 00 C0 00 C0 00
+Track 1, breakpoint at PC 888516, A:00B2,X:0510,Y:0008,D:0300,DB:7E; CPU MEM $5800-$582F: all 0 bytes; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 48 00 00 00 48 00 00 00 00 00 00 00 00 00 00 00 64 01
+Track 1, breakpoint at PC 888516, A:08BE,X:0510,Y:000C,D:0300,DB:7E; CPU MEM $5800-$582F: all 0 bytes; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 48 00 00 00 48 00 00 00 00 00 00 00 00 00 00 00 64 01
+# Didn't calculate WRAM MEM offset for 88854E, outside of $1BE0-$1CFF were mostly 00 so I grabbed what looked interesting.
+Track 1, breakpoint at PC 88854E, A:017C,X:000E,Y:0010,D:0300,DB:7E; WRAM MEM $1D92-$1D93: 20 01; WRAM MEM $1BE0-$1CFF: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF A0 65 FF FF FF FF FF FF FF FF E0 12 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF C0 2C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 60 48 FF FF FF FF 80 20 60 3C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00; WRAM MEM 0x1F00 for 0x20 bytes: F8 0F 00 10 18 00 08 00 0A 00 FE 11 00 12 1C 00 02 00 0A 00 FC 13 00 14 1A 00 04 00 0A 00 00 00;
+Track 1, breakpoint at PC 8885AA, A:0380,X:0070,Y:0010,D:0300,DB:7E; CPU MEM $2115-$2116: 00 00; CPU MEM $4370-4376: 01 18 A0 1C 7F E0 03; CPU MEM $7F1CA0-$7F207F: FE FF 3F 00 3E 00 3E 00 3E 00 FE 00 FE FF 3F 00 00 00 00 00 17 00 17 00 17 00 17 00 00 00 00 00 B5 FF FF 00 31 30 31 30 31 30 01 00 B5 FF FF 00 B4 00 00 00 FF 00 FF 00 FF 00 FF 00 B4 00 00 00 7F 00 38 00 B8 00 BB FF 7F 00 38 00 38 00 B8 00 00 00 5F 00 5F 00 03 00 00 00 5F 00 5F 00 5F 00 FE 00 1C 00 1D 00 DD FF FE 00 1C 00 1C 00 1D 00 00 00 FA 00 FA 00 C0 00 00 00 FA 00 FA 00 FA 00 00 00 6D 7F 3F 00 14 08 14 28 6D 7F 3F 00 14 08 00 00 01 00 00 00 1F 00 3F 00 01 00 00 00 1F 00 00 00 B6 FE FC 00 28 10 28 14 B6 FE FC 00 28 10 00 00 80 00 00 00 F8 00 FC 00 80 00 00 00 F8 00 00 00 00 00 00 00 3C 00 3D 3F 10 0F 1C 00 3D 3F 00 00 00 00 00 00 0F 00 01 00 0F 00 0F 00 01 00 00 00 00 00 00 00 3C 00 BC FC 08 F0 38 00 BC FC 00 00 00 00 00 00 F0 00 80 00 F0 00 F0 00 80 00 00 00 00 00 00 00 00 00 00 00 FF FF 5E 21 52 21 00 00 00 00 00 00 00 00 00 00 0C 00 21 00 7F 00 00 00 00 00 00 00 00 00 00 00 C0 C0 80 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 00 00 00 FE 00 FE FF 3F 00 3E 00 3E 00 FE 00 00 00 00 00 17 00 00 00 00 00 17 00 17 00 17 00 00 00 00 00 01 00 B5 FF FF 00 31 30 31 30 01 00 00 00 00 00 FF 00 B4 00 00 00 FF 00 FF 00 FF 00 00 00 00 00 00 00 00 00 00 00 00 00 B8 00 BB FF 00 00 00 00 00 00 00 00 00 00 00 00 5F 00 03 00 18 24 BD FF 7E 00 18 24 BD FF 18 24 BD FF 18 24 7E 00 18 00 00 00 7E 00 18 00 7E 00 18 00 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 BD FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 18 00 00 00 5A 7E 00 24 5A 7E 00 24 5A 7E 00 24 5A 7E 00 00 18 00 3C 00 18 00 3C 00 18 00 3C 00 18 00 3E 00 3E 00 FE 00 FE FF 3F 00 3E 00 3E 00 3E 00 17 00 17 00 17 00 00 00 00 00 17 00 17 00 17 00 31 30 31 30 01 00 B5 FF FF 00 31 30 31 30 01 00 FF 00 FF 00 FF 00 B4 00 00 00 FF 00 FF 00 FF 00 BB FF 7F 00 38 00 B8 00 BB FF 7F 00 38 00 38 00 03 00 00 00 5F 00 5F 00 03 00 00 00 5F 00 5F 00 DD FF FE 00 1C 00 1D 00 DD FF FE 00 1C 00 1C 00 C0 00 00 00 FA 00 FA 00 C0 00 00 00 FA 00 FA 00 14 28 6D 7F 3F 00 14 08 14 28 6D 7F 3F 00 34 08 3F 00 01 00 00 00 1F 00 3F 00 01 00 00 00 1F 00 28 14 B6 FE FC 00 28 10 28 14 B6 FE FC 00 2C 10 FC 00 80 00 00 00 F8 00 FC 00 80 00 00 00 F8 00 10 0F 1C 00 3D 3F 10 0F 1C 00 3D 3F 10 0F 1C 00 0F 00 0F 00 01 00 0F 00 0F 00 01 00 0F 00 0F 00 08 F0 38 00 BC FC 08 F0 38 00 BC FC 08 F0 38 00 F0 00 F0 00 80 00 F0 00 F0 00 80 00 F0 00 F0 00 FF FF 4C 33 52 21 FF FF 4C 33 52 21 FF FF 5E 21 0C 00 3F 00 7F 00 0C 00 3F 00 7F 00 0C 00 3F 00 C0 C0 80 00 80 00 C0 C0 80 00 80 00 C0 C0 80 00 00 00 00 00 80 00 00 00 00 00 80 00 00 00 00 00 00 00 00 00 5A 7E 00 24 5A 7E 00 24 5A 7E 18 24 00 00 00 00 18 00 3C 00 18 00 3C 00 18 00 3C 00 00 00 00 00 00 00 24 3C 00 18 24 3C 00 18 24 3C 00 00 00 00 00 00 00 00 18 00 00 00 18 00 00 00 00 00 00 00 00 00 00 00 00 18 24 3C 00 18 24 3C 00 00 00 00 00 00 00 00 18 00 00 00 18 00 00 00 00 00 00 00 00 00 00 00 00 00 00 18 00 18 00 18 00 00 00 00 00 00 00 00 00 00 00 00 18 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 08 00 08 00 00 00 00 00 00 00 00 00 00 00 00 00 00 08 00
+Track 1, breakpoint at PC 888516, A:4ECE,X:0070,Y:0010,D:0300,DB:7E; CPU MEM $5800-$582F: all 0 bytes; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 48 00 00 00 48 00 00 00 00 00 00 00 00 00 00 00 64 01
+# Didn't calculate WRAM MEM offset for 88854E, outside of $1BE0-$1CFF were mostly 00 so I grabbed what looked interesting.
+Track 1, breakpoint at PC 88854E, A:019C,X:0088,Y:0014,D:0300,DB:7E; WRAM MEM $1D92-$1D93: 20 01; WRAM MEM $1BE0-$1CFF: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF A0 65 FF FF FF FF FF FF FF FF E0 12 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF C0 2C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 60 48 FF FF FF FF 80 20 60 3C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7C 01; WRAM MEM 0x1F00 for 0x20 bytes: F8 0F 00 10 18 00 08 00 0A 00 FE 11 00 12 1C 00 02 00 0A 00 FC 13 00 14 1A 00 04 00 0A 00 00 00;
+Track 1, breakpoint at PC 8885AA, A:0280,X:0440,Y:0014,D:0300,DB:00; CPU MEM $2115-$2116: 00 00; CPU MEM $4370-4376: 01 18 00 2A 7F C0 02; CPU MEM $7F2A00-$7F2CDF: 1F 00 3B 04 7F 00 7B 04 7F 00 3A 05 3F 00 7B 04 02 00 05 00 02 00 05 00 02 00 05 00 02 00 05 00 7C 00 EE 10 7F 00 EF 10 7F 00 AE 50 7E 00 EF 10 A0 00 50 00 A0 00 50 00 A0 00 50 00 A0 00 50 00 00 00 00 00 1F 00 3B 04 3F 00 3B 04 1D 02 1B 04 00 00 00 00 02 00 05 00 02 00 05 00 02 00 05 00 00 00 00 00 7C 00 EE 10 7E 00 EE 10 5C A0 EC 10 00 00 00 00 A0 00 50 00 A0 00 50 00 A0 00 50 00 00 00 00 00 00 00 00 00 00 00 0F 00 1A 04 1F 00 00 00 00 00 00 00 00 00 00 00 02 00 05 00 02 00 00 00 00 00 00 00 00 00 00 00 D0 20 F8 00 D8 20 00 00 00 00 00 00 00 00 00 00 A0 00 40 00 A0 00 DF 20 6A 04 DF 20 EB 04 5E 20 EB 04 DF 20 6A 04 28 00 14 00 28 00 14 00 28 00 14 00 28 00 14 00 00 00 00 00 00 00 00 00 00 00 00 00 5E 20 EB 04 00 00 00 00 00 00 00 00 00 00 00 00 28 00 14 00 5E 20 EB 04 5E 20 EB 04 DF 20 6A 04 DF 20 6A 04 28 00 14 00 28 00 14 00 28 00 14 00 28 00 14 00 00 00 1C 20 7A 04 5E 20 7A 04 5E 20 7A 04 1C 20 00 00 28 00 14 00 28 00 14 00 28 00 14 00 28 00 00 00 00 00 00 00 3C 00 3C 00 3C 00 3C 00 3C 00 00 00 00 00 00 00 08 00 10 00 08 00 10 00 08 00 00 00 00 00 00 00 38 00 7C 00 38 00 38 00 7C 00 00 00 00 00 00 00 10 00 00 00 10 00 00 00 10 00 00 00 00 00 00 00 00 00 18 00 3C 00 3C 00 3C 00 00 00 00 00 00 00 00 00 10 00 08 00 10 00 08 00 00 00 00 00 00 00 00 00 00 00 38 00 38 00 38 00 00 00 00 00 00 00 00 00 00 00 10 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00 00 00 18 00 18 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7F 00 7B 04 3D 02 3B 04 7F 00 7B 04 7F 00 3B 04 02 00 05 00 02 00 05 00 02 00 05 00 02 00 05 00 7F 00 EF 10 5E A0 EE 10 7F 00 EF 10 7F 00 EE 10 A0 00 50 00 A0 00 50 00 A0 00 50 00 A0 00 50 00 3F 00 3B 04 3F 00 1A 05 1F 00 3B 04 3F 00 1B 04 02 00 05 00 02 00 05 00 02 00 05 00 02 00 05 00 7E 00 EE 10 7E 00 AC 50 7C 00 EE 10 7E 00 EC 10 A0 00 50 00 A0 00 50 00 A0 00 50 00 A0 00 50 00 1A 05 0F 00 1A 04 1F 00 0A 05 1F 00 1A 04 0F 00 05 00 02 00 05 00 02 00 05 00 02 00 05 00 02 00 B8 40 D0 20 F8 00 D8 20 B0 40 D8 20 F8 00 D0 20 40 00 A0 00 40 00 A0 00 40 00 A0 00 40 00 A0 00 C0 7F C0 7F C1 7F C3 7E FF 7C FF 00 01 01 03 03 00 00 00 00 00 00 00 00 00 00 00 00 01 00 03 00
+Track 1, breakpoint at PC 888516, A:2CD9,X:0440,Y:0014,D:0300,DB:7E; CPU MEM $5800-$582F: all 0 bytes; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 48 00 00 00 48 00 00 00 00 00 00 00 00 00 00 00 64 01
+# Didn't calculate WRAM MEM offset for 88854E, outside of $1BE0-$1CFF were mostly 00 so I grabbed what looked interesting.
+Track 1, breakpoint at PC 88854E, A:01B2,X:004C,Y:0018,D:0300,DB:7E; WRAM MEM $1D78-$1D79: 7C 01; WRAM MEM $1D92-$1D93: 20 01; WRAM MEM $1BE0-$1CFF: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF A0 65 FF FF FF FF FF FF FF FF E0 12 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF C0 2C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 60 48 FF FF FF FF 80 20 60 3C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7C 01; WRAM MEM 0x1F00 for 0x20 bytes: F8 0F 00 10 18 00 08 00 0A 00 FE 11 00 12 1C 00 02 00 0A 00 FC 13 00 14 1A 00 04 00 0A 00 00 00;
+Track 1, breakpoint at PC 8885AA, A:0480,X:0260,Y:0018,D:0300,DB:00; CPU MEM $2115-$2116: 00 00; CPU MEM $4370-4376: 01 18 C0 37 7F A0 04; CPU MEM $7F37C0-$7F3C5F: C1 7F C0 7F C0 7F C0 7F C0 7F C1 7F C3 7E C7 7C 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E0 3F F0 9F 78 CF 78 CF F0 9F E0 3F C0 7F 80 FF 20 1F 10 0F 08 07 08 07 10 0F 20 1F 40 3F 80 7F FC 07 FE 73 CF 79 C7 7C C3 7E C1 7F C3 7E C7 7C 04 03 02 01 01 00 00 00 00 00 00 00 00 00 00 00 0F F8 07 FD 03 FE 81 FF C0 7F E0 3F C0 7F 81 FF 08 F0 04 F8 02 FC 81 7E 40 3F 20 1F 40 3F 81 7E 00 00 1F 1F F8 0F FC 77 CE 7B C7 7D C3 7E C3 7E 00 00 1F 00 08 07 04 03 02 01 01 00 00 00 00 00 00 00 C0 C0 3E E0 1E F4 0E F8 06 FC 82 FE 82 FE 00 00 C0 00 20 C0 10 E0 08 F0 04 F8 82 7C 82 7C 00 00 00 00 00 00 1F 1F 10 1F F8 0F FC 77 CE 7B 00 00 00 00 00 00 1F 00 10 0F 08 07 04 03 02 01 00 00 00 00 00 00 00 00 80 80 78 C0 38 F0 18 F0 00 00 00 00 00 00 00 00 80 00 40 80 20 C0 10 E0 00 00 00 00 00 00 00 00 00 00 3E 3E F1 1F F8 6F 00 00 00 00 00 00 00 00 00 00 3E 00 11 0E 08 07 00 00 00 00 00 00 00 00 00 00 00 00 E0 00 E0 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 18 F0 08 F8 04 FC 08 F8 18 F0 38 E0 78 D0 F8 B0 10 E0 08 F0 04 F8 08 F0 10 E0 20 C0 40 80 80 00 F8 70 F8 00 00 00 00 00 00 00 00 00 00 00 E0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 07 07 04 07 FE 03 FF 79 C7 7C C3 7E 00 00 00 00 07 00 04 03 02 01 01 00 00 00 00 00 00 00 00 00 FC FC 02 FE 01 FF 00 FF 80 FF C0 7F 00 00 00 00 FC 00 02 FC 01 FE 00 FF 80 7F 40 3F 00 00 00 00 00 00 00 00 F8 00 F8 B0 78 D0 38 E0 00 00 00 00 00 00 00 00 00 00 80 00 40 80 20 C0 00 00 00 00 00 00 00 00 00 00 00 00 FF FF 40 7F 00 00 00 00 00 00 00 00 00 00 00 00 FF 00 40 3F FF 79 FE 03 07 07 00 00 00 00 00 00 00 00 3F 00 01 00 02 01 07 00 00 00 00 00 00 00 00 00 00 00 01 FF 03 FE FC FC FC 20 DC 70 DC 78 DC 78 DF 78 01 FE 02 FC FC 00 00 20 00 70 00 78 00 78 00 78 CF 79 FE 73 FC 07 0F 0F 01 00 01 00 01 00 3F 00 01 00 02 01 04 03 0F 00 00 00 00 00 00 00 00 00 03 FE 07 FD 0F F8 F0 F0 E0 80 60 C0 60 C0 7E C0 02 FC 04 F8 08 F0 F0 00 00 80 00 C0 00 C0 00 C0 C7 7D CE 7B FC 77 F8 0F 1F 1F 03 01 02 03 3E 03 01 00 02 01 04 03 08 07 1F 00 00 01 00 03 00 03 06 FC 0E F8 1E F4 3E E0 C0 C0 80 00 80 80 F8 80 04 F8 08 F0 10 E0 20 C0 C0 00 00 00 00 80 00 80 C7 7D CE 7B FC 77 F8 0F 1F 1F 07 02 05 07 7D 07 01 00 02 01 04 03 08 07 1F 00 00 02 00 07 00 07 08 F8 18 F0 38 F0 78 C0 80 80 00 00 00 00 F0 00 08 F0 10 E0 20 C0 40 80 80 00 00 00 00 00 00 00 DC 77 CE 7B DC 77 F8 6F F1 1F 3E 3E 0E 04 7B 06 04 03 02 01 04 03 08 07 11 0E 3E 00 00 04 00 06 60 C0 20 E0 60 C0 E0 C0 E0 00 00 00 00 00 C0 00 40 80 20 C0 40 80 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 80 00 80 00 80 80 40 C0 80 80 80 00 80 00 80 00 00 00 00 00 80 00 40 80 80 00 00 00 00 00 00 00 E1 1E F0 6F D8 77 F0 6F E1 5F C3 3C 0C 00 77 0C 00 1E 00 0F 00 07 00 0F 00 1E 00 3C 00 00 00 0C 80 00 80 00 00 80 80 00 80 00 80 00 00 00 00 00 00 00 00 00 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 00 00 00 38 E2 1C 90 6E 90 6E E2 1C 00 38 18 10 00 00 00 38 00 1C 00 0E 00 0E 00 1C 00 38 00 10 00 00 00 00 00 30 E4 18 B0 6C A4 58 CC 30 30 10 00 00 00 00 00 30 00 18 00 0C 00 18 00 30 00 10 00 00 00 00 00 00 00 00 C8 30 A0 58 C8 30 20 00 00 00 00 00 00 00 00 00 00 30 00 18 00 30 00 00 00 00 00 00 00 00 00 00 00 00 B0 60 D0 60 20 00 00 00 00 00 00 00 00 00 00 00 00 40 00 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 C0 60 A0 60 00 00 00 00 00 00 00 00 00 00 00 00 00 20 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40
+Track 1, breakpoint at PC 888AFB, A:00B2,X:926E,Y:0000,D:0300,DB:7E; CPU MEM $5800-$582F: all 0 bytes; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 48 00 48 00 48 00 48 00 00 00 00 00 10 00 00 00 64 01
+Track 1, breakpoint at PC 888AFB, A:5B90,X:926E,Y:0004,D:0300,DB:7E; CPU MEM $5800-$582F: all 0 bytes; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 48 00 48 00 48 00 48 00 00 00 00 00 10 00 00 00 64 01
+# Didn't calculate WRAM MEM offset for 888B33, outside of $1BE0-$1CFF were mostly 00 so I grabbed what looked interesting.
+Track 1, breakpoint at PC 888B33, A:0120,X:00A2,Y:0008,D:0300,DB:7E; WRAM MEM $1D3C-$1D3D: B2 01; WRAM MEM $1D78-$1D79: 7C 01; WRAM MEM $1D92-$1D93: 20 01; WRAM MEM $1BE0-$1CFF: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF A0 65 FF FF FF FF FF FF FF FF E0 12 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF C0 2C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 60 48 FF FF FF FF 80 20 60 3C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7C 01; WRAM MEM 0x1F00 for 0x20 bytes: F8 0F 00 10 18 00 08 00 0A 00 FE 11 00 12 1C 00 02 00 0A 00 FC 13 00 14 1A 00 04 00 0A 00 00 00;
+Track 1, breakpoint at PC 888AFB, A:00B2,X:0510,Y:0008,D:0300,DB:7E; CPU MEM $5800-$582F: all 0 bytes; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 48 00 48 00 48 00 48 00 00 00 00 00 10 00 00 00 64 01
+Track 1, breakpoint at PC 888AFB, A:08BE,X:0510,Y:000C,D:0300,DB:7E; CPU MEM $5800-$582F: all 0 bytes; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 48 00 48 00 48 00 48 00 00 00 00 00 10 00 00 00 64 01
+Track 1, breakpoint at PC 888B33, A:017C,X:000E,Y:0010,D:0300,DB:7E; WRAM MEM $1D3C-$1D3D: B2 01; WRAM MEM $1D78-$1D79: 9C 01; WRAM MEM $1D92-$1D93: 20 01; WRAM MEM $1BE0-$1CFF: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF A0 65 FF FF FF FF FF FF FF FF E0 12 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF C0 2C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 60 48 FF FF FF FF 80 20 60 3C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7C 01; WRAM MEM 0x1F00 for 0x20 bytes: F8 0F 00 10 18 00 08 00 0A 00 FE 11 00 12 1C 00 02 00 0A 00 FC 13 00 14 1A 00 04 00 0A 00 00 00;
+Track 1, breakpoint at PC 888AFB, A:4ECE,X:0070,Y:0010,D:0300,DB:7E; CPU MEM $5800-$582F: all 0 bytes; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 48 00 48 00 48 00 48 00 00 00 00 00 10 00 00 00 64 01
+Track 1, breakpoint at PC 888B33, A:019C,X:0088,Y:0014,D:0300,DB:7E; WRAM MEM $1D3C-$1D3D: B2 01; WRAM MEM $1D78-$1D79: 9C 01; WRAM MEM $1D92-$1D93: 20 01; WRAM MEM $1BE0-$1CFF: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF A0 65 FF FF FF FF FF FF FF FF E0 12 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF C0 2C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 60 48 FF FF FF FF 80 20 60 3C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7C 01; WRAM MEM 0x1F00 for 0x20 bytes: F8 0F 00 10 18 00 08 00 0A 00 FE 11 00 12 1C 00 02 00 0A 00 FC 13 00 14 1A 00 04 00 0A 00 00 00;
+Track 1, breakpoint at PC 888AFB, A:2CD9,X:0440,Y:0014,D:0300,DB:7E; CPU MEM $5800-$582F: all 0 bytes; WRAM MEM $50-$5F: 00 00 00 00 00 00 00 00 00 80 00 00 00 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 48 00 48 00 48 00 48 00 00 00 00 00 10 00 00 00 64 01
+Track 1, breakpoint at PC 888B33, A:01B2,X:004C,Y:0018,D:0300,DB:7E; WRAM MEM $1D3C-$1D3D: B2 01; WRAM MEM $1D78-$1D79: 9C 01; WRAM MEM $1D92-$1D93: 20 01; WRAM MEM $1BE0-$1CFF: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF A0 65 FF FF FF FF FF FF FF FF E0 12 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF C0 2C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 60 48 FF FF FF FF 80 20 60 3C FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7C 01; WRAM MEM 0x1F00 for 0x20 bytes: F8 0F 00 10 18 00 08 00 0A 00 FE 11 00 12 1C 00 02 00 0A 00 FC 13 00 14 1A 00 04 00 0A 00 00 00;
+Track 1, breakpoint at PC 889A87, A:0004,X:0040,Y:0080,D:0300,DB:7E; $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; $5830-$5CFF: all 0 bytes; $5D00-$5D3F: 00 00 90 4B 00 00 C2 03 00 00 D9 2C 00 00 EC 00 00 00 EC 00 C0 01 90 5B C0 01 B2 00 C0 01 BE 08 C3 01 B2 00 07 02 CE 4E C0 02 C2 00 C0 02 C2 00 C0 02 EC 4F FF FF 00 00 00 00 00 00 00 00 00 00; $5D40-$5FFF: all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 20 00 00 00 00 00 04 00 00 77 01 00 00 77 01 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 48 00 48 00 48 00 48 00 00 00 00 00 10 00 10 00 64 01
+Track 1, breakpoint at PC 889A87, A:0004,X:0048,Y:0090,D:0300,DB:7E; $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; $5830-$5CFF: all 0 bytes; $5D00-$5D3F: 00 00 90 4B 00 00 C2 03 00 00 D9 2C 00 00 EC 00 00 00 EC 00 C0 01 90 5B C0 01 B2 00 C0 01 BE 08 C3 01 B2 00 07 02 CE 4E C0 02 C2 00 C0 02 C2 00 C0 02 EC 4F FF FF 00 00 00 00 00 00 00 00 00 00; $5D40-$5FFF: all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 24 00 00 00 00 00 04 00 A0 6D 01 00 A0 6D 01 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 6F 00 48 00 6F 00 48 00 14 00 00 00 10 00 10 00 64 01
+Track 1, breakpoint at PC 889A87, A:0004,X:0050,Y:00A0,D:0300,DB:7E; $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; $5830-$5CFF: all 0 bytes; $5D00-$5D3F: 00 00 90 4B 00 00 C2 03 00 00 D9 2C 00 00 EC 00 00 00 EC 00 C0 01 90 5B C0 01 B2 00 C0 01 BE 08 C3 01 B2 00 07 02 CE 4E C0 02 C2 00 C0 02 C2 00 C0 02 EC 4F FF FF 00 00 00 00 00 00 00 00 00 00; $5D40-$5FFF: all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 28 00 00 00 00 00 04 00 E0 4B 01 00 E0 4B 01 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 73 00 48 00 73 00 48 00 14 00 00 00 10 00 10 00 64 01
+Track 1, breakpoint at PC 889A87, A:0004,X:0058,Y:00B0,D:0300,DB:7E; $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; $5830-$5CFF: all 0 bytes; $5D00-$5D3F: 00 00 90 4B 00 00 C2 03 00 00 D9 2C 00 00 EC 00 00 00 EC 00 C0 01 90 5B C0 01 B2 00 C0 01 BE 08 C3 01 B2 00 07 02 CE 4E C0 02 C2 00 C0 02 C2 00 C0 02 EC 4F FF FF 00 00 00 00 00 00 00 00 00 00; $5D40-$5FFF: all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 2C 00 00 00 00 00 04 00 20 0C 01 00 20 0C 01 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 77 00 48 00 77 00 48 00 14 00 00 00 10 00 10 00 64 01
+Track 1, breakpoint at PC 889A87, A:0004,X:0060,Y:00C0,D:0300,DB:7E; $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; $5830-$5CFF: all 0 bytes; $5D00-$5D3F: 00 00 90 4B 00 00 C2 03 00 00 D9 2C 00 00 EC 00 00 00 EC 00 C0 01 90 5B C0 01 B2 00 C0 01 BE 08 C3 01 B2 00 07 02 CE 4E C0 02 C2 00 C0 02 C2 00 C0 02 EC 4F FF FF 00 00 00 00 00 00 00 00 00 00; $5D40-$5FFF: all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 30 00 00 00 00 00 04 00 60 AE 00 00 60 AE 00 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 7B 00 48 00 7B 00 48 00 14 00 00 00 10 00 10 00 64 01
+Track 1, breakpoint at PC 889A87, A:0004,X:0068,Y:00D0,D:0300,DB:7E; $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; $5830-$5CFF: all 0 bytes; $5D00-$5D3F: 00 00 90 4B 00 00 C2 03 00 00 D9 2C 00 00 EC 00 00 00 EC 00 C0 01 90 5B C0 01 B2 00 C0 01 BE 08 C3 01 B2 00 07 02 CE 4E C0 02 C2 00 C0 02 C2 00 C0 02 EC 4F FF FF 00 00 00 00 00 00 00 00 00 00; $5D40-$5FFF: all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 34 00 00 00 00 00 04 00 20 58 00 00 20 58 00 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 7F 00 48 00 7F 00 48 00 14 00 00 00 10 00 10 00 64 01
+Track 1, breakpoint at PC 889A87, A:0004,X:0070,Y:00E0,D:0300,DB:7E; $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; $5830-$5CFF: all 0 bytes; $5D00-$5D3F: 00 00 90 4B 00 00 C2 03 00 00 D9 2C 00 00 EC 00 00 00 EC 00 C0 01 90 5B C0 01 B2 00 C0 01 BE 08 C3 01 B2 00 07 02 CE 4E C0 02 C2 00 C0 02 C2 00 C0 02 EC 4F FF FF 00 00 00 00 00 00 00 00 00 00; $5D40-$5FFF: all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 38 00 00 00 00 00 04 00 E0 1F 00 00 E0 1F 00 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 83 00 48 00 83 00 48 00 14 00 00 00 10 00 10 00 64 01
