@@ -1,0 +1,1374 @@
+Chat 'ChatTitle(text=" main.cpp contains…" with Codex, isCustom=true)' (75b27a51-ced9-4614-8f5e-35d6ce21ddcc)
+Context:
+
+Messages: 80
+=============================================================================================================
+
+==== RestoredMessage #1 ====
+User: 
+ main.cpp contains code to randomize a US based ROM and I've got my legally dumped ROM named Top Gear 2.smc in this directory as well.  I've found the data table inside the ROM that is responsible for track order and some info like weather type. But the minimap that's present during racing doesn't change, so I think I'm missing some data tables. 
+
+Can you you do the following:
+  1. Dump and decode the full 8-byte structure of your known track table (0x50000–0x501FE) to identify what each of the 8 bytes means per track
+  2. Check nearby ROM regions for parallel tables with the same stride (64 entries)
+  3. Search for pointer patterns that might reference minimap graphics
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+  1. Dump and decode the full 8-byte structure of your known track table (0x50000–0x501FE) to identify what each of the 8 bytes means per track
+  2. Check nearby ROM regions for parallel tables with the same stride (64 entries)
+  3. Search for pointer patterns that might reference minimap graphics
+
+
+
+kotlin.Unit
+
+==== RestoredMessage #2 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #3 ====
+User: 
+Can you explain to me how to do the translation from  0A:827C -> PC 0x05027C?
+
+kotlin.Unit
+
+==== RestoredMessage #4 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #5 ====
+User: 
+Yes please
+
+kotlin.Unit
+
+==== RestoredMessage #6 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #7 ====
+User: 
+Yes please
+
+kotlin.Unit
+
+==== RestoredMessage #8 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #9 ====
+User: 
+Yes please
+
+kotlin.Unit
+
+==== RestoredMessage #10 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #11 ====
+User: 
+I've updated main.cpp to modify all four tables in lockstep, but there is no effect on the minimap. Are there any other tables you can identify that may not be 8 bytes long?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #12 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #13 ====
+User: 
+I've tried randomizing these eight addresses, one at a time:
+0x50000,0x50A00,0x50C00,0x50E00,0x51300,0x51400,0x51500,0x51600
+My latest attempt for 0x51600 is in main.cpp. I see no change in the minimap whatsoever. We should go back to the drawing board, take a step back and figure out where the table for minimap might be
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #14 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #15 ====
+User: 
+I've added a comment on line 124 on main.cpp, can you add a fmt::println in a loop for each entry in the top-level block and print the start and end of each track?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #16 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #17 ====
+User: 
+Does the output look correct?
+track 00: 0502DC - 050313
+track 01: 050314 - 05034B
+track 02: 0504BC - 050503
+track 03: 0515E0 - 051677
+track 04: 0509E4 - 050A33
+track 05: 050A34 - 050A87
+track 06: 051420 - 0514A3
+track 07: 051578 - 0515DF
+track 08: 05034C - 05038F
+track 09: 050F10 - 050F8F
+track 10: 05177C - 051803
+track 11: 05188C - 05190B
+track 12: 050200 - 050223
+track 13: 05027C - 0502A7
+track 14: 050484 - 0504BB
+track 15: 050880 - 0508CF
+track 16: 0503CC - 050403
+track 17: 050D24 - 050D7F
+track 18: 050F90 - 050FFF
+track 19: 051000 - 05107B
+track 20: 050404 - 05043F
+track 21: 050554 - 0505B3
+track 22: 050698 - 0506E7
+track 23: 050D80 - 050E03
+track 24: 0502A8 - 0502DB
+track 25: 050C3C - 050CB3
+track 26: 050E04 - 050E7F
+track 27: 051340 - 0513B7
+track 28: 050224 - 05024F
+track 29: 050440 - 050483
+track 30: 0508D0 - 050933
+track 31: 051678 - 0516EB
+track 32: 0505FC - 050647
+track 33: 0506E8 - 050727
+track 34: 050934 - 05098B
+track 35: 05098C - 0509E3
+track 36: 050648 - 050697
+track 37: 051104 - 051173
+track 38: 051250 - 0512C7
+track 39: 0514A4 - 051513
+track 40: 050824 - 05087F
+track 41: 051804 - 05188B
+track 42: 0516EC - 05177B
+track 43: 05190C - 051987
+track 44: 0505B4 - 0505FB
+track 45: 0507D0 - 050823
+track 46: 0511EC - 05124F
+track 47: 051514 - 051577
+track 48: 050504 - 050553
+track 49: 050CB4 - 050D23
+track 50: 05107C - 051103
+track 51: 051174 - 0511EB
+track 52: 050250 - 05027B
+track 53: 050390 - 0503CB
+track 54: 050BC8 - 050C3B
+track 55: 0513B8 - 05141F
+track 56: 050728 - 050777
+track 57: 050778 - 0507CF
+track 58: 050B5C - 050BC7
+track 59: 051988 - 0FFFFF
+track 60: 050AF0 - 050B5B
+track 61: 050A88 - 050AEF
+track 62: 050E80 - 050F0F
+track 63: 0512C8 - 05133F
+
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #18 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #19 ====
+User: 
+Yes, can you make track 59 correct, add block length, dump word1 and counts of C000/EC00
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #20 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #21 ====
+User: 
+Can you explain the gap between in address end of previous track and start of new track for some of the tracks?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #22 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #23 ====
+User: 
+Ah, so I have a naive reverse order of tracks on lines 196-204, but that is not going to work then. How do I reverse the order, respecting the gaps?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #24 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #25 ====
+User: 
+I've applied your suggestion of repacking blocks, but the minimap is still wrong. So the minimap is not in the 0x50000 - 0x5133F range
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #26 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #27 ====
+User: 
+But I've already confirmed that by reshuffling 0x50000 in earlier attempts (see disabled path in lines 226-282), the minimap does not change. So again, there's nothing in the range 0x50000 - 0x5133f that has an impact on the minimap
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #28 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #29 ====
+User: 
+How long and which stride is the table at 0x0490C0?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #30 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #31 ====
+User: 
+If I just want to swap the first two entries in that table, is this correct?
+```c/c++
+bytes[0x490C0] = 0x3D;
+bytes[0x490C1] = 0x91;
+bytes[0x490C2] = 0x36;
+bytes[0x490C3] = 0x91;
+```
+
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    bytes[0x490C0] = 0x3D;
+    bytes[0x490C1] = 0x91;
+    bytes[0x490C2] = 0x36;
+    bytes[0x490C3] = 0x91;
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #32 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #33 ====
+User: 
+I tried this:
+```c/c++
+for(uint32_t addr = 0x490C0; addr < 0x49134; addr += 1) {
+    bytes[addr] = 0x3D;
+}
+```
+
+
+And I see no change in the minimap. Is there another likely suspect?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x490C0; addr < 0x49134; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #34 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #35 ====
+User: 
+I tried another experiment with
+```c/c++
+for(uint32_t addr = 0x48000; addr < 0x49000; addr += 1) {
+    bytes[addr] = 0x3D;
+}
+```
+And the track itself disappeared, but the minimap was still intact and showing the first track of the game. So I think we can rule out 0x48000-0x48FFF as well as 0x5133F
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x48000; addr < 0x49000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #36 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #37 ====
+User: 
+I executed the following
+```c/c++
+for(uint32_t addr = 0x49000; addr < 0x50000; addr += 1) {
+    bytes[addr] = 0x3D;
+}
+```
+
+And I saw that both the track and the HUD and minimap are all normal for the first track at the start of the game. But the rendering code seemed to render part of the track on the top half of the screen, behind the HUD.
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x49000; addr < 0x50000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #38 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #39 ====
+User: 
+Using 
+```c/c++
+for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+    bytes[addr] = 0x3D;
+}
+```
+It rendered part of the track distorted on the top half of the screen again, but minimap, track and HUD were all fine.
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #40 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #41 ====
+User: 
+For linux, is bsnes-plus or mesen-s better to set these breakpoints?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #42 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #43 ====
+User: 
+In mesen 2, how do I add a breakpoint on writes to VRAM/DMA
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #44 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #45 ====
+User: 
+DMA Channels 1, 2, 3 and 4 are enabled.
+
+$4311 -> $18
+$4312/$4313 -> $F5B5
+$4314 -> $81
+$4315/$4316 -> $0000
+
+$4321 -> $22
+$4322/$4323 -> $F5B5
+$4324 -> $81
+$4325/$4326 -> $0200
+
+$4331 -> $34
+$4332/$4333 -> $0800
+$4334 -> $7E
+$4335/$4336 -> $F600
+
+$4341 -> $34
+$4342/$4343 -> $0000
+$4344 -> $7F
+$4345/$4346 -> $0000
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #46 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #47 ====
+User: 
+The values I gave you in the previous message where gotten from a breakpoint on PC 0x81F52A, which shows REP #$20, ROM address shows $F52A and Function shows $81F470.
+
+Should I disable the breakpoints on $4300-$437F and $2116-$2119? That still leaves the breakpoint on $420B. Should I press continue and give you the requested dumps?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #48 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #49 ====
+User: 
+I have a lot of memory types: CPU Memory, SPC Memory, PRG ROM, Work RAM, Video RAM, OAM (Sprites), CG RAM (Palette), SPC RAM, SPC ROM (IPL), SPC DSP Registers.
+
+The addresses you're asking for, which of these do I look at?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #50 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #51 ====
+User: 
+Okay, I'm at the breakpoint on PC $888582, function $888000, ROM address $40582. It shows STA $420B [MDMAEN] = $00.
+
+$420B -> 0
+$2115 -> 0
+$2116 -> 0
+$2117 -> 0
+$2121 -> 0
+
+This is the memory starting from 4300:
+82 34 FD 07 7E 00 00 FF FF FF FF FF 00 00 00 FF
+09 18 B5 F5 81 00 00 9F 55 B8 00 FF 00 00 00 FF
+0A 22 B5 F5 81 00 00 FF FF FF FF FF 00 00 00 FF
+82 34 00 FE 7E 00 00 FF FF FF FF FF 00 00 00 FF
+82 34 00 00 7F 00 00 FF FF FF FF FF 00 00 00 FF
+
+
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #52 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #53 ====
+User: 
+Before I go to the next breakpoint, Mesen shows a status window with A: 0A00, X: 0510, Y: 0008, PC: 888582, D: 0300, DB: 00. Is the A field here the accumulator?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #54 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #55 ====
+User: 
+I went to the next $420B breakpoint and A now shows 0880 and the instruction shows STA $420B [MDMAEN] = $80. Is this the breakpoint we want?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #56 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #57 ====
+User: 
+4370 - 4376: 01 18 80 0A 7F 60 08
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #58 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #59 ====
+User: 
+2115  - 2117 are still 0
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #60 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #61 ====
+User: 
+Here's the assembly before and including the current breakpoint (last line is current breakpoint):
+88857E  E2 20          SEP #$20
+888580  A9 00          LDA #$00
+888582  8D 0B 42       STA $420B
+888585  A9 7F          LDA #$7F
+888587  8D 74 43       STA $4374
+88858A  A9 80          LDA #$80
+88858C  8D 15 21       STA $2115
+88858F  C2 20          REP #$20
+888591  A5 3A          LDA $3A
+888593  8D 16 21       STA $2116
+888596  A9 01 18       LDA #$1801
+888599  8D 70 43       STA $4370
+88859C  A5 3C          LDA $3C
+88859E  8D 72 43       STA $4372
+8885A1  A5 3E          LDA $3E
+8885A3  8D 75 43       STA $4375
+8885A6  E2 20          SEP #$20
+8885A8  A9 80          LDA #$80
+8885AA  8D 0B 42       STA $420B
+
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #62 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #63 ====
+User: 
+033A - 033F: 00 52 80 0A 60 08
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #64 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #65 ====
+User: 
+If I want to break at 8885AA then do I set an execute only breakpoint on PRG ROM 405AA?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #66 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #67 ====
+User: 
+I'm on track one and I hit a breakpoint with a write to $033A. PC $888516 ROM $40516, A: 00B2, X: 0510, Y:0008, D: 0300, DB: 7E
+
+Which information did you want at this point?
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #68 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #69 ====
+User: 
+8884E2  BF 00 00 89    LDA $890000,X
+8884E6  29 FF 03       AND #$03FF
+8884E9  A8             TAY
+8884EA  29 80 03       AND #$0380
+8884ED  D0 02          BNE $8884F1
+8884EF  84 0C          STY $0C
+8884F1  C6 3E          DEC $3E
+8884F3  D0 BD          BNE $8884B2
+8884F5  86 06          STX $06
+8884F7  A9 48 00       LDA #$0048
+8884FA  85 5E          STA $5E
+8884FC  85 62          STA $62
+8884FE  A5 5A          LDA $5A
+888500  D0 03          BNE $888505
+888502  82 BB 00       BRL $8885C0
+888505  A0 00 00       LDY #$0000
+888508  A9 48 00       LDA #$0048
+88850B  D9 00 58       CMP $5800,Y
+88850E  B0 03          BCS $888513
+888510  82 A0 00       BRL $8885B3
+888513  B9 02 58       LDA $5802,Y
+888516  85 3A          STA $3A
+888518  C8             INY
+888519  C8             INY
+88851A  C8             INY
+88851B  C8             INY
+88851C  EB             XBA
+88851D  29 FF 00       AND #$00FF
+888520  D0 0A          BNE $88852C
+888522  A5 3A          LDA $3A
+888524  29 FF 00       AND #$00FF
+888527  0A             ASL
+888528  85 6E          STA $6E
+88852A  80 DC          BRA $888508
+88852C  0A             ASL
+88852D  0A             ASL
+88852E  AA             TAX
+88852F  8B             PHB
+888530  E2 20          SEP #$20
+888532  BF E5 DB 8B    LDA $8BDBE5,X
+888536  48             PHA
+888537  C2 20          REP #$20
+888539  BF E3 DB 8B    LDA $8BDBE3,X
+88853D  AA             TAX
+88853E  AB             PLB
+88853F  BD 08 00       LDA $0008,X
+888542  AA             TAX
+888543  BD 02 00       LDA $0002,X
+888546  AA             TAX
+888547  AB             PLB
+888548  A5 3A          LDA $3A
+88854A  29 FF 00       AND #$00FF
+88854D  0A             ASL
+88854E  9D F0 1C       STA $1CF0,X
+
+
+$033A-$033F: B2 00 80 0A 60 08
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #70 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #71 ====
+User: 
+The next 8885AA breakpoint has the following 330-337 values: C0 57 A0 1C E0 03
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #72 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #73 ====
+User: 
+And just for good measure, still track 1, another 8885AA 330-337 values: C0 59 00 2A C0 02
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #74 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #75 ====
+User: 
+Breakpoint on 8885AA
+
+Track 1 $7F0A80:
+3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A
+7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A
+7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+
+Track 1 $7F1CA0:
+FE FF 3F 00 3E 00 3E 00 3E 00 FE 00 FE FF 3F 00
+00 00 00 00 17 00 17 00 17 00 17 00 00 00 00 00
+B5 FF FF 00 31 30 31 30 31 30 01 00 B5 FF FF 00
+B4 00 00 00 FF 00 FF 00 FF 00 FF 00 B4 00 00 00
+7F 00 38 00 B8 00 BB FF 7F 00 38 00 38 00 B8 00
+00 00 5F 00 5F 00 03 00 00 00 5F 00 5F 00 5F 00
+FE 00 1C 00 1D 00 DD FF FE 00 1C 00 1C 00 1D 00
+00 00 FA 00 FA 00 C0 00 00 00 FA 00 FA 00 FA 00
+
+
+
+Track 1 $7F2A00:
+1F 00 3B 04 7F 00 7B 04 7F 00 3A 05 3F 00 7B 04
+02 00 05 00 02 00 05 00 02 00 05 00 02 00 05 00
+7C 00 EE 10 7F 00 EF 10 7F 00 AE 50 7E 00 EF 10
+A0 00 50 00 A0 00 50 00 A0 00 50 00 A0 00 50 00
+00 00 00 00 1F 00 3B 04 3F 00 3B 04 1D 02 1B 04
+00 00 00 00 02 00 05 00 02 00 05 00 02 00 05 00
+00 00 00 00 7C 00 EE 10 7E 00 EE 10 5C A0 EC 10
+00 00 00 00 A0 00 50 00 A0 00 50 00 A0 00 50 00
+
+
+
+Track 2 $7F0A80:
+3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A
+7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A
+7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+
+Track 2 $7F1CA0:
+FE FF 3F 00 3E 00 3E 00 3E 00 FE 00 FE FF 3F 00
+00 00 00 00 17 00 17 00 17 00 17 00 00 00 00 00
+B5 FF FF 00 31 30 31 30 31 30 01 00 B5 FF FF 00
+B4 00 00 00 FF 00 FF 00 FF 00 FF 00 B4 00 00 00
+7F 00 38 00 B8 00 BB FF 7F 00 38 00 38 00 B8 00
+00 00 5F 00 5F 00 03 00 00 00 5F 00 5F 00 5F 00
+FE 00 1C 00 1D 00 DD FF FE 00 1C 00 1C 00 1D 00
+00 00 FA 00 FA 00 C0 00 00 00 FA 00 FA 00 FA 00
+
+
+
+Track 2 $7F2A00:
+1F 00 3B 04 7F 00 7B 04 7F 00 3A 05 3F 00 7B 04
+02 00 05 00 02 00 05 00 02 00 05 00 02 00 05 00
+7C 00 EE 10 7F 00 EF 10 7F 00 AE 50 7E 00 EF 10
+A0 00 50 00 A0 00 50 00 A0 00 50 00 A0 00 50 00
+00 00 00 00 1F 00 3B 04 3F 00 3B 04 1D 02 1B 04
+00 00 00 00 02 00 05 00 02 00 05 00 02 00 05 00
+00 00 00 00 7C 00 EE 10 7E 00 EE 10 5C A0 EC 10
+00 00 00 00 A0 00 50 00 A0 00 50 00 A0 00 50 00
+
+track 2 33a-33F 
+breakpoint 1: 00 52 80 0A 60 08
+breakpoint 2: 80 57 A0 1C E0 03
+breakpoing 3: 80 59 00 2A C0 02
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #76 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #77 ====
+User: 
+Before I do that, I notice that if I press start on the shopping menu (which always happens before a track) and I enable the write-only breakpoint on $7F0A80-$7F10DF, then I hit that breakpoint before the 8885AA breakpoint.
+
+This is the assembly around the PC 
+
+9FC2FE  BD 00 00       LDA $0000,X
+9FC301  99 00 00       STA $0000,Y
+9FC304  E8             INX
+9FC305  C8             INY
+9FC306  BD 00 00       LDA $0000,X
+9FC309  99 00 00       STA $0000,Y
+9FC30C  E8             INX
+9FC30D  E8             INX
+9FC30E  C8             INY
+9FC30F  C8             INY
+9FC310  BD 00 00       LDA $0000,X
+9FC313  99 00 00       STA $0000,Y
+9FC316  E8             INX
+9FC317  E8             INX
+9FC318  C8             INY
+9FC319  C8             INY
+9FC31A  BD 00 00       LDA $0000,X
+9FC31D  99 00 00       STA $0000,Y
+9FC320  E8             INX
+9FC321  E8             INX
+9FC322  C8             INY
+9FC323  C8             INY
+9FC324  C6 89          DEC $89
+9FC326  D0 F2          BNE $9FC31A
+9FC328  AB             PLB
+9FC329  4C 23 BF       JMP $BF23
+9FC32C  BD 00 00       LDA $0000,X
+9FC32F  99 00 00       STA $0000,Y
+9FC332  E8             INX
+9FC333  E8             INX
+9FC334  C8             INY
+9FC335  C8             INY
+9FC336  BD 00 00       LDA $0000,X
+9FC339  99 00 00       STA $0000,Y
+
+PC is 9FC31D, A: 31A2, X: 04D6, Y:0A80, D:0100, DB: 7F
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #78 ====
+Assistant: 
+
+
+kotlin.Unit
+
+==== RestoredMessage #79 ====
+User: 
+7F04D0:
+A1 31 02 A3 31 02 A2 31 02 A3 31 02 A1 31 02 A2
+31 02 A3 31 02 A2 31 02 A1 31 02 A3 31 02 A2 31
+02 A3 31 02 A1 31 02 A2 31 02 A3 31 02 31 02 A1
+31 02 A3 31 02 A2 31 02 A3 31 02 A1 31 02 A2 31
+02 A3 31 02 31 02 A1 31 02 A2 31 02 FF DE A9 3C
+01 CF 3C 01 DE 37 01 CF 3C 01 DE 30 01 CF 37 01
+DE 3C 01 CF 30 01 DE 37 01 CF 3C 01 DE 30 01 CF
+37 01 DE 3C 01 CF 30 01 DE 30 01 CF 3C 01 DE 3A
+
+7F0A80:
+00 00 00 00 00 00 03 00 03 00 01 02 03 02 05 04
+00 00 00 00 00 00 00 01 00 02 00 02 04 07 0B 0F
+60 1F 40 2A 52 12 FF 80 80 3F BF FE FF 80 E0 8E
+00 15 15 55 6D 7F 12 97 40 C0 01 FF 16 96 11 B1
+00 FF 00 AA 49 49 FF 00 80 6B 6A 2A FF 00 81 3E
+00 55 55 55 B6 FF 6C FF 94 94 D5 FF 3C 3C 40 41
+54 F8 08 AC 24 20 F8 00 00 F8 F8 F8 FC 00 0C E0
+00 58 50 5C D8 FC 2C FC 04 04 04 FC 70 70 18 18
+
+
+9FC2CE  29 1F FF       AND #$FF1F
+9FC2D1  EB             XBA
+9FC2D2  84 8B          STY $8B
+9FC2D4  18             CLC
+9FC2D5  69 03 00       ADC #$0003
+9FC2D8  49 FF FF       EOR #$FFFF
+9FC2DB  38             SEC
+9FC2DC  65 8B          ADC $8B
+9FC2DE  85 8B          STA $8B
+9FC2E0  BD 02 00       LDA $0002,X
+9FC2E3  29 FF 00       AND #$00FF
+9FC2E6  18             CLC
+9FC2E7  69 01 00       ADC #$0001
+9FC2EA  E8             INX
+9FC2EB  E8             INX
+9FC2EC  E8             INX
+9FC2ED  86 87          STX $87
+9FC2EF  8B             PHB
+9FC2F0  A6 85          LDX $85
+9FC2F2  DA             PHX
+9FC2F3  AB             PLB
+9FC2F4  AB             PLB
+9FC2F5  A6 8B          LDX $8B
+9FC2F7  4A             LSR
+9FC2F8  85 89          STA $89
+9FC2FA  90 0A          BCC $9FC306
+9FC2FC  F0 2E          BEQ $9FC32C
+9FC2FE  BD 00 00       LDA $0000,X
+9FC301  99 00 00       STA $0000,Y
+9FC304  E8             INX
+9FC305  C8             INY
+9FC306  BD 00 00       LDA $0000,X
+9FC309  99 00 00       STA $0000,Y
+9FC30C  E8             INX
+9FC30D  E8             INX
+9FC30E  C8             INY
+9FC30F  C8             INY
+9FC310  BD 00 00       LDA $0000,X
+9FC313  99 00 00       STA $0000,Y
+9FC316  E8             INX
+9FC317  E8             INX
+9FC318  C8             INY
+9FC319  C8             INY
+9FC31A  BD 00 00       LDA $0000,X
+9FC31D  99 00 00       STA $0000,Y
+9FC320  E8             INX
+9FC321  E8             INX
+9FC322  C8             INY
+9FC323  C8             INY
+9FC324  C6 89          DEC $89
+9FC326  D0 F2          BNE $9FC31A
+9FC328  AB             PLB
+9FC329  4C 23 BF       JMP $BF23
+9FC32C  BD 00 00       LDA $0000,X
+9FC32F  99 00 00       STA $0000,Y
+9FC332  E8             INX
+9FC333  E8             INX
+9FC334  C8             INY
+9FC335  C8             INY
+9FC336  BD 00 00       LDA $0000,X
+9FC339  99 00 00       STA $0000,Y
+9FC33C  E8             INX
+9FC33D  E8             INX
+9FC33E  C8             INY
+9FC33F  C8             INY
+9FC340  E2 20          SEP #$20
+
+Attachments:
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+        bytes[addr] = 0x3D;
+    }
+Attachment Name: Console Selection
+Attachments Kind: Visible
+Attachments Source: Other / RestoredChatAttachment
+Attachments Text:
+
+◦
+
+
+kotlin.Unit
+
+==== RestoredMessage #80 ====
+Assistant: 
+
+
+kotlin.Unit
+

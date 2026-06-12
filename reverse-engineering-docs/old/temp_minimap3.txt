@@ -1,0 +1,338 @@
+818000               --------data--------
+818044               ----------------
+818045  C2 30          REP #$30
+818047  A9 00 00       LDA #$0000
+81804A  5B             TCD
+81804B  A9 FF 07       LDA #$07FF
+81804E  1B             TCS
+81804F  AD 00 07       LDA $0700
+818052  C9 34 12       CMP #$1234
+818055  D0 08          BNE $81805F
+818057  AD 02 07       LDA $0702
+81805A  C9 78 56       CMP #$5678
+81805D  D0 00          BNE $81805F
+81805F  20 7F E1       JSR $E17F
+818062  20 70 F4       JSR $F470
+818065  20 B9 F5       JSR $F5B9
+818068  A9 34 12       LDA #$1234
+81806B  8D 00 07       STA $0700
+81806E  A9 78 56       LDA #$5678
+818071  8D 02 07       STA $0702
+818074  0B             PHD
+818075  A9 00 05       LDA #$0500
+818078  5B             TCD
+818079  E2 30          SEP #$30
+81807B  A9 08          LDA #$08
+81807D  8D FC 00       STA $00FC
+818080  64 98          STZ $98
+818082  A2 FF          LDX #$FF
+818084  AF 08 FE 7E    LDA $7EFE08
+818088  F0 02          BEQ $81808C
+81808A  A2 00          LDX #$00
+81808C  86 99          STX $99
+81808E  A9 01          LDA #$01
+818090  85 9A          STA $9A
+818092  A9 00          LDA #$00
+818094  85 9B          STA $9B
+818096  A9 00          LDA #$00
+818098  85 9D          STA $9D
+81809A  A9 00          LDA #$00
+81809C  85 9E          STA $9E
+81809E  A9 00          LDA #$00
+8180A0  85 A0          STA $A0
+8180A2  A9 00          LDA #$00
+8180A4  85 A1          STA $A1
+8180A6  A9 00          LDA #$00
+8180A8  85 A2          STA $A2
+8180AA  A9 00          LDA #$00
+8180AC  85 A7          STA $A7
+8180AE  A9 00          LDA #$00
+8180B0  85 A8          STA $A8
+8180B2  A9 00          LDA #$00
+8180B4  85 AE          STA $AE
+8180B6  C2 30          REP #$30
+8180B8  A9 FF FF       LDA #$FFFF
+8180BB  8D 96 05       STA $0596
+8180BE  2B             PLD
+8180BF  82 83 00       BRL $818145
+8180C2               --------unidentified--------
+818144               ----------------
+818150  4C 56 81       JMP $8156
+818153               --------unidentified--------
+818155               ----------------
+818156  C2 30          REP #$30
+818158  20 17 87       JSR $8717
+81815B  22 5E CD 80    JSL $80CD5E
+81815F  20 AB 8F       JSR $8FAB
+818162  A9 00 04       LDA #$0400
+818165  A2 10 C9       LDX #$C910
+818168  A0 00 78       LDY #$7800
+81816B  20 37 EF       JSR $EF37
+81816E  22 DA D0 80    JSL $80D0DA
+818172  22 74 CB 88    JSL $88CB74
+818176  22 00 80 8B    JSL $8B8000
+81817A  9C 1A 00       STZ $001A
+81817D  AF 1A FF 7E    LDA $7EFF1A
+818181  F0 09          BEQ $81818C
+818183  9C 26 00       STZ $0026
+818186  A9 FF FF       LDA #$FFFF
+818189  8D 24 00       STA $0024
+81818C  A9 FF FF       LDA #$FFFF
+81818F  8D 22 01       STA $0122
+818192  E2 20          SEP #$20
+818194  A9 00          LDA #$00
+818196  8D 0C 42       STA $420C
+818199  A9 FF          LDA #$FF
+81819B  8D 0E 21       STA $210E
+81819E  A9 03          LDA #$03
+8181A0  8D 0E 21       STA $210E
+8181A3  A9 7E          LDA #$7E
+8181A5  8D 04 43       STA $4304
+8181A8  8D 14 43       STA $4314
+8181AB  8D 24 43       STA $4324
+8181AE  8D 34 43       STA $4334
+8181B1  8D 44 43       STA $4344
+8181B4  A9 87          LDA #$87
+8181B6  8D 54 43       STA $4354
+8181B9  8D 64 43       STA $4364
+8181BC  A9 7E          LDA #$7E
+8181BE  8D 07 43       STA $4307
+8181C1  8D 17 43       STA $4317
+8181C4  A9 8D          LDA #$8D
+8181C6  8D 27 43       STA $4327
+8181C9  A9 8E          LDA #$8E
+8181CB  8D 37 43       STA $4337
+8181CE  A9 8F          LDA #$8F
+8181D0  8D 47 43       STA $4347
+8181D3  A9 87          LDA #$87
+8181D5  8D 57 43       STA $4357
+8181D8  8D 67 43       STA $4367
+8181DB  C2 20          REP #$20
+8181DD  A9 43 0F       LDA #$0F43
+8181E0  8D 00 43       STA $4300
+8181E3  A9 43 21       LDA #$2143
+8181E6  8D 10 43       STA $4310
+8181E9  8D 20 43       STA $4320
+8181EC  8D 30 43       STA $4330
+8181EF  8D 40 43       STA $4340
+8181F2  A9 44 26       LDA #$2644
+8181F5  8D 50 43       STA $4350
+8181F8  A9 43 11       LDA #$1143
+8181FB  8D 60 43       STA $4360
+8181FE  AD 8E 02       LDA $028E
+818201  8D 02 43       STA $4302
+818204  AD 8C 02       LDA $028C
+818207  8D 12 43       STA $4312
+81820A  8D 22 43       STA $4322
+81820D  8D 32 43       STA $4332
+818210  8D 42 43       STA $4342
+818213  A9 FA F5       LDA #$F5FA
+818216  8D 52 43       STA $4352
+818219  8D 62 43       STA $4362
+81821C  A9 00 00       LDA #$0000
+81821F  20 DA E2       JSR $E2DA
+818222  E2 20          SEP #$20
+818224  A9 7F          LDA #$7F
+818226  8D 0C 42       STA $420C
+818229  C2 20          REP #$20
+81822B  A9 79 AC       LDA #$AC79
+81822E  85 11          STA $11
+818230  A9 7F E4       LDA #$E47F
+818233  85 16          STA $16
+818235  E2 20          SEP #$20
+818237  A9 81          LDA #$81
+818239  85 13          STA $13
+81823B  85 18          STA $18
+81823D  C2 20          REP #$20
+81823F  A9 00 00       LDA #$0000
+818242  85 1A          STA $1A
+818244  85 1C          STA $1C
+818246  85 1E          STA $1E
+818248  85 62          STA $62
+81824A  85 64          STA $64
+81824C  A9 00 00       LDA #$0000
+81824F  20 DA E2       JSR $E2DA
+818252  58             CLI
+818253  A9 40 00       LDA #$0040
+818256  85 5B          STA $5B
+818258  A9 E0 01       LDA #$01E0
+81825B  8D F4 06       STA $06F4
+81825E  A9 00 80       LDA #$8000
+818261  0C 34 06       TSB $0634
+818264  0C 36 06       TSB $0636
+818267  9C AC 01       STZ $01AC
+81826A  9C C6 01       STZ $01C6
+81826D  A5 1A          LDA $1A
+81826F  3A             DEC
+818270  85 F6          STA $F6
+818272  AD 22 01       LDA $0122
+818275  30 FB          BMI $818272
+818277  E6 1E          INC $1E
+818279  A6 1A          LDX $1A
+81827B  8A             TXA
+81827C  38             SEC
+81827D  E5 F6          SBC $F6
+81827F  85 F8          STA $F8
+818281  86 F6          STX $F6
+818283  20 BF 83       JSR $83BF
+818286  90 03          BCC $81828B
+818288  4C 9D 83       JMP $839D
+81828B  22 41 8A 80    JSL $808A41
+81828F  22 26 D7 80    JSL $80D726
+818293  22 CA 8B 88    JSL $888BCA
+818297  22 74 CB 88    JSL $88CB74
+81829B  22 00 80 8B    JSL $8B8000
+81829F  AD 14 05       LDA $0514
+8182A2  D0 06          BNE $8182AA
+8182A4  A9 FF FF       LDA #$FFFF
+8182A7  8D 22 01       STA $0122
+8182AA  AD 00 05       LDA $0500
+8182AD  10 16          BPL $8182C5
+8182AF  AD 02 05       LDA $0502
+8182B2  D0 11          BNE $8182C5
+8182B4  20 5F E2       JSR $E25F
+
+
+                     --------sub start--------
+81F470  18             CLC
+81F471  FB             XCE
+81F472  D8             CLD
+81F473  E2 34          SEP #$34
+81F475  A9 82          LDA #$82
+81F477  48             PHA
+81F478  AB             PLB
+81F479  A9 00          LDA #$00
+81F47B  8D 00 42       STA $4200
+81F47E  AD 12 42       LDA $4212
+81F481  30 FB          BMI $81F47E
+81F483  AD 12 42       LDA $4212
+81F486  10 FB          BPL $81F483
+81F488  A9 00          LDA #$00
+81F48A  8D 0C 42       STA $420C
+81F48D  A9 80          LDA #$80
+81F48F  8D 00 21       STA $2100
+81F492  AD 12 42       LDA $4212
+81F495  30 FB          BMI $81F492
+81F497  AD 12 42       LDA $4212
+81F49A  10 FB          BPL $81F497
+81F49C  C2 30          REP #$30
+81F49E  A9 00 00       LDA #$0000
+81F4A1  5B             TCD
+81F4A2  A9 00 80       LDA #$8000
+81F4A5  8D 02 21       STA $2102
+81F4A8  A9 00 00       LDA #$0000
+81F4AB  8D 16 21       STA $2116
+81F4AE  E2 20          SEP #$20
+81F4B0  A9 00          LDA #$00
+81F4B2  8D 1C 21       STA $211C
+81F4B5  8D 0B 42       STA $420B
+81F4B8  A9 81          LDA #$81
+81F4BA  8D 04 43       STA $4304
+81F4BD  8D 14 43       STA $4314
+81F4C0  8D 24 43       STA $4324
+81F4C3  A9 7E          LDA #$7E
+81F4C5  8D 34 43       STA $4334
+81F4C8  A9 7F          LDA #$7F
+81F4CA  8D 44 43       STA $4344
+81F4CD  C2 20          REP #$20
+81F4CF  A9 0A 04       LDA #$040A
+81F4D2  8D 00 43       STA $4300
+81F4D5  A9 09 18       LDA #$1809
+81F4D8  8D 10 43       STA $4310
+81F4DB  A9 0A 22       LDA #$220A
+81F4DE  8D 20 43       STA $4320
+81F4E1  A9 82 34       LDA #$3482
+81F4E4  8D 30 43       STA $4330
+81F4E7  8D 40 43       STA $4340
+81F4EA  A9 B7 F5       LDA #$F5B7
+81F4ED  8D 02 43       STA $4302
+81F4F0  A9 B5 F5       LDA #$F5B5
+81F4F3  8D 12 43       STA $4312
+81F4F6  8D 22 43       STA $4322
+81F4F9  A9 00 08       LDA #$0800
+81F4FC  8D 32 43       STA $4332
+81F4FF  A9 00 00       LDA #$0000
+81F502  8D 42 43       STA $4342
+81F505  A9 20 02       LDA #$0220
+81F508  8D 05 43       STA $4305
+81F50B  A9 00 00       LDA #$0000
+81F50E  8D 15 43       STA $4315
+81F511  A9 00 02       LDA #$0200
+81F514  8D 25 43       STA $4325
+81F517  A9 00 F6       LDA #$F600
+81F51A  8D 35 43       STA $4335
+81F51D  A9 00 00       LDA #$0000
+81F520  8D 45 43       STA $4345
+81F523  E2 20          SEP #$20
+81F525  A9 1F          LDA #$1F
+81F527  8D 0B 42       STA $420B
+81F52A  C2 20          REP #$20
+81F52C  A5 C2          LDA $C2
+81F52E  8D 00 08       STA $0800
+81F531  A5 C4          LDA $C4
+81F533  8D 02 08       STA $0802
+81F536  A5 C6          LDA $C6
+81F538  8D 04 08       STA $0804
+81F53B  A5 C8          LDA $C8
+81F53D  8D 06 08       STA $0806
+81F540  A5 CA          LDA $CA
+81F542  8D 08 08       STA $0808
+81F545  A5 CC          LDA $CC
+81F547  8D 0A 08       STA $080A
+81F54A  A5 CE          LDA $CE
+81F54C  8D 0C 08       STA $080C
+81F54F  E2 20          SEP #$20
+81F551  A9 00          LDA #$00
+81F553  8D 1C 21       STA $211C
+81F556  8D 0B 42       STA $420B
+81F559  A9 7E          LDA #$7E
+81F55B  8D 04 43       STA $4304
+81F55E  C2 20          REP #$20
+81F560  A9 82 34       LDA #$3482
+81F563  8D 00 43       STA $4300
+81F566  A9 00 00       LDA #$0000
+81F569  8D 02 43       STA $4302
+81F56C  3B             TSC
+81F56D  8D 05 43       STA $4305
+81F570  E2 20          SEP #$20
+81F572  A9 01          LDA #$01
+81F574  8D 0B 42       STA $420B
+81F577  C2 20          REP #$20
+81F579  AD 00 08       LDA $0800
+81F57C  85 C2          STA $C2
+81F57E  AD 02 08       LDA $0802
+81F581  85 C4          STA $C4
+81F583  AD 04 08       LDA $0804
+81F586  85 C6          STA $C6
+81F588  AD 06 08       LDA $0806
+81F58B  85 C8          STA $C8
+81F58D  AD 08 08       LDA $0808
+81F590  85 CA          STA $CA
+81F592  AD 0A 08       LDA $080A
+81F595  85 CC          STA $CC
+81F597  AD 0C 08       LDA $080C
+81F59A  85 CE          STA $CE
+81F59C  A9 00 00       LDA #$0000
+81F59F  8D 00 08       STA $0800
+81F5A2  8D 02 08       STA $0802
+81F5A5  8D 04 08       STA $0804
+81F5A8  8D 06 08       STA $0806
+81F5AB  8D 08 08       STA $0808
+81F5AE  8D 0A 08       STA $080A
+81F5B1  8D 0C 08       STA $080C
+81F5B4  60             RTS
+                     ----------------
+
+
+First write to $7F:1CA0 Track 1 Breakpoint 81F52A A:001F,X:0000,Y:0000,D:0000,DB:82; call stack: 1. function $81F470 PC $81F52A 2. function [bottom of stack] PC $818062
+First write to $7F:1CA0 Track 2 Breakpoint 81F52A A:001F,X:0001,Y:0001,D:0000,DB:82; call stack: 1. function $81F470 PC $81F52A 2. function [bottom of stack] PC $818062
+
+Track 1 Breakpoint 818062 A:D79C,X:0000,Y:0000,D:0000,DB:9F; call stack: 1. function [bottom of stack] PC $818062
+Track 1 Breakpoint 81F470 A:D79C,X:0000,Y:0000,D:0000,DB:9F; call stack: 1. function $81F470 PC $81F470 2. function [bottom of stack] PC $818062
+Track 1 Breakpoint 81F52A A:001F,X:0000,Y:0000,D:0000,DB:82; call stack: 1. function $81F470 PC $81F52A 2. function [bottom of stack] PC $818062
+Track 2 Breakpoint 818062 A:0B15,X:0000,Y:0100,D:0000,DB:9F; call stack: 1. function [bottom of stack] PC $818062
+Track 2 Breakpoint 81F470 A:0B15,X:0000,Y:0100,D:0000,DB:9F; call stack: 1. function $81F470 PC $81F470 2. function [bottom of stack] PC $818062
+Track 2 Breakpoint 81F52A A:001F,X:0000,Y:0000,D:0000,DB:82; call stack: 1. function $81F470 PC $81F52A 2. function [bottom of stack] PC $818062
+
+Track 1 Breakpoint 818293 A:0006,X:0000,Y:0000,D:0000,DB:82; $108: 00; $120: 00; $20C-$214: 00 00 10 03 16 05 00 00 01; $226: 40; $28C-$28F: 91 A9 F6 9F; $500-$514: 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Track 2 Breakpoint 818293 A:0006,X:0000,Y:0000,D:0000,DB:82; $108: 01; $120: 00; $20C-$214: 00 00 10 03 16 05 00 00 01; $226: 40; $28C-$28F: A0 A9 F3 9F; $500-$514: 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00

@@ -4,6 +4,7 @@
 #include <spdlog/spdlog.h>
 #include <vector>
 #include <random>
+#include <numeric>
 
 using namespace std;
 
@@ -11,8 +12,8 @@ using PC_addr = uint32_t;
 
 // this works for LoROM files only
 struct SNES_addr {
-    uint16_t addr;
     uint8_t bank;
+    uint16_t addr;
 
     [[nodiscard]] PC_addr toPc() const {
     return (static_cast<PC_addr>(bank & 0x7F) * 0x8000u) + (addr & 0x7FFFu);
@@ -223,65 +224,48 @@ int main(int argc, const char** argv) {
     //     cursor += static_cast<uint32_t>(src_block.data.size());
     // }
 
-    for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
-        bytes[addr] = 0x3D;
-    }
+    // for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+    //     bytes[addr] = 0x3D;
+    // }
 
-    randomize_tracks = false;
+    // SNES_addr asset_table{.bank = 0x9B, .addr = 0x8000};
+    // auto asset_table_pc = asset_table.toPc();
+    //
+    // auto swap_words = [&](PC_addr a, PC_addr b) {
+    //     std::swap(bytes[a + 0], bytes[b + 0]);
+    //     std::swap(bytes[a + 1], bytes[b + 1]);
+    // };
+    //
+    // swap_words(asset_table_pc + 2, asset_table_pc + 4);
+
+    // probably a 5 x 4 = 20 byte table, could be longer?
+    // constexpr PC_addr track_audio_selector_table = 0x0FA20C;
+    // std::swap(bytes[track_audio_selector_table + 0], bytes[track_audio_selector_table + 1]);
+    //
+    // constexpr PC_addr experiment = 0x3A676;
+    // std::swap(bytes[experiment + 0], bytes[experiment + 2]);
+    // std::swap(bytes[experiment + 1], bytes[experiment + 3]);
+
+    // for (int i = 0; i < 8; i++) {
+    //     std::swap(bytes[0x50000 + i], bytes[0x50008 + i]);
+    // }
+
+
     if(randomize_tracks) {
-        vector<vector<char>> temp_tracks1;
-        vector<vector<char>> temp_tracks2;
-        vector<vector<char>> temp_tracks3;
-        vector<vector<char>> temp_tracks4;
-        temp_tracks1.reserve(64);
-        temp_tracks2.reserve(64);
-        temp_tracks3.reserve(64);
-        temp_tracks4.reserve(64);
+        vector<uint32_t> perm(64);
+        iota(perm.begin(), perm.end(), 0);
+        shuffle(perm.begin(), perm.end(), rng);
 
-        for(uint32_t i = 0; i < 64; i++) {
-            auto start = bytes.begin() + 0x50000 + i*8;
-            temp_tracks1.emplace_back(start, start + 8);
-        }
+        constexpr PC_addr path_table = 0x50000;        // 8-byte rows: path offset, length, weather
+        constexpr PC_addr gfx_record_table = 0x3A676;  // 16-bit record offsets in bank $87 (scenery + minimap)
+        constexpr PC_addr music_table = 0x0FA20C;      // 1 byte per track
 
-        for(uint32_t i = 0; i < 64; i++) {
-            auto start = bytes.begin() + 0x50A00 + i*8;
-            temp_tracks2.emplace_back(start, start + 8);
-        }
-
-        for(uint32_t i = 0; i < 64; i++) {
-            auto start = bytes.begin() + 0x50C00 + i*8;
-            temp_tracks3.emplace_back(start, start + 8);
-        }
-
-        for(uint32_t i = 0; i < 64; i++) {
-            auto start = bytes.begin() + 0x50E00 + i*8;
-            temp_tracks4.emplace_back(start, start + 8);
-        }
-
-        uint32_t j1 = 0x50000;
-        uint32_t j2 = 0x50A00;
-        uint32_t j3 = 0x50C00;
-        uint32_t j4 = 0x50E00;
-        while(!temp_tracks1.empty()) {
-            uniform_int_distribution<mt19937::result_type> dist(0, temp_tracks1.size() - 1);
-            auto pos = dist(rng);
-            auto &vec1 = temp_tracks1.at(pos);
-            auto &vec2 = temp_tracks2.at(pos);
-            auto &vec3 = temp_tracks3.at(pos);
-            auto &vec4 = temp_tracks4.at(pos);
-            // spdlog::info("track {} size {}", j, vec.size());
-            copy(vec1.begin(), vec1.end(), bytes.begin() + j1);
-            // copy(vec2.begin(), vec2.end(), bytes.begin() + j2);
-            // copy(vec3.begin(), vec3.end(), bytes.begin() + j3);
-            // copy(vec4.begin(), vec4.end(), bytes.begin() + j4);
-            j1 += 8;
-            j2 += 8;
-            j3 += 8;
-            j4 += 8;
-            temp_tracks1.erase(temp_tracks1.begin() + pos);
-            temp_tracks2.erase(temp_tracks2.begin() + pos);
-            temp_tracks3.erase(temp_tracks3.begin() + pos);
-            temp_tracks4.erase(temp_tracks4.begin() + pos);
+        vector<char> orig(bytes);
+        for(uint32_t slot = 0; slot < 64; slot++) {
+            uint32_t src = perm[slot];
+            copy_n(orig.begin() + path_table + src*8, 8, bytes.begin() + path_table + slot*8);
+            copy_n(orig.begin() + gfx_record_table + src*2, 2, bytes.begin() + gfx_record_table + slot*2);
+            bytes[music_table + slot] = orig[music_table + src];
         }
     }
 

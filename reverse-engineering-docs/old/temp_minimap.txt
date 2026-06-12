@@ -2696,7 +2696,7 @@ Track 2, breakpoint at PC 888039. Not executed that instruction yet. A:8314,X:83
 8A8314 and 8 bytes on: B6 24 39 00 80 30 00 1E
 $340-$344 after executing 888043: B6 24 39 00
 
-#active breakpoints: $40AFB, $4054E, $405AA, $40516, $40B33, $40BE4, $40CF1, $41995, $41A79, $41A87
+active breakpoints: $40AFB, $4054E, $405AA, $40516, $40B33, $40BE4, $40CF1, $41995, $41A79, $41A87
 
 Multiple listings means that when pressing "continue" in the debugger, that breakpoint got hit again. A line starting with # means a comment for the next line.
 Track 1, breakpoint at PC 888516, A:00B2,X:926E,Y:0000,D:0300,DB:7E; CPU MEM $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; WRAM MEM $50-$5F: all 0 bytes; CPU MEM $035A, $035C, $036A, $036E: 2C 34 00 00
@@ -2735,3 +2735,56 @@ Track 1, breakpoint at PC 889A87, A:0004,X:0058,Y:00B0,D:0300,DB:7E; $5800-$582F
 Track 1, breakpoint at PC 889A87, A:0004,X:0060,Y:00C0,D:0300,DB:7E; $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; $5830-$5CFF: all 0 bytes; $5D00-$5D3F: 00 00 90 4B 00 00 C2 03 00 00 D9 2C 00 00 EC 00 00 00 EC 00 C0 01 90 5B C0 01 B2 00 C0 01 BE 08 C3 01 B2 00 07 02 CE 4E C0 02 C2 00 C0 02 C2 00 C0 02 EC 4F FF FF 00 00 00 00 00 00 00 00 00 00; $5D40-$5FFF: all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 30 00 00 00 00 00 04 00 60 AE 00 00 60 AE 00 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 7B 00 48 00 7B 00 48 00 14 00 00 00 10 00 10 00 64 01
 Track 1, breakpoint at PC 889A87, A:0004,X:0068,Y:00D0,D:0300,DB:7E; $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; $5830-$5CFF: all 0 bytes; $5D00-$5D3F: 00 00 90 4B 00 00 C2 03 00 00 D9 2C 00 00 EC 00 00 00 EC 00 C0 01 90 5B C0 01 B2 00 C0 01 BE 08 C3 01 B2 00 07 02 CE 4E C0 02 C2 00 C0 02 C2 00 C0 02 EC 4F FF FF 00 00 00 00 00 00 00 00 00 00; $5D40-$5FFF: all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 34 00 00 00 00 00 04 00 20 58 00 00 20 58 00 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 7F 00 48 00 7F 00 48 00 14 00 00 00 10 00 10 00 64 01
 Track 1, breakpoint at PC 889A87, A:0004,X:0070,Y:00E0,D:0300,DB:7E; $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; $5830-$5CFF: all 0 bytes; $5D00-$5D3F: 00 00 90 4B 00 00 C2 03 00 00 D9 2C 00 00 EC 00 00 00 EC 00 C0 01 90 5B C0 01 B2 00 C0 01 BE 08 C3 01 B2 00 07 02 CE 4E C0 02 C2 00 C0 02 C2 00 C0 02 EC 4F FF FF 00 00 00 00 00 00 00 00 00 00; $5D40-$5FFF: all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 38 00 00 00 00 00 04 00 E0 1F 00 00 E0 1F 00 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 83 00 48 00 83 00 48 00 14 00 00 00 10 00 10 00 64 01
+#I got tired of adding the non-changing $5800-$5FFF region, so I stopped.
+Track 1, breakpoint at PC 889A87, A:0004,X:0078,Y:00F0,D:0300,DB:7E; all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 00 00 00 00 00 04 00 A0 05 00 00 A0 05 00 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 87 00 48 00 87 00 48 00 14 00 00 00 10 00 10 00 64 01
+Track 1, breakpoint at PC 889A87, A:0004,X:0080,Y:0100,D:0300,DB:7E; all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 00 00 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 8B 00 48 00 8B 00 48 00 14 00 00 00 10 00 10 00 64 01
+# I think we don't need more RAM info on 889A87 than this, but I'll list the number of times the breakpoint triggered
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87, A:0004,X:00B0,Y:0160,D:0300,DB:7E
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+Track 1, breakpoint at PC 889A87
+# A number breakpoints ago, Y rolled over to I think 0x80, didn't record which
+Track 1, breakpoint at PC 889A87 A:0004,X:0180,Y:0100,D:0300,DB:7E
+# 210 more
+# It kept on going, but at this point I disabled the breakpoint
+Track 1, breakpoint at PC 889A87, A:FFFC,X:0000,Y:0000,D:0300,DB:7E; $5800-$582F: 00 00 B2 00 00 00 90 5B 03 00 B2 00 04 00 BE 08 19 00 CE 4E 41 00 D9 2C 80 01 EC 4F C0 01 90 4B C3 01 C2 00 C0 02 C2 03 C0 02 EC 00 FF FF 00 00; $5830-$5CFF: all 0 bytes; $5D00-$5D3F: 00 00 EC 00 C0 01 90 5B C0 01 B2 00 C0 01 BE 08 C3 01 B2 00 07 02 CE 4E C0 02 C2 00 C0 02 C2 00 C0 02 EC 4F FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00; $5D40-$5FFF: all 0 bytes; $0-$7: 5C F2 E2 81 5C 3A E4 81; $10A: 40; $200-$21F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 20 00 00 00 00 00 FC FF 00 77 01 00 00 77 01 00 00 00; CPU MEM $350-$36F: 00 00 00 00 00 00 00 00 00 00 2C 00 34 00 6B 00 48 00 6B 00 48 00 14 00 00 00 10 00 10 00 64 01
+Track 1, breakpoint at PC 888CF1, A:0000,X:03FE,Y:01F0,D:0300,DB:7E; $91F0-$92FF: 50 00 00 00 60 81 00 00 30 58 00 00 00 00 00 00 60 FF 00 00 40 81 01 C0 00 00 00 00 00 00 00 00; $93F0: 50;
+Track 1, breakpoint at PC 888CF4, A:0000,X:03FE,Y:01F0,D:0300,DB:7E; $91F0-$92FF: 00 00 00 00 60 81 00 00 30 58 00 00 00 00 00 00 60 FF 00 00 40 81 01 C0 00 00 00 00 00 00 00 00
+
+Conclusion from this debugging session:
+* $5800 and $5D00 are 4-byte selector/range tables.
+* 888516 and 888AFB choose entries from those tables.
+* 8885AA uploads prebuilt minimap-related buffers from WRAM to VRAM.
+* 889A87 is a runtime update/scroll step, not the original construction step.
+
+So the next step should change from “inspect selector breakpoints” to “find who writes the uploaded WRAM buffers.”
+Use write breakpoints on these confirmed WRAM source regions:
+* $7F:0A80-$7F:12DF
+* $7F:1CA0-$7F:207F
+* $7F:2A00-$7F:2CBF
+* $7F:37C0-$7F:3C5F

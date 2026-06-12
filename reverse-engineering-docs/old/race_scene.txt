@@ -1,0 +1,355 @@
+$2105 = 0 and never gets read/written/executed. Mode 0! BG 8x8 tiles
+BG1 = HUD + player car
+BG2 = track
+BG3 = finish line / extra overlay elements
+BG4 = present in the mode, but apparently unused or blank?
+
+Write-only breakpoints on $2107-$210C + $212C-$212D, during race scene of track 1, only triggers at the start of the game and never again after.
+
+tilemap size 32x32 tilemap address $7800.w tileset address $0000.w tile format 4 bpp
+
+Track 1 column 22 row 4 tile index $338 tile address $3380.w palette index 3 palette address $30 tilemap address $7896.w
+Track 1 column 23 row 7 tile index $34E tile address $34E0.w palette index 3 palette address $30 tilemap address $78F7.w
+Track 2 column 22 row 4 tile index $338 tile address $3380.w palette index 3 palette address $30 tilemap address $7896.w
+Track 2 column 23 row 7 tile index $34E tile address $34E0.w palette index 3 palette address $30 tilemap address $78F7.w
+But graphics between track 1 and track 2 differ.
+
+                     --------sub start--------
+81A432  E2 20          SEP #$20
+81A434  A9 00          LDA #$00
+81A436  8D 0B 42       STA $420B
+81A439  A9 7E          LDA #$7E
+81A43B  8D 74 43       STA $4374
+81A43E  A9 80          LDA #$80
+81A440  8D 15 21       STA $2115
+81A443  C2 20          REP #$20
+81A445  A9 40 78       LDA #$7840
+81A448  8D 16 21       STA $2116
+81A44B  A9 01 18       LDA #$1801
+81A44E  8D 70 43       STA $4370
+81A451  A9 90 C9       LDA #$C990
+81A454  8D 72 43       STA $4372
+81A457  A9 40 06       LDA #$0640
+81A45A  8D 75 43       STA $4375
+81A45D  E2 20          SEP #$20
+81A45F  A9 80          LDA #$80
+81A461  8D 0B 42       STA $420B
+81A464  C2 20          REP #$20
+81A466  60             RTS
+                     ----------------
+
+breakpoint 81A465 A:0680,X:FFFF,Y:0000,D:0100,DB:8C $2116: 00; $4370-$43706: 01 18 3C CA 7E 94 05; $420B: 38; $F12C: 38; Writing into $2118
+
+                     --------sub start--------
+81F470  18             CLC
+81F471  FB             XCE
+81F472  D8             CLD
+81F473  E2 34          SEP #$34
+81F475  A9 82          LDA #$82
+81F477  48             PHA
+81F478  AB             PLB
+81F479  A9 00          LDA #$00
+81F47B  8D 00 42       STA $4200
+81F47E  AD 12 42       LDA $4212
+81F481  30 FB          BMI $81F47E
+81F483  AD 12 42       LDA $4212
+81F486  10 FB          BPL $81F483
+81F488  A9 00          LDA #$00
+81F48A  8D 0C 42       STA $420C
+81F48D  A9 80          LDA #$80
+81F48F  8D 00 21       STA $2100
+81F492  AD 12 42       LDA $4212
+81F495  30 FB          BMI $81F492
+81F497  AD 12 42       LDA $4212
+81F49A  10 FB          BPL $81F497
+81F49C  C2 30          REP #$30
+81F49E  A9 00 00       LDA #$0000
+81F4A1  5B             TCD
+81F4A2  A9 00 80       LDA #$8000
+81F4A5  8D 02 21       STA $2102
+81F4A8  A9 00 00       LDA #$0000
+81F4AB  8D 16 21       STA $2116
+81F4AE  E2 20          SEP #$20
+81F4B0  A9 00          LDA #$00
+81F4B2  8D 1C 21       STA $211C
+81F4B5  8D 0B 42       STA $420B
+81F4B8  A9 81          LDA #$81
+81F4BA  8D 04 43       STA $4304
+81F4BD  8D 14 43       STA $4314
+81F4C0  8D 24 43       STA $4324
+81F4C3  A9 7E          LDA #$7E
+81F4C5  8D 34 43       STA $4334
+81F4C8  A9 7F          LDA #$7F
+81F4CA  8D 44 43       STA $4344
+81F4CD  C2 20          REP #$20
+81F4CF  A9 0A 04       LDA #$040A
+81F4D2  8D 00 43       STA $4300
+81F4D5  A9 09 18       LDA #$1809
+81F4D8  8D 10 43       STA $4310
+81F4DB  A9 0A 22       LDA #$220A
+81F4DE  8D 20 43       STA $4320
+81F4E1  A9 82 34       LDA #$3482
+81F4E4  8D 30 43       STA $4330
+81F4E7  8D 40 43       STA $4340
+81F4EA  A9 B7 F5       LDA #$F5B7
+81F4ED  8D 02 43       STA $4302
+81F4F0  A9 B5 F5       LDA #$F5B5
+81F4F3  8D 12 43       STA $4312
+81F4F6  8D 22 43       STA $4322
+81F4F9  A9 00 08       LDA #$0800
+81F4FC  8D 32 43       STA $4332
+81F4FF  A9 00 00       LDA #$0000
+81F502  8D 42 43       STA $4342
+81F505  A9 20 02       LDA #$0220
+81F508  8D 05 43       STA $4305
+81F50B  A9 00 00       LDA #$0000
+81F50E  8D 15 43       STA $4315
+81F511  A9 00 02       LDA #$0200
+81F514  8D 25 43       STA $4325
+81F517  A9 00 F6       LDA #$F600
+81F51A  8D 35 43       STA $4335
+81F51D  A9 00 00       LDA #$0000
+81F520  8D 45 43       STA $4345
+81F523  E2 20          SEP #$20
+81F525  A9 1F          LDA #$1F
+81F527  8D 0B 42       STA $420B
+81F52A  C2 20          REP #$20
+81F52C  A5 C2          LDA $C2
+81F52E  8D 00 08       STA $0800
+81F531  A5 C4          LDA $C4
+81F533  8D 02 08       STA $0802
+81F536  A5 C6          LDA $C6
+81F538  8D 04 08       STA $0804
+81F53B  A5 C8          LDA $C8
+81F53D  8D 06 08       STA $0806
+81F540  A5 CA          LDA $CA
+81F542  8D 08 08       STA $0808
+81F545  A5 CC          LDA $CC
+81F547  8D 0A 08       STA $080A
+81F54A  A5 CE          LDA $CE
+81F54C  8D 0C 08       STA $080C
+81F54F  E2 20          SEP #$20
+81F551  A9 00          LDA #$00
+81F553  8D 1C 21       STA $211C
+81F556  8D 0B 42       STA $420B
+81F559  A9 7E          LDA #$7E
+81F55B  8D 04 43       STA $4304
+81F55E  C2 20          REP #$20
+81F560  A9 82 34       LDA #$3482
+81F563  8D 00 43       STA $4300
+81F566  A9 00 00       LDA #$0000
+81F569  8D 02 43       STA $4302
+81F56C  3B             TSC
+81F56D  8D 05 43       STA $4305
+81F570  E2 20          SEP #$20
+81F572  A9 01          LDA #$01
+81F574  8D 0B 42       STA $420B
+81F577  C2 20          REP #$20
+81F579  AD 00 08       LDA $0800
+81F57C  85 C2          STA $C2
+81F57E  AD 02 08       LDA $0802
+81F581  85 C4          STA $C4
+81F583  AD 04 08       LDA $0804
+81F586  85 C6          STA $C6
+81F588  AD 06 08       LDA $0806
+81F58B  85 C8          STA $C8
+81F58D  AD 08 08       LDA $0808
+81F590  85 CA          STA $CA
+81F592  AD 0A 08       LDA $080A
+81F595  85 CC          STA $CC
+81F597  AD 0C 08       LDA $080C
+81F59A  85 CE          STA $CE
+81F59C  A9 00 00       LDA #$0000
+81F59F  8D 00 08       STA $0800
+81F5A2  8D 02 08       STA $0802
+81F5A5  8D 04 08       STA $0804
+81F5A8  8D 06 08       STA $0806
+81F5AB  8D 08 08       STA $0808
+81F5AE  8D 0A 08       STA $080A
+81F5B1  8D 0C 08       STA $080C
+81F5B4  60             RTS
+                     ----------------
+
+                     --------sub start--------
+81F28F  E2 20          SEP #$20
+81F291  8D 1B 21       STA $211B
+81F294  EB             XBA
+81F295  8D 1B 21       STA $211B
+81F298  A9 01          LDA #$01
+81F29A  8D 1C 21       STA $211C
+81F29D  A9 00          LDA #$00
+81F29F  8D 0B 42       STA $420B
+81F2A2  A9 7E          LDA #$7E
+81F2A4  8D 74 43       STA $4374
+81F2A7  C2 30          REP #$30
+81F2A9  A9 81 34       LDA #$3481
+81F2AC  8D 70 43       STA $4370
+81F2AF  8E 72 43       STX $4372
+81F2B2  8C 75 43       STY $4375
+81F2B5  E2 20          SEP #$20
+81F2B7  A9 80          LDA #$80
+81F2B9  8D 0B 42       STA $420B
+81F2BC  C2 20          REP #$20
+81F2BE  60             RTS
+                     ----------------
+
+                     --------sub start--------
+818FAB  C2 30          REP #$30
+818FAD  8B             PHB
+818FAE  F4 8C 8C       PEA #$8C8C
+818FB1  AB             PLB
+818FB2  AB             PLB
+818FB3  A2 FE 07       LDX #$07FE
+818FB6  AD 26 EE       LDA $EE26
+818FB9  9F 10 C9 7E    STA $7EC910,X
+818FBD  CA             DEX
+818FBE  CA             DEX
+818FBF  10 F8          BPL $818FB9
+818FC1  A2 00 07       LDX #$0700
+818FC4  AD 28 EE       LDA $EE28
+818FC7  9F D0 C8 7E    STA $7EC8D0,X
+818FCB  AD 2A EE       LDA $EE2A
+818FCE  9F 0E C9 7E    STA $7EC90E,X
+818FD2  8A             TXA
+818FD3  38             SEC
+818FD4  E9 40 00       SBC #$0040
+818FD7  AA             TAX
+818FD8  10 EA          BPL $818FC4
+818FDA  AD 14 05       LDA $0514
+818FDD  10 02          BPL $818FE1
+818FDF  AB             PLB
+818FE0  60             RTS
+                     ----------------
+
+                     --------sub start--------
+818FAB  C2 30          REP #$30
+818FAD  8B             PHB
+818FAE  F4 8C 8C       PEA #$8C8C
+818FB1  AB             PLB
+818FB2  AB             PLB
+818FB3  A2 FE 07       LDX #$07FE
+818FB6  AD 26 EE       LDA $EE26
+818FB9  9F 10 C9 7E    STA $7EC910,X
+818FBD  CA             DEX
+818FBE  CA             DEX
+818FBF  10 F8          BPL $818FB9
+818FC1  A2 00 07       LDX #$0700
+818FC4  AD 28 EE       LDA $EE28
+818FC7  9F D0 C8 7E    STA $7EC8D0,X
+818FCB  AD 2A EE       LDA $EE2A
+818FCE  9F 0E C9 7E    STA $7EC90E,X
+818FD2  8A             TXA
+818FD3  38             SEC
+818FD4  E9 40 00       SBC #$0040
+818FD7  AA             TAX
+818FD8  10 EA          BPL $818FC4
+818FDA  AD 14 05       LDA $0514
+818FDD  10 02          BPL $818FE1
+818FDF  AB             PLB
+818FE0  60             RTS
+                     ----------------
+818FE1  A2 0E 00       LDX #$000E
+818FE4  BD C8 F0       LDA $F0C8,X
+818FE7  9F 96 C9 7E    STA $7EC996,X
+818FEB  BD D8 F0       LDA $F0D8,X
+818FEE  9F D6 C9 7E    STA $7EC9D6,X
+818FF2  BD E8 F0       LDA $F0E8,X
+818FF5  9F 16 CA 7E    STA $7ECA16,X
+818FF9  BD F8 F0       LDA $F0F8,X
+818FFC  9F 56 CA 7E    STA $7ECA56,X
+819000  CA             DEX
+819001  CA             DEX
+819002  10 E0          BPL $818FE4
+819004  A0 44 EE       LDY #$EE44
+819007  AD 9A 01       LDA $019A
+81900A  10 03          BPL $81900F
+81900C  A0 4C EE       LDY #$EE4C
+81900F  A2 06 00       LDX #$0006
+819012  B9 00 00       LDA $0000,Y
+819015  9F 9E CA 7E    STA $7ECA9E,X
+819019  88             DEY
+81901A  88             DEY
+81901B  CA             DEX
+81901C  CA             DEX
+81901D  10 F3          BPL $819012
+81901F  A0 80 F0       LDY #$F080
+819022  AD AA 01       LDA $01AA
+819025  10 03          BPL $81902A
+819027  A0 8E F0       LDY #$F08E
+81902A  A2 0C 00       LDX #$000C
+81902D  B9 00 00       LDA $0000,Y
+819030  9F 18 CB 7E    STA $7ECB18,X
+819034  88             DEY
+819035  88             DEY
+819036  CA             DEX
+819037  CA             DEX
+819038  10 F3          BPL $81902D
+81903A  A2 0C 00       LDX #$000C
+81903D  BD 90 F0       LDA $F090,X
+819040  9F 98 CB 7E    STA $7ECB98,X
+819044  BD 9E F0       LDA $F09E,X
+819047  9F D8 CB 7E    STA $7ECBD8,X
+81904B  BD AC F0       LDA $F0AC,X
+81904E  9F 18 CC 7E    STA $7ECC18,X
+819052  CA             DEX
+819053  CA             DEX
+819054  10 E7          BPL $81903D
+819056  A2 0C 00       LDX #$000C
+819059  BD BA F0       LDA $F0BA,X
+81905C  9F 58 CC 7E    STA $7ECC58,X
+819060  CA             DEX
+819061  CA             DEX
+819062  10 F5          BPL $819059
+819064  A2 0C 00       LDX #$000C
+819067  BD 4E EE       LDA $EE4E,X
+81906A  9F FA C9 7E    STA $7EC9FA,X
+81906E  CA             DEX
+81906F  CA             DEX
+819070  10 F5          BPL $819067
+819072  A2 0C 00       LDX #$000C
+819075  BD 98 EE       LDA $EE98,X
+819078  9F BA CB 7E    STA $7ECBBA,X
+81907C  BD A6 EE       LDA $EEA6,X
+81907F  9F FA CB 7E    STA $7ECBFA,X
+819083  CA             DEX
+819084  CA             DEX
+819085  10 EE          BPL $819075
+819087  AD 9E 01       LDA $019E
+81908A  0A             ASL
+81908B  0A             ASL
+81908C  AA             TAX
+81908D  BD 70 EE       LDA $EE70,X
+819090  8F C6 CB 7E    STA $7ECBC6
+819094  BD 72 EE       LDA $EE72,X
+819097  8F 06 CC 7E    STA $7ECC06
+81909B  A9 37 2F       LDA #$2F37
+81909E  A2 00 00       LDX #$0000
+8190A1  A0 07 00       LDY #$0007
+8190A4  9F 3A CA 7E    STA $7ECA3A,X
+8190A8  1A             INC
+8190A9  E8             INX
+8190AA  E8             INX
+8190AB  88             DEY
+8190AC  D0 F6          BNE $8190A4
+8190AE  A8             TAY
+8190AF  8A             TXA
+8190B0  18             CLC
+8190B1  69 32 00       ADC #$0032
+8190B4  AA             TAX
+8190B5  98             TYA
+8190B6  E0 40 01       CPX #$0140
+8190B9  D0 E6          BNE $8190A1
+8190BB  AB             PLB
+8190BC  60             RTS
+                     ----------------
+
+
+
+Track 1 breakpoint 81F52B A:001F,X:0000,Y:0001,D:0000,DB:82; DMA write address $7ECA3C value $00
+Track 1 breakpoint 81F2BC A:3480,X:8000,Y:6150,D:0000,DB:82; DMA write address $7ECA3C value $00
+Track 1 breakpoint 818FB9 A:32A8,X:012C,Y:000C,D:0000,DB:8C; Mesen lists [$7ECA3C] = $0000
+Track 1 breakpoint 8190A4 A:2F38,X:0002,Y:0006,D:0000,DB:8C; Mesen lists [$7ECA3C] = $32A8
+Track 2 breakpoint 81F52B A:001F,X:0000,Y:0001,D:0000,DB:82; DMA write address $7ECA3C value $00
+Track 2 breakpoint 81F2BC A:3480,X:8000,Y:6150,D:0000,DB:82; DMA write address $7ECA3C value $00
+Track 2 breakpoint 818FB9 A:32A8,X:012C,Y:000C,D:0000,DB:8C; Mesen lists [$7ECA3C] = $0000
+Track 2 breakpoint 8190A4 A:2F38,X:0002,Y:0006,D:0000,DB:8C; Mesen lists [$7ECA3C] = $32A8

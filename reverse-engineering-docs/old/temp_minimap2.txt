@@ -1,0 +1,1131 @@
+Active write breakpoints on these WRAM source regions:
+* $7F:0A80-$7F:12DF
+* $7F:1CA0-$7F:207F
+* $7F:2A00-$7F:2CBF
+* $7F:37C0-$7F:3C5F
+
+Go to shop menu and press start, in between switching from shop menu to race enable the breakpoints.
+
+9FBF13               ----------------
+                     --------sub start--------
+9FBF14  5A             PHY
+9FBF15  8B             PHB
+9FBF16  E2 20          SEP #$20
+9FBF18  48             PHA
+9FBF19  AB             PLB
+9FBF1A  EB             XBA
+9FBF1B  85 86          STA $86
+9FBF1D  C2 20          REP #$20
+9FBF1F  64 84          STZ $84
+9FBF21  86 87          STX $87
+9FBF23  A6 87          LDX $87
+9FBF25  BD 00 00       LDA $0000,X
+9FBF28  29 FE 00       AND #$00FE
+9FBF2B  AA             TAX
+9FBF2C  7C 2F BF       JMP ($BF2F,X)
+9FBF2F               --------data--------
+9FC02E               ----------------
+9FC02F  A6 87          LDX $87
+9FC031  BD 00 00       LDA $0000,X
+9FC034  E8             INX
+9FC035  29 FF 00       AND #$00FF
+9FC038  F0 30          BEQ $9FC06A
+9FC03A  4A             LSR
+9FC03B  85 89          STA $89
+9FC03D  90 09          BCC $9FC048
+9FC03F  F0 19          BEQ $9FC05A
+9FC041  BD 00 00       LDA $0000,X
+9FC044  97 84          STA [$84],Y
+9FC046  E8             INX
+9FC047  C8             INY
+9FC048  BD 00 00       LDA $0000,X
+9FC04B  97 84          STA [$84],Y
+9FC04D  E8             INX
+9FC04E  C8             INY
+9FC04F  E8             INX
+9FC050  C8             INY
+9FC051  C6 89          DEC $89
+9FC053  D0 F3          BNE $9FC048
+9FC055  86 87          STX $87
+9FC057  4C 23 BF       JMP $BF23
+9FC05A  E2 20          SEP #$20
+9FC05C  BD 00 00       LDA $0000,X
+9FC05F  97 84          STA [$84],Y
+9FC061  E8             INX
+9FC062  C8             INY
+9FC063  C2 20          REP #$20
+9FC065  86 87          STX $87
+9FC067  4C 23 BF       JMP $BF23
+9FC06A  AB             PLB
+9FC06B  84 8B          STY $8B
+9FC06D  68             PLA
+9FC06E  49 FF FF       EOR #$FFFF
+9FC071  38             SEC
+9FC072  65 8B          ADC $8B
+9FC074  6B             RTL
+                     ----------------
+9FC075  A6 87          LDX $87
+9FC077  BD 00 00       LDA $0000,X
+9FC07A  E8             INX
+9FC07B  86 87          STX $87
+9FC07D  29 0F 00       AND #$000F
+9FC080  AA             TAX
+9FC081  E8             INX
+9FC082  E2 20          SEP #$20
+9FC084  88             DEY
+9FC085  B7 84          LDA [$84],Y
+9FC087  88             DEY
+9FC088  38             SEC
+9FC089  F7 84          SBC [$84],Y
+9FC08B  C8             INY
+9FC08C  85 8B          STA $8B
+9FC08E  B7 84          LDA [$84],Y
+9FC090  C8             INY
+9FC091  18             CLC
+9FC092  65 8B          ADC $8B
+9FC094  97 84          STA [$84],Y
+9FC096  C8             INY
+9FC097  18             CLC
+9FC098  65 8B          ADC $8B
+9FC09A  97 84          STA [$84],Y
+9FC09C  C8             INY
+9FC09D  18             CLC
+9FC09E  65 8B          ADC $8B
+9FC0A0  97 84          STA [$84],Y
+9FC0A2  C8             INY
+9FC0A3  CA             DEX
+9FC0A4  D0 F7          BNE $9FC09D
+9FC0A6  C2 20          REP #$20
+9FC0A8  4C 23 BF       JMP $BF23
+9FC0AB  A6 87          LDX $87
+9FC0AD  BD 00 00       LDA $0000,X
+9FC0B0  E8             INX
+9FC0B1  86 87          STX $87
+9FC0B3  29 0F 00       AND #$000F
+9FC0B6  AA             TAX
+9FC0B7  E8             INX
+9FC0B8  88             DEY
+9FC0B9  88             DEY
+9FC0BA  B7 84          LDA [$84],Y
+9FC0BC  88             DEY
+9FC0BD  88             DEY
+9FC0BE  38             SEC
+9FC0BF  F7 84          SBC [$84],Y
+9FC0C1  C8             INY
+9FC0C2  C8             INY
+9FC0C3  85 8B          STA $8B
+9FC0C5  B7 84          LDA [$84],Y
+9FC0C7  C8             INY
+9FC0C8  C8             INY
+9FC0C9  18             CLC
+9FC0CA  65 8B          ADC $8B
+9FC0CC  97 84          STA [$84],Y
+9FC0CE  C8             INY
+9FC0CF  C8             INY
+9FC0D0  18             CLC
+9FC0D1  65 8B          ADC $8B
+9FC0D3  97 84          STA [$84],Y
+9FC0D5  C8             INY
+9FC0D6  C8             INY
+9FC0D7  CA             DEX
+9FC0D8  D0 F6          BNE $9FC0D0
+9FC0DA  4C 23 BF       JMP $BF23
+9FC0DD  A6 87          LDX $87
+9FC0DF  BD 00 00       LDA $0000,X
+9FC0E2  E8             INX
+9FC0E3  86 87          STX $87
+9FC0E5  29 0F 00       AND #$000F
+9FC0E8  0A             ASL
+9FC0E9  AA             TAX
+9FC0EA  88             DEY
+9FC0EB  E2 20          SEP #$20
+9FC0ED  B7 84          LDA [$84],Y
+9FC0EF  EB             XBA
+9FC0F0  B7 84          LDA [$84],Y
+9FC0F2  C2 20          REP #$20
+9FC0F4  C8             INY
+9FC0F5  97 84          STA [$84],Y
+9FC0F7  C8             INY
+9FC0F8  C8             INY
+9FC0F9  7C FC C0       JMP ($C0FC,X)
+9FC0FC               --------data--------
+9FC11B               ----------------
+9FC11C  97 84          STA [$84],Y
+9FC11E  C8             INY
+9FC11F  C8             INY
+9FC120  97 84          STA [$84],Y
+9FC122  C8             INY
+9FC123  C8             INY
+9FC124  97 84          STA [$84],Y
+9FC126  C8             INY
+9FC127  C8             INY
+9FC128  97 84          STA [$84],Y
+9FC12A  C8             INY
+9FC12B  C8             INY
+9FC12C  97 84          STA [$84],Y
+9FC12E  C8             INY
+9FC12F  C8             INY
+9FC130  97 84          STA [$84],Y
+9FC132  C8             INY
+9FC133  C8             INY
+9FC134  97 84          STA [$84],Y
+9FC136  C8             INY
+9FC137  C8             INY
+9FC138  E2 20          SEP #$20
+9FC13A  97 84          STA [$84],Y
+9FC13C  C8             INY
+9FC13D  C2 20          REP #$20
+9FC13F  4C 23 BF       JMP $BF23
+9FC142  97 84          STA [$84],Y
+9FC144  C8             INY
+9FC145  C8             INY
+9FC146  97 84          STA [$84],Y
+9FC148  C8             INY
+9FC149  C8             INY
+9FC14A  97 84          STA [$84],Y
+9FC14C  C8             INY
+9FC14D  C8             INY
+9FC14E  97 84          STA [$84],Y
+9FC150  C8             INY
+9FC151  C8             INY
+9FC152  97 84          STA [$84],Y
+9FC154  C8             INY
+9FC155  C8             INY
+9FC156  97 84          STA [$84],Y
+9FC158  C8             INY
+9FC159  C8             INY
+9FC15A  97 84          STA [$84],Y
+9FC15C  C8             INY
+9FC15D  C8             INY
+9FC15E  97 84          STA [$84],Y
+9FC160  C8             INY
+9FC161  C8             INY
+9FC162  4C 23 BF       JMP $BF23
+9FC165  A6 87          LDX $87
+9FC167  BD 00 00       LDA $0000,X
+9FC16A  E8             INX
+9FC16B  86 87          STX $87
+9FC16D  29 0F 00       AND #$000F
+9FC170  0A             ASL
+9FC171  AA             TAX
+9FC172  88             DEY
+9FC173  88             DEY
+9FC174  B7 84          LDA [$84],Y
+9FC176  C8             INY
+9FC177  C8             INY
+9FC178  7C 7B C1       JMP ($C17B,X)
+9FC17B               --------data--------
+9FC19A               ----------------
+9FC19B  97 84          STA [$84],Y
+9FC19D  C8             INY
+9FC19E  C8             INY
+9FC19F  97 84          STA [$84],Y
+9FC1A1  C8             INY
+9FC1A2  C8             INY
+9FC1A3  97 84          STA [$84],Y
+9FC1A5  C8             INY
+9FC1A6  C8             INY
+9FC1A7  97 84          STA [$84],Y
+9FC1A9  C8             INY
+9FC1AA  C8             INY
+9FC1AB  97 84          STA [$84],Y
+9FC1AD  C8             INY
+9FC1AE  C8             INY
+9FC1AF  97 84          STA [$84],Y
+9FC1B1  C8             INY
+9FC1B2  C8             INY
+9FC1B3  97 84          STA [$84],Y
+9FC1B5  C8             INY
+9FC1B6  C8             INY
+9FC1B7  97 84          STA [$84],Y
+9FC1B9  C8             INY
+9FC1BA  C8             INY
+9FC1BB  97 84          STA [$84],Y
+9FC1BD  C8             INY
+9FC1BE  C8             INY
+9FC1BF  97 84          STA [$84],Y
+9FC1C1  C8             INY
+9FC1C2  C8             INY
+9FC1C3  97 84          STA [$84],Y
+9FC1C5  C8             INY
+9FC1C6  C8             INY
+9FC1C7  97 84          STA [$84],Y
+9FC1C9  C8             INY
+9FC1CA  C8             INY
+9FC1CB  97 84          STA [$84],Y
+9FC1CD  C8             INY
+9FC1CE  C8             INY
+9FC1CF  97 84          STA [$84],Y
+9FC1D1  C8             INY
+9FC1D2  C8             INY
+9FC1D3  97 84          STA [$84],Y
+9FC1D5  C8             INY
+9FC1D6  C8             INY
+9FC1D7  97 84          STA [$84],Y
+9FC1D9  C8             INY
+9FC1DA  C8             INY
+9FC1DB  97 84          STA [$84],Y
+9FC1DD  C8             INY
+9FC1DE  C8             INY
+9FC1DF  4C 23 BF       JMP $BF23
+9FC1E2  A6 87          LDX $87
+9FC1E4  BD 00 00       LDA $0000,X
+9FC1E7  E8             INX
+9FC1E8  86 87          STX $87
+9FC1EA  84 8B          STY $8B
+9FC1EC  29 3F 00       AND #$003F
+9FC1EF  18             CLC
+9FC1F0  69 02 00       ADC #$0002
+9FC1F3  49 FF FF       EOR #$FFFF
+9FC1F6  38             SEC
+9FC1F7  65 8B          ADC $8B
+9FC1F9  A8             TAY
+9FC1FA  B7 84          LDA [$84],Y
+9FC1FC  AA             TAX
+9FC1FD  88             DEY
+9FC1FE  B7 84          LDA [$84],Y
+9FC200  A4 8B          LDY $8B
+9FC202  97 84          STA [$84],Y
+9FC204  C8             INY
+9FC205  8A             TXA
+9FC206  97 84          STA [$84],Y
+9FC208  C8             INY
+9FC209  C8             INY
+9FC20A  4C 23 BF       JMP $BF23
+9FC20D  A6 87          LDX $87
+9FC20F  BD 00 00       LDA $0000,X
+9FC212  29 03 FF       AND #$FF03
+9FC215  EB             XBA
+9FC216  84 8B          STY $8B
+9FC218  18             CLC
+9FC219  69 03 00       ADC #$0003
+9FC21C  49 FF FF       EOR #$FFFF
+9FC21F  38             SEC
+9FC220  65 8B          ADC $8B
+9FC222  85 8B          STA $8B
+9FC224  BD 00 00       LDA $0000,X
+9FC227  29 1C 00       AND #$001C
+9FC22A  E8             INX
+9FC22B  E8             INX
+9FC22C  86 87          STX $87
+9FC22E  AA             TAX
+9FC22F  8B             PHB
+9FC230  BF 3D C2 9F    LDA $9FC23D,X
+9FC234  48             PHA
+9FC235  A5 85          LDA $85
+9FC237  48             PHA
+9FC238  AB             PLB
+9FC239  AB             PLB
+9FC23A  A6 8B          LDX $8B
+9FC23C  60             RTS
+                     ----------------
+9FC23D               --------data--------
+9FC25C               ----------------
+9FC25D  BD 00 00       LDA $0000,X
+9FC260  99 00 00       STA $0000,Y
+9FC263  C8             INY
+9FC264  C8             INY
+9FC265  E8             INX
+9FC266  E8             INX
+9FC267  BD 00 00       LDA $0000,X
+9FC26A  99 00 00       STA $0000,Y
+9FC26D  C8             INY
+9FC26E  C8             INY
+9FC26F  E8             INX
+9FC270  E8             INX
+9FC271  BD 00 00       LDA $0000,X
+9FC274  99 00 00       STA $0000,Y
+9FC277  C8             INY
+9FC278  C8             INY
+9FC279  E8             INX
+9FC27A  E8             INX
+9FC27B  BD 00 00       LDA $0000,X
+9FC27E  99 00 00       STA $0000,Y
+9FC281  BD 02 00       LDA $0002,X
+9FC284  99 02 00       STA $0002,Y
+9FC287  C8             INY
+9FC288  C8             INY
+9FC289  C8             INY
+9FC28A  C8             INY
+9FC28B  AB             PLB
+9FC28C  4C 23 BF       JMP $BF23
+9FC28F  BD 00 00       LDA $0000,X
+9FC292  99 00 00       STA $0000,Y
+9FC295  C8             INY
+9FC296  C8             INY
+9FC297  E8             INX
+9FC298  E8             INX
+9FC299  BD 00 00       LDA $0000,X
+9FC29C  99 00 00       STA $0000,Y
+9FC29F  C8             INY
+9FC2A0  C8             INY
+9FC2A1  E8             INX
+9FC2A2  E8             INX
+9FC2A3  BD 00 00       LDA $0000,X
+9FC2A6  99 00 00       STA $0000,Y
+9FC2A9  C8             INY
+9FC2AA  C8             INY
+9FC2AB  E8             INX
+9FC2AC  E8             INX
+9FC2AD  BD 00 00       LDA $0000,X
+9FC2B0  99 00 00       STA $0000,Y
+9FC2B3  BD 02 00       LDA $0002,X
+9FC2B6  99 02 00       STA $0002,Y
+9FC2B9  BD 03 00       LDA $0003,X
+9FC2BC  99 03 00       STA $0003,Y
+9FC2BF  98             TYA
+9FC2C0  18             CLC
+9FC2C1  69 05 00       ADC #$0005
+9FC2C4  A8             TAY
+9FC2C5  AB             PLB
+9FC2C6  4C 23 BF       JMP $BF23
+9FC2C9  A6 87          LDX $87
+9FC2CB  BD 00 00       LDA $0000,X
+9FC2CE  29 1F FF       AND #$FF1F
+9FC2D1  EB             XBA
+9FC2D2  84 8B          STY $8B
+9FC2D4  18             CLC
+9FC2D5  69 03 00       ADC #$0003
+9FC2D8  49 FF FF       EOR #$FFFF
+9FC2DB  38             SEC
+9FC2DC  65 8B          ADC $8B
+9FC2DE  85 8B          STA $8B
+9FC2E0  BD 02 00       LDA $0002,X
+9FC2E3  29 FF 00       AND #$00FF
+9FC2E6  18             CLC
+9FC2E7  69 01 00       ADC #$0001
+9FC2EA  E8             INX
+9FC2EB  E8             INX
+9FC2EC  E8             INX
+9FC2ED  86 87          STX $87
+9FC2EF  8B             PHB
+9FC2F0  A6 85          LDX $85
+9FC2F2  DA             PHX
+9FC2F3  AB             PLB
+9FC2F4  AB             PLB
+9FC2F5  A6 8B          LDX $8B
+9FC2F7  4A             LSR
+9FC2F8  85 89          STA $89
+9FC2FA  90 0A          BCC $9FC306
+9FC2FC  F0 2E          BEQ $9FC32C
+9FC2FE  BD 00 00       LDA $0000,X
+9FC301  99 00 00       STA $0000,Y
+9FC304  E8             INX
+9FC305  C8             INY
+9FC306  BD 00 00       LDA $0000,X
+9FC309  99 00 00       STA $0000,Y
+9FC30C  E8             INX
+9FC30D  E8             INX
+9FC30E  C8             INY
+9FC30F  C8             INY
+9FC310  BD 00 00       LDA $0000,X
+9FC313  99 00 00       STA $0000,Y
+9FC316  E8             INX
+9FC317  E8             INX
+9FC318  C8             INY
+9FC319  C8             INY
+9FC31A  BD 00 00       LDA $0000,X
+9FC31D  99 00 00       STA $0000,Y
+9FC320  E8             INX
+9FC321  E8             INX
+9FC322  C8             INY
+9FC323  C8             INY
+9FC324  C6 89          DEC $89
+9FC326  D0 F2          BNE $9FC31A
+9FC328  AB             PLB
+9FC329  4C 23 BF       JMP $BF23
+9FC32C  BD 00 00       LDA $0000,X
+9FC32F  99 00 00       STA $0000,Y
+9FC332  E8             INX
+9FC333  E8             INX
+9FC334  C8             INY
+9FC335  C8             INY
+9FC336  BD 00 00       LDA $0000,X
+9FC339  99 00 00       STA $0000,Y
+9FC33C  E8             INX
+9FC33D  E8             INX
+9FC33E  C8             INY
+9FC33F  C8             INY
+9FC340  E2 20          SEP #$20
+9FC342  BD 00 00       LDA $0000,X
+9FC345  99 00 00       STA $0000,Y
+9FC348  C8             INY
+9FC349  C2 20          REP #$20
+9FC34B  AB             PLB
+9FC34C  4C 23 BF       JMP $BF23
+9FC34F               --------unidentified--------
+9FC540               ----------------
+9FC541  AD 14 00       LDA $0014
+9FC544  CD 14 00       CMP $0014
+9FC547  F0 FB          BEQ $9FC544
+9FC549  64 AF          STZ $AF
+9FC54B  C6 A5          DEC $A5
+9FC54D  D0 39          BNE $9FC588
+9FC54F  80 37          BRA $9FC588
+9FC551               --------unidentified--------
+9FC587               ----------------
+9FC588  AD DB 1C       LDA $1CDB
+9FC58B  D0 0E          BNE $9FC59B
+9FC58D  A9 9F 30       LDA #$309F
+9FC590  A2 80 54       LDX #$5480
+9FC593  A0 96 DA       LDY #$DA96
+9FC596  20 DC DB       JSR $DBDC
+9FC599  80 0C          BRA $9FC5A7
+9FC59B               --------unidentified--------
+9FC5A6               ----------------
+9FC5A7  A5 8D          LDA $8D
+9FC5A9  0A             ASL
+9FC5AA  AA             TAX
+9FC5AB  A4 AF          LDY $AF
+9FC5AD  BF E0 C6 9F    LDA $9FC6E0,X
+9FC5B1  99 00 05       STA $0500,Y
+9FC5B4  A9 E2 30       LDA #$30E2
+9FC5B7  99 02 05       STA $0502,Y
+9FC5BA  A9 00 01       LDA #$0100
+9FC5BD  99 01 03       STA $0301,Y
+9FC5C0  BF EA C6 9F    LDA $9FC6EA,X
+9FC5C4  99 04 05       STA $0504,Y
+9FC5C7  A9 E2 70       LDA #$70E2
+9FC5CA  99 06 05       STA $0506,Y
+9FC5CD  A9 00 01       LDA #$0100
+9FC5D0  99 05 03       STA $0305,Y
+9FC5D3  98             TYA
+9FC5D4  18             CLC
+9FC5D5  69 08 00       ADC #$0008
+9FC5D8  85 AF          STA $AF
+9FC5DA  20 C5 98       JSR $98C5
+9FC5DD  A9 02 00       LDA #$0002
+9FC5E0  0C 22 00       TSB $0022
+9FC5E3  A9 00 04       LDA #$0400
+9FC5E6  1C 2A 01       TRB $012A
+9FC5E9  F0 15          BEQ $9FC600
+9FC5EB  A5 8D          LDA $8D
+9FC5ED  1A             INC
+9FC5EE  C9 05 00       CMP #$0005
+9FC5F1  D0 03          BNE $9FC5F6
+9FC5F3  A9 00 00       LDA #$0000
+9FC5F6  85 8D          STA $8D
+9FC5F8  20 17 A1       JSR $A117
+9FC5FB               --------unidentified--------
+9FC5FF               ----------------
+9FC600  A9 00 08       LDA #$0800
+9FC603  1C 2A 01       TRB $012A
+9FC606  F0 12          BEQ $9FC61A
+9FC608  A5 8D          LDA $8D
+9FC60A  3A             DEC
+9FC60B  10 03          BPL $9FC610
+9FC60D  A9 04 00       LDA #$0004
+9FC610  85 8D          STA $8D
+9FC612  20 17 A1       JSR $A117
+9FC615               --------unidentified--------
+9FC619               ----------------
+9FC61A  A9 00 02       LDA #$0200
+9FC61D  1C 2A 01       TRB $012A
+9FC620  F0 0F          BEQ $9FC631
+9FC622  A5 8D          LDA $8D
+9FC624  D0 0B          BNE $9FC631
+9FC626  20 17 A1       JSR $A117
+9FC629               --------unidentified--------
+9FC630               ----------------
+9FC631  A9 00 01       LDA #$0100
+9FC634  1C 2A 01       TRB $012A
+9FC637  F0 12          BEQ $9FC64B
+9FC639  A5 8D          LDA $8D
+9FC63B  D0 0E          BNE $9FC64B
+9FC63D  20 17 A1       JSR $A117
+9FC640               --------unidentified--------
+9FC64A               ----------------
+9FC64B  A9 C0 F0       LDA #$F0C0
+9FC64E  1C 2A 01       TRB $012A
+9FC651  F0 0A          BEQ $9FC65D
+9FC653  20 17 A1       JSR $A117
+9FC656               --------unidentified--------
+9FC65C               ----------------
+9FC65D  4C 41 C5       JMP $C541
+9FC660               --------unidentified--------
+9FDA3B               ----------------
+
+
+
+breakpoint at 9FC31D, A:0144,X:0682,Y:0A7F,D:0100,DB:7F; [7F0A7F] = $0044
+breakpoint at 9FC31D, A:013A,X:0684,Y:0A81,D:0100,DB:7F; [7F0A81] = $0000
+breakpoint at 9FC31D, A:013A,X:0688,Y:0A85,D:0100,DB:7F; [7F0A83] = $0000
+breakpoint at 9FC31D, A:013F,X:068A,Y:0A87,D:0100,DB:7F; [7F0A85] = $0300
+Skipped 8 more that hit 9FC31D
+breakpoint at 9FC309, A:0184,X:01A2,Y:0A97,D:0100,DB:7F
+breakpoint at 9FC313, A:84DF,X:01A4,Y:0A99,D:0100,DB:7F
+breakpoint at 9FC31D, A:D401,X:01A6,Y:0A9B,D:0100,DB:7F
+Skipped 28 more that hit 9FC31D
+breakpoint at 9FC2B0, A:0185,X:0863,Y:0AD3,D:0100,DB:7F
+Skipped a lot, didn't count and had multiple PC's
+breakpoint at 9FC05F, A:00CD,X:B532,Y:0B1A,D:0100,DB:98
+
+
+Eventually the breakpoints get triggered in a different code block, with the highest WRAM address writen to observed being 7F207E so far:
+
+81DE84               ----------------
+                     --------sub start--------
+81DE85  E2 20          SEP #$20
+81DE87  C2 10          REP #$10
+81DE89  86 94          STX $94
+81DE8B  85 96          STA $96
+81DE8D  EB             XBA
+81DE8E  29 01          AND #$01
+81DE90  09 7E          ORA #$7E
+81DE92  84 98          STY $98
+81DE94  8C 81 21       STY $2181
+81DE97  85 9A          STA $9A
+81DE99  8D 83 21       STA $2183
+81DE9C  A0 00 00       LDY #$0000
+81DE9F  84 9E          STY $9E
+81DEA1  B7 94          LDA [$94],Y
+81DEA3  D0 11          BNE $81DEB6
+81DEA5  C2 20          REP #$20
+81DEA7  C8             INY
+81DEA8  98             TYA
+81DEA9  18             CLC
+81DEAA  65 94          ADC $94
+81DEAC  AA             TAX
+81DEAD  18             CLC
+81DEAE  A5 9E          LDA $9E
+81DEB0  65 98          ADC $98
+81DEB2  A8             TAY
+81DEB3  A5 9E          LDA $9E
+81DEB5  60             RTS
+                     ----------------
+81DEB6  85 A2          STA $A2
+81DEB8  C8             INY
+81DEB9  C2 20          REP #$20
+81DEBB  29 FE 00       AND #$00FE
+81DEBE  AA             TAX
+81DEBF  7C C2 DE       JMP ($DEC2,X)
+81DEC2               --------data--------
+81DFC1               ----------------
+81DFC2  A5 A2          LDA $A2
+81DFC4  29 3F 00       AND #$003F
+81DFC7  AA             TAX
+81DFC8  18             CLC
+81DFC9  65 9E          ADC $9E
+81DFCB  85 9E          STA $9E
+81DFCD  E2 20          SEP #$20
+81DFCF  B7 94          LDA [$94],Y
+81DFD1  8D 80 21       STA $2180
+81DFD4  C8             INY
+81DFD5  CA             DEX
+81DFD6  D0 F7          BNE $81DFCF
+81DFD8  82 C6 FE       BRL $81DEA1
+81DFDB  84 9C          STY $9C
+81DFDD  A4 9E          LDY $9E
+81DFDF  A5 A2          LDA $A2
+81DFE1  29 0F 00       AND #$000F
+81DFE4  1A             INC
+81DFE5  AA             TAX
+81DFE6  1A             INC
+81DFE7  38             SEC
+81DFE8  65 9E          ADC $9E
+81DFEA  85 9E          STA $9E
+81DFEC  E2 20          SEP #$20
+81DFEE  88             DEY
+81DFEF  B7 98          LDA [$98],Y
+81DFF1  85 A2          STA $A2
+81DFF3  88             DEY
+81DFF4  38             SEC
+81DFF5  F7 98          SBC [$98],Y
+81DFF7  85 A3          STA $A3
+81DFF9  A5 A2          LDA $A2
+81DFFB  18             CLC
+81DFFC  65 A3          ADC $A3
+81DFFE  8D 80 21       STA $2180
+81E001  18             CLC
+81E002  65 A3          ADC $A3
+81E004  8D 80 21       STA $2180
+81E007  18             CLC
+81E008  65 A3          ADC $A3
+81E00A  8D 80 21       STA $2180
+81E00D  CA             DEX
+81E00E  D0 F7          BNE $81E007
+81E010  A4 9C          LDY $9C
+81E012  82 8C FE       BRL $81DEA1
+81E015  84 9C          STY $9C
+81E017  A4 9E          LDY $9E
+81E019  88             DEY
+81E01A  88             DEY
+81E01B  B7 98          LDA [$98],Y
+81E01D  AA             TAX
+81E01E  88             DEY
+81E01F  88             DEY
+81E020  38             SEC
+81E021  F7 98          SBC [$98],Y
+81E023  A8             TAY
+81E024  A5 A2          LDA $A2
+81E026  84 A2          STY $A2
+81E028  29 0F 00       AND #$000F
+81E02B  1A             INC
+81E02C  A8             TAY
+81E02D  1A             INC
+81E02E  0A             ASL
+81E02F  65 9E          ADC $9E
+81E031  85 9E          STA $9E
+81E033  8A             TXA
+81E034  18             CLC
+81E035  65 A2          ADC $A2
+81E037  E2 20          SEP #$20
+81E039  8D 80 21       STA $2180
+81E03C  EB             XBA
+81E03D  8D 80 21       STA $2180
+81E040  EB             XBA
+81E041  C2 20          REP #$20
+81E043  18             CLC
+81E044  65 A2          ADC $A2
+81E046  E2 20          SEP #$20
+81E048  8D 80 21       STA $2180
+81E04B  EB             XBA
+81E04C  8D 80 21       STA $2180
+81E04F  88             DEY
+81E050  D0 EE          BNE $81E040
+81E052  A4 9C          LDY $9C
+81E054  82 4A FE       BRL $81DEA1
+81E057  84 9C          STY $9C
+81E059  A4 9E          LDY $9E
+81E05B  A5 A2          LDA $A2
+81E05D  29 0F 00       AND #$000F
+81E060  1A             INC
+81E061  AA             TAX
+81E062  1A             INC
+81E063  38             SEC
+81E064  65 9E          ADC $9E
+81E066  85 9E          STA $9E
+81E068  E2 20          SEP #$20
+81E06A  88             DEY
+81E06B  B7 98          LDA [$98],Y
+81E06D  85 A2          STA $A2
+81E06F  8D 80 21       STA $2180
+81E072  8D 80 21       STA $2180
+81E075  8D 80 21       STA $2180
+81E078  CA             DEX
+81E079  D0 FA          BNE $81E075
+81E07B  A4 9C          LDY $9C
+81E07D  82 21 FE       BRL $81DEA1
+81E080  84 9C          STY $9C
+81E082  A4 9E          LDY $9E
+81E084  A5 A2          LDA $A2
+81E086  29 0F 00       AND #$000F
+81E089  1A             INC
+81E08A  AA             TAX
+81E08B  1A             INC
+81E08C  0A             ASL
+81E08D  65 9E          ADC $9E
+81E08F  85 9E          STA $9E
+81E091  88             DEY
+81E092  88             DEY
+81E093  B7 98          LDA [$98],Y
+81E095  E2 20          SEP #$20
+81E097  8D 80 21       STA $2180
+81E09A  EB             XBA
+81E09B  8D 80 21       STA $2180
+81E09E  EB             XBA
+81E09F  8D 80 21       STA $2180
+81E0A2  EB             XBA
+81E0A3  8D 80 21       STA $2180
+81E0A6  CA             DEX
+81E0A7  D0 F5          BNE $81E09E
+81E0A9  A4 9C          LDY $9C
+81E0AB  82 F3 FD       BRL $81DEA1
+81E0AE  84 9C          STY $9C
+81E0B0  18             CLC
+81E0B1  A5 A2          LDA $A2
+81E0B3  29 3F 00       AND #$003F
+81E0B6  69 02 00       ADC #$0002
+81E0B9  49 FF FF       EOR #$FFFF
+81E0BC  65 9E          ADC $9E
+81E0BE  A8             TAY
+81E0BF  18             CLC
+81E0C0  A9 03 00       LDA #$0003
+81E0C3  65 9E          ADC $9E
+81E0C5  85 9E          STA $9E
+81E0C7  E2 20          SEP #$20
+81E0C9  B7 98          LDA [$98],Y
+81E0CB  8D 80 21       STA $2180
+81E0CE  C8             INY
+81E0CF  B7 98          LDA [$98],Y
+81E0D1  8D 80 21       STA $2180
+81E0D4  C8             INY
+81E0D5  B7 98          LDA [$98],Y
+81E0D7  8D 80 21       STA $2180
+81E0DA  A4 9C          LDY $9C
+81E0DC  82 C2 FD       BRL $81DEA1
+81E0DF  E2 20          SEP #$20
+81E0E1  A5 A2          LDA $A2
+81E0E3  EB             XBA
+81E0E4  B7 94          LDA [$94],Y
+81E0E6  C8             INY
+81E0E7  C2 20          REP #$20
+81E0E9  84 9C          STY $9C
+81E0EB  18             CLC
+81E0EC  29 FF 03       AND #$03FF
+81E0EF  69 02 00       ADC #$0002
+81E0F2  49 FF FF       EOR #$FFFF
+81E0F5  65 9E          ADC $9E
+81E0F7  A8             TAY
+81E0F8  A5 A2          LDA $A2
+81E0FA  29 1C 00       AND #$001C
+81E0FD  4A             LSR
+81E0FE  4A             LSR
+81E0FF  1A             INC
+81E100  AA             TAX
+81E101  1A             INC
+81E102  1A             INC
+81E103  38             SEC
+81E104  65 9E          ADC $9E
+81E106  85 9E          STA $9E
+81E108  E2 20          SEP #$20
+81E10A  B7 98          LDA [$98],Y
+81E10C  8D 80 21       STA $2180
+81E10F  C8             INY
+81E110  B7 98          LDA [$98],Y
+81E112  8D 80 21       STA $2180
+81E115  C8             INY
+81E116  B7 98          LDA [$98],Y
+81E118  8D 80 21       STA $2180
+81E11B  C8             INY
+81E11C  B7 98          LDA [$98],Y
+81E11E  8D 80 21       STA $2180
+81E121  CA             DEX
+81E122  D0 F7          BNE $81E11B
+81E124  A4 9C          LDY $9C
+81E126  82 78 FD       BRL $81DEA1
+81E129  E2 20          SEP #$20
+81E12B  A5 A2          LDA $A2
+81E12D  EB             XBA
+81E12E  B7 94          LDA [$94],Y
+81E130  C8             INY
+81E131  AA             TAX
+81E132  B7 94          LDA [$94],Y
+81E134  C8             INY
+81E135  85 A2          STA $A2
+81E137  C2 20          REP #$20
+81E139  84 9C          STY $9C
+81E13B  18             CLC
+81E13C  8A             TXA
+81E13D  29 FF 1F       AND #$1FFF
+81E140  69 02 00       ADC #$0002
+81E143  49 FF FF       EOR #$FFFF
+81E146  65 9E          ADC $9E
+81E148  A8             TAY
+81E149  A5 A2          LDA $A2
+81E14B  29 FF 00       AND #$00FF
+81E14E  1A             INC
+81E14F  AA             TAX
+81E150  1A             INC
+81E151  1A             INC
+81E152  1A             INC
+81E153  38             SEC
+81E154  65 9E          ADC $9E
+81E156  85 9E          STA $9E
+81E158  E2 20          SEP #$20
+81E15A  B7 98          LDA [$98],Y
+81E15C  8D 80 21       STA $2180
+81E15F  C8             INY
+81E160  B7 98          LDA [$98],Y
+81E162  8D 80 21       STA $2180
+81E165  C8             INY
+81E166  B7 98          LDA [$98],Y
+81E168  8D 80 21       STA $2180
+81E16B  C8             INY
+81E16C  B7 98          LDA [$98],Y
+81E16E  8D 80 21       STA $2180
+81E171  C8             INY
+81E172  B7 98          LDA [$98],Y
+81E174  8D 80 21       STA $2180
+81E177  CA             DEX
+81E178  D0 F7          BNE $81E171
+81E17A  A4 9C          LDY $9C
+81E17C  82 22 FD       BRL $81DEA1
+                     --------sub start--------
+81E17F  E2 20          SEP #$20
+
+# The PC show 81E177, but the disassembly screen shows 81E174 and with a step over goes to 81E177. Maybe an 8 bit mode?
+Breakpoint at 81E174 A:0AFF,X:007,Y:02F9,D:0000,DB:82;
+
+-------- session stops here --------
+-------- new session starts here --------
+9F8000               --------unidentified--------
+9F809A               ----------------
+9F809B  E2 20          SEP #$20
+9F809D  A9 9F          LDA #$9F
+9F809F  48             PHA
+9F80A0  AB             PLB
+9F80A1  9C 00 42       STZ $4200
+9F80A4  9C 0C 42       STZ $420C
+9F80A7  C2 20          REP #$20
+9F80A9  A9 FF 1F       LDA #$1FFF
+9F80AC  1B             TCS
+9F80AD  A9 00 01       LDA #$0100
+9F80B0  5B             TCD
+9F80B1  A9 05 00       LDA #$0005
+9F80B4  8D 25 00       STA $0025
+9F80B7  20 DE 9E       JSR $9EDE
+9F80BA  20 A4 9C       JSR $9CA4
+9F80BD  AD 11 42       LDA $4211
+9F80C0  30 FB          BMI $9F80BD
+9F80C2  AD 11 42       LDA $4211
+9F80C5  10 FB          BPL $9F80C2
+9F80C7  20 7B 9D       JSR $9D7B
+9F80CA  AD 11 42       LDA $4211
+9F80CD  30 FB          BMI $9F80CA
+9F80CF  E2 20          SEP #$20
+9F80D1  A9 00          LDA #$00
+9F80D3  8D 33 21       STA $2133
+9F80D6  C2 20          REP #$20
+9F80D8  A9 00 00       LDA #$0000
+9F80DB  20 20 83       JSR $8320
+9F80DE  E2 20          SEP #$20
+9F80E0  A9 81          LDA #$81
+9F80E2  8D 00 42       STA $4200
+9F80E5  C2 20          REP #$20
+9F80E7  20 D4 81       JSR $81D4
+9F80EA  AF F1 1D 00    LDA $001DF1
+9F80EE  D0 05          BNE $9F80F5
+9F80F0  AD 9D 1D       LDA $1D9D
+9F80F3  D0 03          BNE $9F80F8
+9F80F5  4C 76 80       JMP $8076
+9F80F8  20 7C EB       JSR $EB7C
+9F80FB  90 03          BCC $9F8100
+9F80FD  4C 76 80       JMP $8076
+9F8100  E2 20          SEP #$20
+9F8102  A9 02          LDA #$02
+9F8104  8D D2 01       STA $01D2
+9F8107  C2 20          REP #$20
+9F8109  20 D5 DE       JSR $DED5
+9F810C  AD E5 1C       LDA $1CE5
+9F810F  D0 03          BNE $9F8114
+9F8111  20 04 D9       JSR $D904
+9F8114  20 65 B2       JSR $B265
+9F8117  20 96 82       JSR $8296
+9F811A  A9 9B 80       LDA #$809B
+9F811D  8D ED 1D       STA $1DED
+9F8120  A9 9F 00       LDA #$009F
+9F8123  8D EF 1D       STA $1DEF
+9F8126  AD E1 1C       LDA $1CE1
+9F8129  0A             ASL
+9F812A  0A             ASL
+9F812B  0D E5 1C       ORA $1CE5
+9F812E  AA             TAX
+9F812F  BF 0C A2 9F    LDA $9FA20C,X
+9F8133  29 FF 00       AND #$00FF
+9F8136  8D C1 01       STA $01C1
+9F8139  20 A3 F0       JSR $F0A3
+9F813C  20 B2 F5       JSR $F5B2
+9F813F  E2 30          SEP #$30
+9F8141  A9 FF          LDA #$FF
+9F8143  8D D0 01       STA $01D0
+9F8146  A9 FF          LDA #$FF
+9F8148  8D D1 01       STA $01D1
+9F814B  A9 01          LDA #$01
+9F814D  8D D2 01       STA $01D2
+9F8150  9C D3 01       STZ $01D3
+9F8153  9C D5 01       STZ $01D5
+9F8156  9C D7 01       STZ $01D7
+9F8159  9C D8 01       STZ $01D8
+9F815C  9C D9 01       STZ $01D9
+9F815F  9C DA 01       STZ $01DA
+9F8162  9C CF 01       STZ $01CF
+9F8165  C2 30          REP #$30
+9F8167  AD E5 1C       LDA $1CE5
+9F816A  D0 10          BNE $9F817C
+9F816C  A2 28 00       LDX #$0028
+9F816F  A9 00 00       LDA #$0000
+9F8172  9D C3 1D       STA $1DC3,X
+9F8175  CA             DEX
+9F8176  CA             DEX
+9F8177  D0 F9          BNE $9F8172
+9F8179  20 3C DA       JSR $DA3C
+9F817C  20 90 81       JSR $8190
+9F817F  AF 00 80 81    LDA $818000
+9F8183  8D 00 01       STA $0100
+9F8186  AF 02 80 81    LDA $818002
+9F818A  8D 02 01       STA $0102
+9F818D  DC 00 01       JML [$0100]
+                     --------sub start--------
+9F8190  9C 00 01       STZ $0100
+
+
+                     --------sub start--------
+9FF0A3  C2 30          REP #$30
+9FF0A5  8B             PHB
+9FF0A6  0B             PHD
+9FF0A7  F4 9B 9B       PEA #$9B9B
+9FF0AA  AB             PLB
+9FF0AB  AB             PLB
+9FF0AC  A9 00 01       LDA #$0100
+9FF0AF  5B             TCD
+9FF0B0  64 BF          STZ $BF
+9FF0B2  E2 20          SEP #$20
+9FF0B4  A9 01          LDA #$01
+9FF0B6  85 CF          STA $CF
+9FF0B8  C2 20          REP #$20
+9FF0BA  A5 C1          LDA $C1
+9FF0BC  0A             ASL
+9FF0BD  A8             TAY
+9FF0BE  B9 00 80       LDA $8000,Y
+9FF0C1  85 C3          STA $C3
+9FF0C3  A8             TAY
+9FF0C4  B9 00 00       LDA $0000,Y
+9FF0C7  AA             TAX
+9FF0C8  B9 02 00       LDA $0002,Y
+9FF0CB  29 FF 00       AND #$00FF
+9FF0CE  09 00 7F       ORA #$7F00
+9FF0D1  A0 00 00       LDY #$0000
+9FF0D4  22 14 BF 9F    JSL $9FBF14
+9FF0D8  A9 00 00       LDA #$0000
+9FF0DB  85 C5          STA $C5
+9FF0DD  A9 7F 00       LDA #$007F
+9FF0E0  85 C7          STA $C7
+9FF0E2  20 80 F1       JSR $F180
+9FF0E5  20 8F F2       JSR $F28F
+9FF0E8  A4 C3          LDY $C3
+9FF0EA  B9 04 00       LDA $0004,Y
+9FF0ED  AA             TAX
+9FF0EE  B9 06 00       LDA $0006,Y
+9FF0F1  29 FF 00       AND #$00FF
+9FF0F4  09 00 7F       ORA #$7F00
+9FF0F7  A0 00 00       LDY #$0000
+9FF0FA  22 14 BF 9F    JSL $9FBF14
+9FF0FE  A9 00 00       LDA #$0000
+9FF101  85 C5          STA $C5
+9FF103  A9 7F 00       LDA #$007F
+9FF106  85 C7          STA $C7
+9FF108  20 80 F1       JSR $F180
+9FF10B  20 8F F2       JSR $F28F
+9FF10E  A4 C3          LDY $C3
+9FF110  B9 08 00       LDA $0008,Y
+9FF113  85 C5          STA $C5
+9FF115  B9 0A 00       LDA $000A,Y
+9FF118  85 C7          STA $C7
+9FF11A  20 80 F1       JSR $F180
+9FF11D  20 8F F2       JSR $F28F
+9FF120  A4 C3          LDY $C3
+9FF122  B9 0C 00       LDA $000C,Y
+9FF125  85 C9          STA $C9
+9FF127  98             TYA
+9FF128  18             CLC
+9FF129  69 0E 00       ADC #$000E
+9FF12C  A8             TAY
+9FF12D  B9 00 00       LDA $0000,Y
+9FF130  F0 27          BEQ $9FF159
+9FF132  85 C5          STA $C5
+9FF134  38             SEC
+9FF135  B9 02 00       LDA $0002,Y
+9FF138  E5 C5          SBC $C5
+9FF13A  85 CB          STA $CB
+9FF13C  B9 04 00       LDA $0004,Y
+9FF13F  85 C7          STA $C7
+9FF141  98             TYA
+9FF142  18             CLC
+9FF143  69 06 00       ADC #$0006
+9FF146  85 C3          STA $C3
+9FF148  20 80 F1       JSR $F180
+9FF14B  20 23 F4       JSR $F423
+9FF14E  A4 C3          LDY $C3
+9FF150  18             CLC
+9FF151  A5 CB          LDA $CB
+9FF153  65 C9          ADC $C9
+9FF155  85 C9          STA $C9
+9FF157  80 D4          BRA $9FF12D
+9FF159  E2 20          SEP #$20
+9FF15B  A9 00          LDA #$00
+9FF15D  85 CF          STA $CF
+9FF15F  A9 77          LDA #$77
+9FF161  CD 41 21       CMP $2141
+9FF164  D0 FB          BNE $9FF161
+9FF166  CD 41 21       CMP $2141
+9FF169  D0 F6          BNE $9FF161
+9FF16B  C2 20          REP #$20
+9FF16D  A9 FF FF       LDA #$FFFF
+9FF170  85 BF          STA $BF
+9FF172  2B             PLD
+9FF173  AB             PLB
+9FF174  60             RTS
+                     --------sub start--------
+9FF175  C2 30          REP #$30
+
+
+
+Breakpoint 9FBF14 A:7F98,X:B2AB,Y:0000,D:0100,DB:98; source = 98:B2AB, destination = 7F0000; $98B2AB-$98B2CA: 09 5E 28 00 15 0E 00 00 00 02 81 02 FF FF 81 08 FF 4E 28 1D 00 06 00 1C 91 1A 00 00 74 01 3C 03; $7F0000-$7F001F: 00 04 00 04 00 04 00 04 01 08 02 08 03 08 80 15 81 15 82 15 82 15 82 15 82 15 82 15 82 15 82 15; call stack: 1. function $97FB14 PC $97FB14 2. function $9FF0A3 PC $9FF0D4 3. function [bottom of stack] PC $9F8139
+Breakpoint 9FBF14 A:7F99,X:8000,Y:0000,D:0100,DB:9B; source = 9B:8000, destination = 7F0000; $9B8000-$9B8020: 08 80 72 80 E2 80 4C 81 A4 81 9B 00 44 85 9B 00 00 85 9B 00 40 40 DB DB C3 E1 9A 00 38 B5 F4 BC; $7F0000-$7F001F: 5E 28 00 15 0E 00 00 00 02 00 00 00 FF FF 00 00 FF FF 4E 28 1D 00 06 00 1C 00 00 00 00 00 74 01; call stack: 1. function $97FB14 PC $97FB14 2. function $9FF0A3 PC $9FF0D4 3. function [bottom of stack] PC $9F8139
+Breakpoint 81DE85 A:7F8E,X:B393,Y:0000,D:0000,DB:82; source = 8E:B393, destination = 7F0000; $8EB393-$8EB3B2: 10 99 F6 94 FB 94 FB 99 FF 8C FF 8E FF 87 FF C3 FF 6E 04 00 00 FF 00 CC 12 03 1F FF C0 E0 1D 18; $7F0000-$7F001F: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00; call stack: 1. function $81DE85 PC $81DE85 2. function $818717 PC $81880E 3. function [bottom of stack] PC $818158
+Breakpoint 81DE85 A:7F8C,X:F787,Y:0000,D:0000,DB:82; source = 8C:F787, destination = 7F0000; $8CF787-$8CF7A6: 01 00 6F 4A 01 80 4C 6D 01 FF 75 E0 4C 0C 0F 7F 00 FF 3E FF 60 FF 3C F9 06 83 7C FF 00 7E E0 3D; $7F0000-$7F001F: 99 F6 94 FB 94 FB 99 FF 8C FF 8E FF 87 FF C3 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF; call stack: 1. function $81DE85 PC $81DE85 2. function $818717 PC $818824 3. function [bottom of stack] PC $818158
+Breakpoint 81DE85 A:7F87,X:8006,Y:0000,D:0000,DB:82; source = 87:8006, destination = 7F0000; $878006-$878025: 01 00 6F E0 10 FF 04 00 01 00 02 E1 18 20 03 03 00 04 54 15 00 08 40 04 00 0B 00 0C 00 0D 00 0D; $7F0000-$7F001F: FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF; call stack: 1. function $81DE85 PC $81DE85 2. function $81D473 PC $81D4AA 3. function $818717 PC $818831 4. function [bottom of stack] PC $818158
+
+Breakpoint 9FF0A3 A:0001,X:0000,Y:0D4C,D:0100,DB:9F; $01C0-$01CF: FF 01 00 70 80 0A CA 9B 00 72 FE EE 23 00 00 00; $9B8070-$9B808F: 00 00 AB B2 98 00 00 80 99 00 13 84 99 00 80 40 1D C0 AB CE 99 00 38 8D 23 99 9B 00 BD F0 2E FB
+Breakpoint 9FF0C4 A:8072,X:0000,Y:8072,D:0100,DB:9B; $01C0-$01CF: 00 01 00 72 80 0A CA 9B 00 72 FE EE 23 00 00 01; $9B8070-$9B808F: 00 00 AB B2 98 00 00 80 99 00 13 84 99 00 80 40 1D C0 AB CE 99 00 38 8D 23 99 9B 00 BD F0 2E FB; $9B8090-$9B809F: 9A 00 BA F5 99 FB 99 00 8F 84 AE 8C 99 00 8A 9C; $9B80A0-$9B81F0: F1 AD 9A 00 23 99 7B B0 9B 00 53 C7 E6 CD 9A 00 85 C0 F2 CB 98 00 7B B0 2D BF 9B 00 ED D3 D9 E1 98 00 5D F2 7A FF 9B 00 F8 ED 5D F2 9B 00 B4 FE 68 FF 9C 00 F2 CB ED D3 98 00 64 EA 1C F3 98 00 00 00 1E 8B 9A 00 EC 82 9B 00 A2 8A 9A 00 80 40 7B B0 2D BF 9B 00 38 8D 23 99 9B 00 85 C0 F2 CB 98 00 BA F5 99 FB 99 00 E6 CD 36 D5 9A 00 23 99 7B B0 9B 00 8F 84 AE 8C 99 00 92 91 8A 9C 9A 00 56 99 1D C0 99 00 ED D3 D9 E1 98 00 5D F2 7A FF 9B 00 F8 ED 5D F2 9B 00 B4 FE 68 FF 9C 00 F2 CB ED D3 98 00 64 EA 1C F3 98 00 00 00 C7 BA 98 00 11 82 99 00 26 8A 9A 00 80 40 56 99 1D C0 99 00 38 8D 23 99 9B 00 85 C0 F2 CB 98 00 BA F5 99 FB 99 00 23 99 7B B0 9B 00 7B B0 2D BF 9B 00 ED D3 D9 E1 98 00 5D F2 7A FF 9B 00 F8 ED 5D F2 9B 00 B4 FE 68 FF 9C 00 F2 CB ED D3 98 00 64 EA 1C F3 98 00 00 00 3F 06 04 00 04 14 3B CF F5 21 50 BF 5B 14 4D FF D6 14 4E 9F B1 14 57 8F 9A 14 50 CF 32 00 42 BF B1 4E 5C AF D6 14 2F 9F F2 14 49 CF 36 14 D8 8F E0 14 5D AF 91 14 5E CF B5 14 5B AF 74 14 EB E7 15 D5 14 F3 EF E0 14 2C DF 91 1E 5B CF 9E 14 72 CF 9C 14 30 CF 1F E0 01 A7 01 00 61
+
+What we can now say with confidence:
+9B:8000 is a pointer table of 16-bit descriptor offsets.
+From your earlier 9B8000 dump, the first entries are:
+asset 0 -> 9B:8008
+asset 1 -> 9B:8072
+asset 2 -> 9B:80E2
+asset 3 -> 9B:814C
+asset 4 -> 9B:81A4
+For asset 1, the descriptor at 9B:8072 is:
+stream 1: 98:B2AB
+stream 2: 99:8000
+aux pointer: 99:8413
+initial value: 4080
+Then it has a list of 6-byte records of the form:
+word start
+word end
+word bank
+For asset 1, those records are:
+99:C01D -> 99:CEAB
+9B:8D38 -> 9B:9923
+9A:F0BD -> 9A:FB2E
+99:F5BA -> 99:FB99
+99:848F -> 99:8CAE
+9A:9C8A -> 9A:ADF1
+9B:9923 -> 9B:B07B
+9A:C753 -> 9A:CDE6
+98:C085 -> 98:CBF2
+9B:B07B -> 9B:BF2D
+98:D3ED -> 98:E1D9
+9B:F25D -> 9B:FF7A
+9B:EDF8 -> 9B:F25D
+9C:FEB4 -> 9C:FF68
+98:CBF2 -> 98:D3ED
+98:EA64 -> 98:F31C
+Then the list ends when the next start word is 0000 at 9B:80E0.
+That 0000 terminator is important: only the first word has to be zero. The bytes after it are already the next descriptor, which is why asset 2 starts immediately at 9B:80E2, and asset 3 starts at 9B:814C.
+That means 9FF0A3 is now fully identifiable as:
+look up descriptor by asset ID
+decode two compressed streams with 9FBF14
+process a list of ROM segments from banks 98/99/9A/9B/9C
+That is a high-level asset builder, not just a helper. It is very likely the path you wanted.
+What I do not need anymore:
+more descriptor bytes
+more 9FBF14 entry dumps
+more 81DE85 entry dumps
+The only optional thing that could still be useful is tying asset ID to track/minimap selection. If you want that, the next small dump would be:
+the value of $1CE1 and $1CE5
+the 9FA20C entry selected from them
+the resulting $01C1
+But if your goal was “find the minimap construction path”, you have enough now.
+
+Track 1 Breakpoint 9F8139 A:0001,X:0000,Y:0D4C,D:0100,DB:9F; $01C0-$01CF: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Track 2 Breakpoint 9F8139 A:0002,X:0001,Y:0D4C,D:0100,DB:9F; $01C0-$01CF: 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00
+
+After swapping 0x0FA20C with 0x0FA20D (breakpoints in random order):
+Track 1 Breakpoint 9F8139 A:0002,X:0000,Y:0D4C,D:0100,DB:9F;
+Track 2 Breakpoint 9F8139 A:0001,X:0001,Y:0D4C,D:0100,DB:9F;
+Track 1 Breakpoint 8885AA A:0880,X:0510,Y:0008,D:0300,DB:0; $4370-$4376: 01 18 80 0A 7F 60 08; 7F0A80 for 0x0860 bytes: 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 30 78 30 78 30 78 30 78 30 78 30 78 30 78 30 78 78 00 78 00 78 00 78 00 78 00 78 00 78 00 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 30 78 30 78 30 78 30 78 30 78 30 78 30 78 30 78 78 00 78 00 78 00 78 00 78 00 78 00 78 00 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 60 60 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 00 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 81 66 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 3C 5A 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 30 78 30 78 30 78 30 78 30 78 30 78 30 78 84 48 78 00 78 00 78 00 78 00 78 00 78 00 78 00 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 30 78 30 78 30 78 30 78 30 78 30 78 30 78 30 78 78 00 78 00 78 00 78 00 78 00 78 00 78 00 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 20 90 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 40 D0 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 F0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E0 E0 60 C0 60 C0 00 00 00 00 00 00 00 00 00 00 E0 00 E0 00 E0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 40 40 C0 00 00 00 00 00 00 00 00 00 00 00 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 40 40 C0 40 C0 00 00 00 00 00 00 00 00 00 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 C0 C0 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 00 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 00 80 00 80 00 80 00 80 00 80 00 80 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 00 40 00 40 00 40 00 40 00 40 00 40 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 60 C0 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 E0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 40 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 C0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 00 80 00 80 00 80 00 80 00 80 00 80 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 00 40 00 40 00 40 00 40 00 40 00 40 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3C 3C 3C 5A 3C 5A 3C 5A 00 00 00 00 00 00 00 00 7E 00 7E 00 7E 00 7E 00 00 00 30 30 30 78 30 78 30 78 30 78 30 78 30 78 00 00 78 00 78 00 78 00 78 00 78 00 78 00 78 00 00 00 00 00 00 00 C0 C0 C0 40 C0 40 C0 40 C0 40 00 00 00 00 00 00 C0 00 C0 00 C0 00 C0 00 C0 00
+First write to $7F:0A80-$7F:12DF:
+Track 1 Breakpoint 9FC31D A:31A2,X:04D6,Y:0A80,D:0100,DB:7F; call stack: 1. function $9FC27B PC $9FC31D 2. function $9FF0A4 PC $9FF0D8 3. function [bottom of stack] PC $9F8139
+Track 2 Breakpoint 9FBF14 A:7F98,X:B2AB,Y:0000,D:0100,DB:9B; call stack: 1. function $9FBF14 PC $9FBF14 2. function $9FF0A3 PC $9FF0D4 3. function [bottom of stack] PC $9F8139; $98B2AB: 09; $7F0000: 00
+Track 2 Breakpoint 9FC31D A:0144,X:0682,Y:0A7F,D:0100,DB:7F; call stack: 1. function $9FC271 PC $9FC31D 2. function $9FF0A3 PC $9FF0D8 3. function [bottom of stack] PC $9F8139
+
+The above seems to be an audio decompress stream call trace
+
+
+First write to $7F:1C9F Track 1 Breakpoint 9FC31D A:4901,X:19FD,Y:1C9F,D:0100,DB:7F; call stack: 1. function $9FC25D PC $9FC31D 2. function $9FF0A3 PC $9FF0D8 3. function [bottom of stack] PC $9F8139
+First write to $7F:1CA0 Track 1 Breakpoint 81F52A A:001F,X:0000,Y:0000,D:0000,DB:82; call stack: 1. function $81F470 PC $81F52A 2. function [bottom of stack] PC $818062
+First write to $7F:1CA0 Track 2 Breakpoint 81F52A A:001F,X:0001,Y:0001,D:0000,DB:82; call stack: 1. function $81F470 PC $81F52A 2. function [bottom of stack] PC $818062

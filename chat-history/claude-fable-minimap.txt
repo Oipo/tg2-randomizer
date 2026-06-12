@@ -1,0 +1,38 @@
+● TLDR: You were looking in the right place at the right time — the problem was "first write" breakpoint semantics. And while reviewing your logs I was able to finish the hunt statically: the track index lives in $7E:0108, it's computed at $80:CD2C during the black screen, and it keys three separate ROM
+  tables — geometry (0x50000), graphics including the $7F minimap buffers (bank $87 records, pointer words at file 0x3A676), and music (0x0FA20C). I wrote the full synthesis to reverse-engineering-docs/race-load-architecture.md.
+
+  Your three questions, directly:
+
+  Were the doc addresses a red herring? Partially. The whole $9F:F0A3 / 9FBF14 / 9FC0xx trail that consumed most of temp_minimap2 is the SPC700 music upload — the LDA #$77 / CMP $2141 handshake at $9F:F159 proves it talks to the APU. It uses $7F:0000+ as scratch, which is why it produced the first writes to
+  your $7F:0A80 watch region. Your suspicion was correct. The 81F52A hit was also a red herring: $81:F470 is a per-race wipe that DMA-fills OAM, all of VRAM, CGRAM, $7E:0800-FDFF and all of bank $7F from the $2134 register — a memory clear, not a load. But the bank $88 disassembly in temp_minimap.txt is
+  not a red herring — that's the genuine road/minimap engine, and its LDA $0108 reads were the right thread to pull.
+
+  Wrong point in the game? No — and the wipe proves it: since $81:F470 destroys all of $7F and VRAM before every race, the minimap data must be rebuilt in the shop→race window every time. By the same argument, the long black screen at startup can't be where the minimap loads — nothing graphical survives
+  from boot into a race. (Boot is almost certainly the SPC driver + menu assets.) You had actually already reached the real loader at the end of that session — the 81DE84 WMDATA decompressor "different code block" — you just stopped one step short of its callers.
+
+  What I found by following those callers statically (grepping the ROM for writers/readers of $0108):
+
+  1. $81:8147 JSL $80CD09 runs right after the module handoff; at $80:CD2C it computes $0108 = $7E:FE0A*4 + $7E:FE0E (country×4 + race — the same pair the shop keeps in $1CE1/$1CE5). There's a demo-mode override table at $80:F2DD.
+  2. $81:8717 (the JSR $8717 at $81:8158) then loads all race graphics using a per-(country,race) descriptor record in bank $87: index table at $87:A656, 64 record-pointer words contiguous at $87:A676-A6F5 (file 0x3A676), records 0x58 bytes each. Record fields are (addr,bank) pairs fed to the $81:DE85
+  decompressor — field +$46 → $7E:6200, +$22 → $7E:6400, and +$4A → $7F:0000+, which is what fills the tile buffers that 8885AA streams to VRAM. For country 0/race 0 that source is $8D:C572.
+  3. Music is a clean 64-byte table at 0x0FA20C (your swap experiment swapped songs 1↔2 — you can confirm by ear).
+
+  This explains the circles: your randomizer swaps 0x50000 rows, which moves geometry+weather, but the tile graphics are selected through the bank $87 table, and the music through 0x0FA20C — three parallel tables, one shared index.
+
+  The one decisive experiment left: swap the two words at file 0x3A676/0x3A678 (no header; +0x200 with header) and see whether the minimap (and scenery) swaps between races 1 and 2 of the first country. Combined with your existing 0x50000 swap, that tells you exactly whether the minimap shape is procedural
+  from path data or baked into the bank $87 graphics. For the randomizer, the safest approach is applying the same 64-entry permutation to all three tables — the $7E:6200/$6400 data from bank $87 is consumed by the road engine together with the $8A path data, so those two must always travel together.
+
+
+
+
+● Yes, exactly — that's the right patch. Word 0 ($A6F6, country 0 race 1's record) is at 0x3A676-77 and word 1 ($A74E, race 2) at 0x3A678-79, so swapping bytes 0↔2 and 1↔3 exchanges the two little-endian record pointers. And since bytes has the copier header already stripped, the bare 0x3A676 offset is
+  correct (the +0x200 I mentioned was only for xxd on the headered file).
+
+  One thing to watch for the experiment to be conclusive: you still have the 0x50000 row swap (lines 244-246) and the 0x0FA20C audio swap active from before. If all three run together, races 1 and 2 swap consistently and you'll see no mismatch — which tells you nothing about what bank $87 alone controls.
+  For this run, comment out the 0x50000 swap (and optionally the audio one) so only the 0x3A676 swap is active. Then:
+
+  - Minimap/scenery/road tiles swap, geometry stays → minimap image is baked into the bank $87 graphics.
+  - Scenery swaps but minimap stays with the geometry → minimap shape is procedural from the path data at 0x50000.
+
+  Also don't be surprised if the road surface glitches during this run — the $7E:6200/$6400 blocks come from the bank $87 record but are consumed by the road engine alongside the 0x50000 path data, so swapping one without the other is intentionally inconsistent. That's fine for a diagnostic; just note what
+  breaks too, since it confirms the coupling.
