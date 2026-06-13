@@ -22,6 +22,31 @@
     label { display: block; margin: 0.4rem 0; }
     .row { display: flex; align-items: center; gap: 0.5rem; }
     input[type="number"] { width: 8rem; }
+    .defaults-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+    .defaults-grid h3 {
+        margin: 0.2rem 0 0.5rem;
+        font-size: 1rem;
+        color: #e6e6e6;
+    }
+    .defaults-grid label {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 5rem;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0.35rem 0;
+    }
+    .defaults-grid input[type="number"],
+    .defaults-grid select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    @media (max-width: 600px) {
+        .defaults-grid { grid-template-columns: 1fr; }
+    }
     button {
         font-size: 1rem;
         padding: 0.6rem 1.2rem;
@@ -82,6 +107,62 @@
             Seed (optional):
             <input type="number" id="seed" placeholder="random" min="0">
         </label>
+    </fieldset>
+
+    <fieldset>
+        <legend>New-game car defaults</legend>
+        <div class="defaults-grid">
+            <section>
+                <h3>P1 $1D03-$1D19</h3>
+                <label>Engine $1D03 <input type="number" id="startP1Engine" min="0" max="3" step="1"></label>
+                <label>Wet tires $1D05 <input type="number" id="startP1WetTires" min="0" max="3" step="1"></label>
+                <label>Dry tires $1D07 <input type="number" id="startP1DryTires" min="0" max="3" step="1"></label>
+                <label>Gearbox $1D09 <input type="number" id="startP1Gearbox" min="0" max="3" step="1"></label>
+                <label>Nitro $1D0B <input type="number" id="startP1Nitro" min="0" max="3" step="1"></label>
+                <label>Mystery $1D0D <input type="number" id="startP1Mystery" min="0" max="255" step="1"></label>
+                <label>Armour 1 $1D0F <input type="number" id="startP1Armour1" min="0" max="3" step="1"></label>
+                <label>Armour 2 $1D11 <input type="number" id="startP1Armour2" min="0" max="3" step="1"></label>
+                <label>Armour 3 $1D13 <input type="number" id="startP1Armour3" min="0" max="3" step="1"></label>
+                <label>Paint $1D15 <select id="startP1Paint">
+                    <option value="">(unchanged)</option>
+                    <option value="0">0 - Red</option>
+                    <option value="1">1 - Blue</option>
+                    <option value="2">2 - White</option>
+                    <option value="3">3 - Yellow</option>
+                    <option value="4">4 - Green</option>
+                    <option value="5">5 - Black</option>
+                    <option value="6">6 - Gentleman's Gray</option>
+                    <option value="7">7 - Purple</option>
+                </select></label>
+                <label>Unknown $1D17 <input type="number" id="startP1Unknown" min="0" max="255" step="1"></label>
+                <label>Money (in thousands) $1D19 <input type="number" id="startP1Money" min="0" max="255" step="1"></label>
+            </section>
+            <section>
+                <h3>P2 $1D2C-$1D42</h3>
+                <label>Engine $1D2C <input type="number" id="startP2Engine" min="0" max="3" step="1"></label>
+                <label>Wet tires $1D2E <input type="number" id="startP2WetTires" min="0" max="3" step="1"></label>
+                <label>Dry tires $1D30 <input type="number" id="startP2DryTires" min="0" max="3" step="1"></label>
+                <label>Gearbox $1D32 <input type="number" id="startP2Gearbox" min="0" max="3" step="1"></label>
+                <label>Nitro $1D34 <input type="number" id="startP2Nitro" min="0" max="3" step="1"></label>
+                <label>Mystery $1D36 <input type="number" id="startP2Mystery" min="0" max="255" step="1"></label>
+                <label>Armour 1 $1D38 <input type="number" id="startP2Armour1" min="0" max="3" step="1"></label>
+                <label>Armour 2 $1D3A <input type="number" id="startP2Armour2" min="0" max="3" step="1"></label>
+                <label>Armour 3 $1D3C <input type="number" id="startP2Armour3" min="0" max="3" step="1"></label>
+                <label>Paint $1D3E <select id="startP2Paint">
+                    <option value="">(unchanged)</option>
+                    <option value="0">0 - Red</option>
+                    <option value="1">1 - Blue</option>
+                    <option value="2">2 - White</option>
+                    <option value="3">3 - Yellow</option>
+                    <option value="4">4 - Green</option>
+                    <option value="5">5 - Black</option>
+                    <option value="6">6 - Gentleman's Gray</option>
+                    <option value="7">7 - Purple</option>
+                </select></label>
+                <label>Unknown $1D40 <input type="number" id="startP2Unknown" min="0" max="255" step="1"></label>
+                <label>Money (in thousands) $1D42 <input type="number" id="startP2Money" min="0" max="255" step="1"></label>
+            </section>
+        </div>
     </fieldset>
 
     <button id="go" disabled>Loading…</button>
@@ -156,6 +237,35 @@
             const seed = document.getElementById('seed').value;
             opts.seed = (seed !== '') ? (parseInt(seed, 10) >>> 0)
                                       : crypto.getRandomValues(new Uint32Array(1))[0];
+            [
+                'startP1Engine',
+                'startP1WetTires',
+                'startP1DryTires',
+                'startP1Gearbox',
+                'startP1Nitro',
+                'startP1Mystery',
+                'startP1Armour1',
+                'startP1Armour2',
+                'startP1Armour3',
+                'startP1Paint',
+                'startP1Unknown',
+                'startP1Money',
+                'startP2Engine',
+                'startP2WetTires',
+                'startP2DryTires',
+                'startP2Gearbox',
+                'startP2Nitro',
+                'startP2Mystery',
+                'startP2Armour1',
+                'startP2Armour2',
+                'startP2Armour3',
+                'startP2Paint',
+                'startP2Unknown',
+                'startP2Money',
+            ].forEach(function (key) {
+                const value = document.getElementById(key).value;
+                if (value !== '') opts[key] = parseInt(value, 10);
+            });
             return opts;
         }
 

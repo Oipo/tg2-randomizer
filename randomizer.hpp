@@ -60,6 +60,21 @@ struct BlockInfo {
     std::vector<char> data;
 };
 
+struct PlayerCarDefaults {
+    uint32_t engine{std::numeric_limits<uint32_t>::max()};
+    uint32_t wet_tires{std::numeric_limits<uint32_t>::max()};
+    uint32_t dry_tires{std::numeric_limits<uint32_t>::max()};
+    uint32_t gearbox{std::numeric_limits<uint32_t>::max()};
+    uint32_t nitro{std::numeric_limits<uint32_t>::max()};
+    uint32_t mystery{std::numeric_limits<uint32_t>::max()};
+    uint32_t armour_1{std::numeric_limits<uint32_t>::max()};
+    uint32_t armour_2{std::numeric_limits<uint32_t>::max()};
+    uint32_t armour_3{std::numeric_limits<uint32_t>::max()};
+    uint32_t paint{std::numeric_limits<uint32_t>::max()};
+    uint32_t unknown{std::numeric_limits<uint32_t>::max()};
+    uint32_t money{std::numeric_limits<uint32_t>::max()};
+};
+
 struct RandomizerOptions {
     bool randomize_weather{};
     bool enable_space_weather{};
@@ -75,6 +90,8 @@ struct RandomizerOptions {
     // Otherwise a random_device seed is used, matching the original behaviour.
     bool use_seed{};
     uint64_t seed{};
+    PlayerCarDefaults p1_start{};
+    PlayerCarDefaults p2_start{};
 };
 
 struct RandomizerResult {
@@ -294,6 +311,114 @@ inline bool install_drone_ramp(std::vector<char>& bytes, std::string& error) {
     return true;
 }
 
+inline bool has_start_defaults(const PlayerCarDefaults& player_start) {
+    constexpr uint32_t unset = std::numeric_limits<uint32_t>::max();
+    return player_start.engine != unset
+           || player_start.wet_tires != unset
+           || player_start.dry_tires != unset
+           || player_start.gearbox != unset
+           || player_start.nitro != unset
+           || player_start.mystery != unset
+           || player_start.armour_1 != unset
+           || player_start.armour_2 != unset
+           || player_start.armour_3 != unset
+           || player_start.paint != unset
+           || player_start.unknown != unset
+           || player_start.money != unset;
+}
+
+inline bool install_start_defaults_loader_patch(std::vector<char>& bytes, std::string& error) {
+    constexpr PC_addr loop_limit = 0x0FDA2B;    // operand of CPX #$0012 in the template reload helper
+    constexpr PC_addr money_clears = 0x0FDA2F;  // STZ $1D19 / STZ $1D42
+
+    static constexpr uint8_t orig[10] = {
+        0x12,0x00,              // copy item defaults through +0x10 only
+        0xD0,0xEB,              // branch back to copy loop
+        0x9C,0x19,0x1D,        // STZ $1D19
+        0x9C,0x42,0x1D,        // STZ $1D42
+    };
+    auto format_bytes = [](auto get_byte, uint32_t count) {
+        std::string out;
+        for(uint32_t i = 0; i < count; ++i) {
+            if(i != 0) {
+                out += ' ';
+            }
+            out += fmt::format("{:02X}", get_byte(i));
+        }
+        return out;
+    };
+    for(uint32_t i = 0; i < 10; ++i) {
+        if(static_cast<uint8_t>(bytes[loop_limit + i]) != orig[i]) {
+            const std::string expected = format_bytes([&](uint32_t j) { return orig[j]; }, 10);
+            const std::string actual = format_bytes([&](uint32_t j) {
+                return static_cast<uint8_t>(bytes[loop_limit + j]);
+            }, 10);
+            error = fmt::format(
+                "start defaults: loader patch site does not match the expected stock bytes; expected [{}], actual [{}]",
+                expected,
+                actual);
+            return false;
+        }
+    }
+
+    bytes[loop_limit] = 0x18;  // copy defaults through +0x16, including money
+    for(uint32_t i = 0; i < 6; ++i) {
+        bytes[money_clears + i] = static_cast<char>(0xEA);
+    }
+    return true;
+}
+
+enum class PlayerSlot {
+    p1,
+    p2,
+};
+
+inline bool apply_start_defaults(std::vector<char>& bytes, const PlayerCarDefaults& player_start, PlayerSlot player, std::string& error) {
+    constexpr uint32_t unset = std::numeric_limits<uint32_t>::max();
+    constexpr PC_addr p1_engine_template = 0x0F8413;  // $1D03 / $7E:FE2C
+    constexpr PC_addr p2_engine_template = 0x0F843C;  // $1D2C / $7E:FE55
+    const PC_addr base = player == PlayerSlot::p1 ? p1_engine_template : p2_engine_template;
+    const char* player_name = player == PlayerSlot::p1 ? "P1" : "P2";
+
+    auto write_optional_byte = [&](PC_addr addr, uint32_t value, const char* field) {
+        if(value == unset) {
+            return true;
+        }
+        if(value > 0xFF) {
+            error = fmt::format("{} start {} cannot be more than 255", player_name, field);
+            return false;
+        }
+        bytes[addr] = static_cast<char>(value);
+        return true;
+    };
+
+    auto write_optional_word = [&](PC_addr addr, uint32_t value, const char* field) {
+        if(value == unset) {
+            return true;
+        }
+        if(value > 0xFFFF) {
+            error = fmt::format("{} start {} cannot be more than 65535", player_name, field);
+            return false;
+        }
+        bytes[addr] = static_cast<char>(value & 0xFFu);
+        bytes[addr + 1] = static_cast<char>((value >> 8) & 0xFFu);
+        return true;
+    };
+
+    return write_optional_byte(base + 0x00, player_start.engine, "engine")
+           && write_optional_byte(base + 0x02, player_start.wet_tires, "wet tires")
+           && write_optional_byte(base + 0x04, player_start.dry_tires, "dry tires")
+           && write_optional_byte(base + 0x06, player_start.gearbox, "gearbox")
+           && write_optional_byte(base + 0x08, player_start.nitro, "nitro")
+           && write_optional_byte(base + 0x0A, player_start.mystery, "mystery")
+           && write_optional_byte(base + 0x0C, player_start.armour_1, "armour 1")
+           && write_optional_byte(base + 0x0E, player_start.armour_2, "armour 2")
+           && write_optional_byte(base + 0x10, player_start.armour_3, "armour 3")
+           && write_optional_byte(base + 0x12, player_start.paint, "paint")
+           && write_optional_byte(base + 0x14, player_start.unknown, "unknown")
+           && write_optional_word(base + 0x16, player_start.money, "money");
+}
+
 // Applies the randomizer to a raw ROM image and returns the patched bytes.
 // This is the single source of truth shared by the native CLI and the web
 // (Emscripten) build, so both produce identical output for identical input.
@@ -335,6 +460,19 @@ inline RandomizerResult randomize_rom(std::vector<char> bytes, const RandomizerO
     } else {
         std::random_device dev;
         rng.seed(dev());
+    }
+
+    if(has_start_defaults(options.p1_start) || has_start_defaults(options.p2_start)) {
+        if(!install_start_defaults_loader_patch(bytes, result.error)) {
+            return result;
+        }
+    }
+
+    if(!apply_start_defaults(bytes, options.p1_start, PlayerSlot::p1, result.error)) {
+        return result;
+    }
+    if(!apply_start_defaults(bytes, options.p2_start, PlayerSlot::p2, result.error)) {
+        return result;
     }
 
     if(options.randomize_weather) {
