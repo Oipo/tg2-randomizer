@@ -37,3 +37,8 @@ super-beheader.py
 snes-rom-corruptor/
 .idea
 funny-results
+
+# CMake build directories
+build/
+build-wasm/
+cmake/

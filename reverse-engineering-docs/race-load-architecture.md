@@ -91,7 +91,10 @@ music via 0x0FA20C — three tables keyed by the same index. Two consistent opti
 1. **Data-level**: apply the *same* 64-entry permutation to:
    * 8-byte rows at file 0x50000,
    * 16-bit record words at file 0x3A676 (64 words),
-   * bytes at file 0x0FA20C (64 bytes).
+   * bytes at file 0x0FA20C (64 bytes),
+   * 16-bit words at file 0x55FE (`$80:D5FE`, per-track drone start-line base — also
+     keyed by `$0108`; if it is left unpermuted the drone grid spawns at the wrong
+     spot for the swapped track. See drone-speed.md section 8).
    Caveat: `$7E:6200/$6400` data from the $87 record is consumed by the road engine
    alongside the `$8A` path data, so these two tables must always travel together.
 2. **Index-level**: patch `$80:CD2C-CD39` (file 0x4D2C) to route the computed index
