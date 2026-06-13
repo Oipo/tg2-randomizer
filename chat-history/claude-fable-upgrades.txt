@@ -1,0 +1,606 @@
+ ▐▛███▜▌   Claude Code v2.1.175
+▝▜█████▛▘  Fable 5 · Claude Pro
+  ▘▘ ▝▝    ~/Programming/tg2-randomizer
+
+  ✔ Using flicker-free rendering · if you want to go back, use /tui default
+    · Click to move your cursor in the text input
+    · Click to expand collapsed tool results
+    · By default, text auto-copies when you select it (/config to change)
+    · Hold Shift while selecting to use your terminal's native copy instead
+
+ ▎ Fable 5 is here! Our newest model for complex, long-running work.
+ ▎ Included in your plan limits until Jun 22, then switch to usage credits to continue.
+   +1 more · /status
+
+❯ /effort
+  ⎿  Set effort level to xhigh (saved as your default for new sessions): Deeper
+     reasoning than high, just below maximum (Fable 5, Opus 4.7+)
+
+❯ /model
+  ⎿  Set model to Fable 5 and saved as your default for new sessions
+
+❯ /effort
+  ⎿  Set effort level to xhigh (saved as your default for new sessions): Deeper
+     reasoning than high, just below maximum (Fable 5, Opus 4.7+)
+
+❯ Trying to find how the minimap gets chosen for each race track in the game
+  has been incredibly difficult. So far I've found out that the instructions
+  around 8885AA load minimap images from WRAM to VRAM on every frame. I did
+  this by corrupting the minimap VRAM and seeing what happened on the next
+  frame and the corruption got fixed. I have spent a lot of time figuring out
+  if there were any transfers, DMA or otherwise, in setting up the WRAM in
+  between the shop screen and the race screen. But I keep going on circles and
+  not finding it. Can you read temp_minimap.txt, temp_minimap2.txt,
+  temp_minimap3.txt and temp_minimap4.txt, take a step back, and see how we can
+  get more information for this reverse engineering attempt? I'm thinking I
+  may have the wrong point in the game where the WRAM gets loaded. Can you give
+  me insights on what patterns I should find at which points of the game to
+  get a clue? I'm thinking so far that the addresses found in the docs might be
+  a red herring but I'm not sure. Theres one other point in the game that I
+  suspect might do something useful: the startup of the game has an unusually
+  long black screen and I haven't yet checked what happens there.
+
+● I'll read the four temp_minimap files you pointed me at. Let me first check
+  their sizes since you mentioned these can be huge.
+
+  Read 1 file (ctrl+o to expand)
+
+● These are all readable in full. Let me pull them in.
+
+  Read 4 files (ctrl+o to expand)
+
+● I have the first chunks; the two bigger files were truncated, so let me read
+  the rest.
+
+  Read 2 files (ctrl+o to expand)
+
+● Two more chunks of temp_minimap.txt remain — let me finish it.
+
+  Searched for 1 pattern, read 2 files, listed 1 directory, ran 9 shell commands (ctrl+o to expand)
+● Write(reverse-engineering-docs/race-load-architecture.md)
+  ⎿  Wrote 123 lines to reverse-engineering-docs/race-load-architecture.md
+       1 # Race load architecture (synthesis, 2026-06-12)
+       2
+          the headerless ROM.
+       4 All file offsets below assume NO copier header (same convention
+         as main.cpp).
+       6
+       7 ## TL;DR
+       8
+         in `$7E:0108`:
+      10   `track = country*4 + race_in_country` (0..63).
+     … +192 lines (ctrl+o to expand)
+
+  Listed 1 directory, wrote 2 memories (ctrl+o to expand)
+
+● TLDR: You were looking in the right place at the right time — the problem was
+  "first write" breakpoint semantics. And while reviewing your logs I was able
+  to finish the hunt statically: the track index lives in $7E:0108, it's
+  computed at $80:CD2C during the black screen, and it keys three separate ROM
+  tables — geometry (0x50000), graphics including the $7F minimap buffers (bank
+  $87 records, pointer words at file 0x3A676), and music (0x0FA20C). I wrote the
+  full synthesis to reverse-engineering-docs/race-load-architecture.md.
+
+  Your three questions, directly:
+
+  Were the doc addresses a red herring? Partially. The whole $9F:F0A3 / 9FBF14 /
+  9FC0xx trail that consumed most of temp_minimap2 is the SPC700 music upload —
+  the LDA #$77 / CMP $2141 handshake at $9F:F159 proves it talks to the APU. It
+  uses $7F:0000+ as scratch, which is why it produced the first writes to your
+  $7F:0A80 watch region. Your suspicion was correct. The 81F52A hit was also a
+  red herring: $81:F470 is a per-race wipe that DMA-fills OAM, all of VRAM,
+  CGRAM, $7E:0800-FDFF and all of bank $7F from the $2134 register — a memory
+  clear, not a load. But the bank $88 disassembly in temp_minimap.txt is not a
+  red herring — that's the genuine road/minimap engine, and its LDA $0108 reads
+  were the right thread to pull.
+
+  Wrong point in the game? No — and the wipe proves it: since $81:F470 destroys
+  all of $7F and VRAM before every race, the minimap data must be rebuilt in the
+  shop→race window every time. By the same argument, the long black screen at
+  startup can't be where the minimap loads — nothing graphical survives from
+  boot into a race. (Boot is almost certainly the SPC driver + menu assets.) You
+  had actually already reached the real loader at the end of that session — the
+  81DE84 WMDATA decompressor "different code block" — you just stopped one step
+  short of its callers.
+
+  What I found by following those callers statically (grepping the ROM for
+  writers/readers of $0108):
+
+  1. $81:8147 JSL $80CD09 runs right after the module handoff; at $80:CD2C it
+  computes $0108 = $7E:FE0A*4 + $7E:FE0E (country×4 + race — the same pair the
+  shop keeps in $1CE1/$1CE5). There's a demo-mode override table at $80:F2DD.
+  2. $81:8717 (the JSR $8717 at $81:8158) then loads all race graphics using a
+  per-(country,race) descriptor record in bank $87: index table at $87:A656, 64
+  record-pointer words contiguous at $87:A676-A6F5 (file 0x3A676), records 0x58
+  bytes each. Record fields are (addr,bank) pairs fed to the $81:DE85
+  decompressor — field +$46 → $7E:6200, +$22 → $7E:6400, and +$4A → $7F:0000+,
+  which is what fills the tile buffers that 8885AA streams to VRAM. For country
+  0/race 0 that source is $8D:C572.
+  3. Music is a clean 64-byte table at 0x0FA20C (your swap experiment swapped
+  songs 1↔2 — you can confirm by ear).
+
+  This explains the circles: your randomizer swaps 0x50000 rows, which moves
+  geometry+weather, but the tile graphics are selected through the bank $87
+  table, and the music through 0x0FA20C — three parallel tables, one shared
+  index.
+
+  The one decisive experiment left: swap the two words at file 0x3A676/0x3A678
+  (no header; +0x200 with header) and see whether the minimap (and scenery)
+  swaps between races 1 and 2 of the first country. Combined with your existing
+  0x50000 swap, that tells you exactly whether the minimap shape is procedural
+  from path data or baked into the bank $87 graphics. For the randomizer, the
+  safest approach is applying the same 64-entry permutation to all three tables
+  — the $7E:6200/$6400 data from bank $87 is consumed by the road engine
+  together with the $8A path data, so those two must always travel together.
+
+✻ Sautéed for 17m 41s
+
+❯ Quick check, you're proposing adding the following in main.cpp to experiment,
+  right?
+      constexpr PC_addr experiment = 0x3A676;
+      std::swap(bytes[experiment + 0], bytes[experiment + 2]);
+      std::swap(bytes[experiment + 1], bytes[experiment + 3]);
+  ⎿  ⧉ Selected 3 lines from main.cpp in CLion
+
+● Yes, exactly — that's the right patch. Word 0 ($A6F6, country 0 race 1's
+  record) is at 0x3A676-77 and word 1 ($A74E, race 2) at 0x3A678-79, so swapping
+  bytes 0↔2 and 1↔3 exchanges the two little-endian record pointers. And since
+  bytes has the copier header already stripped, the bare 0x3A676 offset is
+  correct (the +0x200 I mentioned was only for xxd on the headered file).
+
+  One thing to watch for the experiment to be conclusive: you still have the
+  0x50000 row swap (lines 244-246) and the 0x0FA20C audio swap active from
+  before. If all three run together, races 1 and 2 swap consistently and you'll
+  see no mismatch — which tells you nothing about what bank $87 alone controls.
+  For this run, comment out the 0x50000 swap (and optionally the audio one) so
+  only the 0x3A676 swap is active. Then:
+
+  - Minimap/scenery/road tiles swap, geometry stays → minimap image is baked
+  into the bank $87 graphics.
+  - Scenery swaps but minimap stays with the geometry → minimap shape is
+  procedural from the path data at 0x50000.
+
+  Also don't be surprised if the road surface glitches during this run — the
+  $7E:6200/$6400 blocks come from the bank $87 record but are consumed by the
+  road engine alongside the 0x50000 path data, so swapping one without the other
+  is intentionally inconsistent. That's fine for a diagnostic; just note what
+  breaks too, since it confirms the coupling.
+
+✻ Crunched for 20s
+
+❯ The minimap and scenery swap, road tiles look normal and unswapped, so I
+  think we can say the minimap image is baked into the bank $87 graphics. Can
+  you double check if the randomizing of tracks in main.cpp:253-309 (I changed
+  the file) is correct? I used to only randomize 0x50000, but in all the
+  debugging I found 0x50A00, 0x50C00 and 0x50E00 as well. Are they relevant?
+  ⎿  ⧉ Selected 1 lines from main.cpp in CLion
+
+● Let me re-read the changed main.cpp and then check how the ROM actually
+  references 0x50A00/0x50C00/0x50E00.
+
+  Read 1 file, ran 2 shell commands (ctrl+o to expand)
+
+● Short answer: 0x50A00, 0x50C00 and 0x50E00 are not tables and not relevant —
+  drop temp_tracks2/3/4. They're addresses in the middle of the per-track
+  path-data blob that the 0x50000 rows point into. Mapping all 64 header rows:
+  the path blocks occupy file 0x50200–0x51988 contiguously, one block per track,
+  and no row starts at $8A00/$8C00/$8E00 — those offsets fall inside the blocks
+  of tracks 4, 54 and 23 respectively. So shuffling 8-byte chunks at those
+  offsets would just scramble three random tracks' road geometry. (They likely
+  caught your eye in hexdumps because the 4-byte bitfield path records have a
+  regular, table-like look.)
+
+  On the rest of the randomize_tracks block:
+
+  - The shuffle logic itself is correct — draw-and-erase from the remaining pool
+  produces a uniform permutation, and applying the same pos to all lists keeps
+  them in lockstep. O(n²) erases are irrelevant at n=64.
+  - Shuffling 0x50000 rows by value is safe: each row carries a pointer (word0)
+  into bank $8A, and since you don't move the blocks themselves, no relocation
+  is needed. The old commented experiment that moved blocks around was solving a
+  problem that doesn't exist.
+  - But it's incomplete, and that's the actual minimap bug: your experiment just
+  proved the minimap (and scenery) live in the bank $87 graphics records. A
+  0x50000-only shuffle moves geometry+weather while every slot keeps its
+  original minimap/scenery — exactly the mismatch you've been hunting. The same
+  permutation must also be applied to the 64 contiguous record-pointer words at
+  0x3A676 (2 bytes each, all records in the same bank so plain word swaps are
+  safe), and optionally the 64 music bytes at 0x0FA20C.
+
+  So the corrected core would be:
+
+  if(randomize_tracks) {
+      vector<uint32_t> perm(64);
+      iota(perm.begin(), perm.end(), 0);
+      shuffle(perm.begin(), perm.end(), rng);
+
+      constexpr PC_addr path_table = 0x50000;        // 8-byte rows: path
+  offset, length, weather
+      constexpr PC_addr gfx_record_table = 0x3A676;  // 16-bit record offsets in
+  bank $87 (scenery + minimap)
+      constexpr PC_addr music_table = 0x0FA20C;      // 1 byte per track
+
+      vector<char> orig(bytes);
+      for(uint32_t slot = 0; slot < 64; slot++) {
+          uint32_t src = perm[slot];
+          copy_n(orig.begin() + path_table + src*8, 8, bytes.begin() +
+  path_table + slot*8);
+          copy_n(orig.begin() + gfx_record_table + src*2, 2, bytes.begin() +
+  gfx_record_table + slot*2);
+          bytes[music_table + slot] = orig[music_table + src];
+      }
+  }
+
+  (needs #include <numeric> for iota). Two smaller things while you're in there:
+  line 253 (randomize_tracks = false;) unconditionally overrides the -t flag —
+  fine as a temporary disable, just don't forget it; and remember to comment out
+  the one-off swaps at lines 241–246 before a real randomizer run, or country
+  0's races 1/2 get double-swapped relative to everything else.
+
+  One behavioral note: the demo/attract mode picks fixed slot indices (0x0C,
+  0x0B, 0x21, 0x01 via the $80:F2DD override), so after shuffling, demos will
+  play whatever tracks landed in those slots — harmless, but don't be confused
+  if the attract mode looks different per seed.
+
+✻ Sautéed for 2m 37s
+
+❯ Yes, perfect. Next up is finding out where the upgrades are located. There
+  are several things to be bought all have a base and 3 upgrades to be bought
+  each: better engine giving more acceleration, better gearbox giving more
+  gears (start with 4 goes up to 6, one of them doesn't increase the gear
+  numbers), nitro for stronger temporary boost, front armour for less damage
+  when bumping into things from the front, side armour for when bumping into
+  things from the side, rear armour for when someone bumps into you, dry tires
+  for better steering on dry tracks, wet tires for better steering on wet
+  tracks. The only exception is the paint 'upgrade' which is always free and
+  has 8 colours to choose from. I'm looking for how a race reads those values
+  and determines the acceleration or how many gears to draw on the screen.
+
+● The upgrade state almost certainly lives in the $7E:FE00+ block — it's the
+  only WRAM region (besides 0000-07FF) that survives the per-race wipe, and we
+  already saw $80:CD5E (called right after the track-index setup) copying
+  $7E:FE2C/FE32/FE36/FE55/FE5B... through lookup tables into $06xx car
+  parameters, with a suspicious per-player stride of 0x29 bytes. Let me sweep
+  the ROM for every reader/writer of that block.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Off-by-one in my scan — the opcode sits two bytes before the matched high
+  byte, not three. Let me redo it.
+
+  Ran 10 shell commands (ctrl+o to expand)
+● Write(reverse-engineering-docs/upgrades-and-car-stats.md)
+  ⎿  Wrote 107 lines to reverse-engineering-docs/upgrades-and-car-stats.md
+       1 # Upgrades / car stats (synthesis, 2026-06-12)
+       3 Static analysis; file offsets assume NO copier header. LoROM: fi
+         le = (bank-0x80)*0x8000 + (addr-0x8000).
+       4 Bank $80 addr -> file = addr - 0x8000.
+       6 ## Where the upgrade state lives
+       7
+         op reads/writes here
+       9   (e.g. money deduction refs at `$9F:AA0F+`, sequential field re
+         ads at `$9F:D70D-D787`).
+         ` right before the
+     … +155 lines (ctrl+o to expand)
+
+  Wrote 2 memories (ctrl+o to expand)
+
+● Found it all statically — full writeup in
+  reverse-engineering-docs/upgrades-and-car-stats.md. Here's the shape of it:
+
+  Where the upgrades live. The shop's authoritative state is a 0x11C-byte block
+  at $7E:1CD7. When you leave the shop, $9F:8190 copies it to $7E:FE00 with a
+  16-bit checksum (sum of bytes 4..0x99 at FE00, complement at FE02) — that's
+  the handoff the race module reads, and it survives the per-race WRAM wipe
+  because the wipe stops at FDFF. Inside it are two per-player car blocks, P1 at
+  $7E:FE1C (shop $1CF3), P2 at $7E:FE45, stride 0x29: 12-char name, then one
+  byte per item every 2 bytes — engine FE2C, wet tires FE2E, dry tires FE30,
+  gearbox FE32, nitro FE34, a mystery 4-level field FE36, three armours
+  FE38/3A/3C, paint (probable) FE3E, money FE42.
+
+  How a race reads them. JSL $80CD5E from the race init ($81:815B) translates
+  every byte through ROM tables into $06xx per-player parameters:
+
+  - Acceleration: engine level indexes $80:D036/D03A (28 2C 30 34 / 68 6C 70 74)
+  → $0698/$0699, which the speed update at $80:9AFB feeds into the PPU
+  multiplier ($211B/$211C) — $0699 is the nitro-boosted path.
+  - Gears — your exact "4→6, one upgrade adds none" observation, confirmed in
+  data: gearbox level → $80:D0D2 = 5,6,6,7 (gear count incl. the neutral/reverse
+  slot) and selects a per-level ratio table at $80:BDFB via offsets at
+  $80:BDF3. Level 0: E0 40 4D 5A 67 (4 gears), level 1 adds a 5th, level 2 keeps
+  6 entries but with taller ratios (that's your no-new-gear upgrade), level 3
+  adds the 6th. Ratios are used as the divisor in $4206 hardware division at
+  $80:ECED.
+  - Tires: a weather table at $80:D092 picks wet (FE2E, rain/snow) or dry (FE30,
+  everything else), then a grip grid at $80:D0A2 (8 weathers × 4 levels —
+  rain/snow rows are visibly slipperier).
+  - Armour: levels index damage-per-hit tables $80:D03E (18 10 0C 08 04) and
+  $80:D043, consumed by the collision handlers around $80:E9AA-F016. Which zone
+  is front/side/rear isn't pinned yet.
+  - Nitro: 6 charges always ($80:D0C2), DEC $01A6 on use with a fixed 0x230-tick
+  timer, INC on track pickups; the level effect ($80:D0CA =
+  1000/0B00/0500/0000) lands in $06C4.
+
+  Two fun extras: there's a genuine game bug at $80:CDB3 — the P2 path has ASL
+  where P1 has TAX, so player 2's FE36-field effect always uses player 1's
+  value. And all the effect tables sit contiguously at file 0x5036-0x50E1 with
+  the gear tables at 0x3DF3 — ideal randomizer targets if you ever want to
+  shuffle upgrade potency, not just tracks.
+
+  Open items, each settled by one emulator poke in the shop: $1D0B vs $1D0D to
+  confirm which is nitro strength vs the mystery field, $1D15 for paint, and
+  $1D0F/11/13 to label the armour zones front/side/rear. The remaining unknown
+  is where the new-game defaults for $1CD7 come from (a template somewhere in
+  bank $9F — relevant if you want randomized starting money/upgrades).
+
+✻ Crunched for 12m 19s
+
+❯ I've found this so far:
+  ### Confirmations during shop, monitoring WRAM:
+  `$1D03` -> engine
+  `$1D05` -> wet tires
+  `$1D07` -> dry tires
+  `$1D09` -> gearbox
+  `$1D0B` -> nitro
+  `$1D11` -> rear armour
+  `$1D11` -> rear armour
+  `$1D13` -> front armour
+  `$1D15` -> paint
+  `$1D19` -> money
+
+  ### Confirmations by modifying ROM:
+  File offsets:
+  `0x50D2` -> nitro count
+  `0x50CB` -> nitro time
+  `0x3DF3` -> number of gears (but not graphics)
+  `0x3E2C` -> changes acceleration, I'm guessing this is the engine
+  ⎿  ⧉ Selected 18 lines from reverse-engineering-docs/upgrades-and-car-stats.md in CLion
+
+● Great confirmations — FE34 = nitro and FE3E = paint are now settled, and the
+  armour zones are labeled. But two of your ROM results clash interestingly with
+  the static picture, and I think the clash is resolvable. Let me first re-dump
+  the 0x3E2B area byte-exactly (my doc boundary there may be off by one, which
+  matters for interpreting your 0x3E2C result), and check the $01A6 comparison
+  in bank $88 that's probably the nitro HUD.
+
+  Ran 5 shell commands (ctrl+o to expand)
+
+● Update(reverse-engineering-docs/upgrades-and-car-stats.md)
+  ⎿  Error editing file
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(reverse-engineering-docs/upgrades-and-car-stats.md)
+  ⎿  User rejected update to reverse-engineering-docs/upgrades-and-car-stats.md
+
+❯ I made a typo, 0x50C2 is the confirmed nitro count, apologies. Don't edit the
+  file just yet. I'm trying to find the tire grip. I tried changing the grip
+  in the 0x50A2-0x50C1 range to a fixed setting of 0x10, but I didn't notice
+  any difference. Where could the tires table be?
+
+  Ran 1 shell command (ctrl+o to expand)
+● Exactly two real grip readers: $80:9375 and $80:9402 (P2 copies at +0x1862
+  confirm). Let me see what they do with it.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● You were almost certainly editing the right table — 0x50A2 is the tire grip
+  grid — but 0x10 is the already-maxed (level 3) value, so the flatten was a
+  no-op if your test save had upgraded tires. And you'd just been buying tires
+  to confirm the shop bytes, so that's likely exactly what happened.
+
+  The direct evidence, now from the consumer side: dp $94 (= $0694, where the
+  D0A2 byte lands) is read in exactly two places, $80:9375 and $80:9402 (P2
+  copies at $80:ABD7/AC64). The code there does:
+
+  1. LDA $7E9010,X (X from $0226) — fetches the curvature of the current road
+  segment from the ring buffer the bank-$88 engine builds, with a sign check
+  splitting left/right curves between the two sites.
+  2. Multiplies an already-computed curvature×speed product by the grip byte via
+  the PPU multiplier ($211B/$211C).
+  3. Accumulates the result into $48 (clamped ±$7000/$9000) and $4C (clamped
+  ±$0300) — the outward push / drift applied in corners.
+
+  So: higher byte = more sideways push = less grip; lower = grippier, which
+  matches the table shape (dry row 20 18 14 10 improving per level, rain 40 38
+  32 28 and snow 48 40 38 30 much worse). And crucially, it's only applied on
+  curved segments and scales with speed — on straights or slow corners you feel
+  nothing.
+
+  To make it unmistakable:
+
+  - Fresh save (tires level 0), dry track with tight corners.
+  - Set just the weather-0 row, bytes 0x50A2-0x50A5, to 60 60 60 60 → the car
+  should plow wide in every corner like it's on ice. Or 01 01 01 01 → corners on
+  rails.
+  - If your test track has weather 1 or 2 (check byte 6 of its row at 0x50000 +
+  track*8), edit that row instead — rows are 4 bytes per weather, 0x50A2 +
+  weather*4.
+
+  And noted on the typo — with 0x50C2 as the confirmed nitro count, everything
+  is internally consistent and no crossed-index bug exists: D0C2[nitro] = charge
+  count, D0CA[nitro] = boost time, and D0D2[gearbox] (5,6,6,7 → $06C0) is now
+  almost certainly the HUD gear-display count, which dovetails with your "0x3DF3
+  changes gears but not graphics" observation. When you're ready for me to
+  update the doc, I'll fold in all of this in one pass.
+
+✻ Churned for 1m 43s
+
+❯ Yes, it definitely has an impact on steering, but only in some corners.
+  Steering on straight sections or in the other corners, it feels the same and
+  only sometimes and only with parts of some corners, does it suddenly 'push'
+  you towards the outside of the corner. Interesting.
+
+● That behaviour matches the code exactly. The push isn't a continuous cornering
+  model — it's per road segment. The race engine streams the track's 4-byte
+  path records (bank $8A) into the ring buffer at $7E:9000+, and each frame the
+  physics looks at the curvature field of the segment currently under your car
+  (LDA $7E9010,X). The push only fires when that segment's curvature field is
+  set in the relevant direction (the BMI/BPL guards), and its strength is
+  curvature × speed × grip.
+
+  So what you felt is the track data, not the physics being inconsistent:
+
+  - "Only some corners" — gentle corners are authored with small (or zero)
+  curvature values in their path records, so the product is too small to feel,
+  especially below top speed.
+  - "Only parts of some corners" — a corner is built from several consecutive
+  path records, and typically only the sharper mid-corner segments carry big
+  curvature values. As you cross from a marked segment to an unmarked one, the
+  force switches on and off — hence the "sudden" shove rather than a smooth
+  pull.
+  - Straights — curvature is zero or the sign guard skips the whole block, so
+  grip is irrelevant there, which is why steering feel doesn't change.
+
+  One implication if you ever randomize or tune grip: its effect is
+  multiplicative with each track's authored curvature, so a global grip change
+  will be dramatic on tracks with sharp-segment-heavy corners and nearly
+  invisible on flowing ones. The per-corner sharpness itself lives in the path
+  records at 0x50200+ (the bitfields the road builder extracts), not in the grip
+  grid.
+
+✻ Cooked for 27s
+
+❯ /export
+  ⎿  Conversation copied to clipboard
+
+❯ Is there a setting for making the car go left/right faster on straights? Or
+  is that a constant in the code somewhere?
+
+● Good question — let me look at the steering-input handling. It should be near
+  the cornering code ($80:93xx), reading the d-pad left/right bits against the
+  held-buttons variable ($0028).
+
+  Ran 8 shell commands (ctrl+o to expand)
+
+● It's not a per-car setting — no upgrade touches it. Straight-line steering
+  speed is built from shared curve tables plus two hardcoded constants, all now
+  verified. The pipeline:
+
+  1. Ramp: while you hold left/right, the "wheel" accumulator (dp $1C/$1D)
+  charges by C633_curve[(wheel+speed)>>5] × BE13[gear] × frame_delta. The curve
+  at $80:C633 starts flat at E258.
+  2. Scale: lateral velocity $10 = wheel × BDFB[current gear] — note this is the
+  same byte that serves as the gear ratio, so steering scale grows with gear (≈
+  speed-proportional turning).
+  3. Final boost: $10 += $10 × #$70/256 (≈ ×1.44) — a hardcoded constant.
+  4. Centering: the wheel is pulled back by a force from curve $80:C833 (grows
+  with lateral speed), plus a #$0200 bonus while holding one of the configured
+  buttons (a brake-steer effect); crossing center snaps the wheel to 0.
+  5. High-speed nerf: above RPM-index 0xE0, negative corrections from $80:CA33
+  (FF6E, FEDC...) reduce response.
+
+  The levers, in order of how easy they are to experiment with (file offsets,
+  headerless):
+
+  ┌────────────────┬────────────────────┬───────────────────────────────────┐
+  │      what      │     offset(s)      │              effect               │
+  ├────────────────┼────────────────────┼───────────────────────────────────┤
+  │                │                    │ single byte; lateral speed        │
+  │ final scale    │ 0x1141 (P1),       │ ×(1+k/256), so 0x70→×1.44,        │
+  │ constant #$70  │ 0x29A3 (P2)        │ 0xF0→×1.94. The most direct       │
+  │                │                    │ "steer faster everywhere" knob    │
+  ├────────────────┼────────────────────┼───────────────────────────────────┤
+  │                │ 0x4633, 256 words  │ how fast steering builds when you │
+  │ ramp curve     │ (E258...)          │  press; later entries govern      │
+  │                │                    │ higher speeds                     │
+  ├────────────────┼────────────────────┼───────────────────────────────────┤
+  │ centering      │ 0x4833, 256 words  │ lower = wheel stays deflected,    │
+  │ curve          │ (0000... 000C 0018 │ snappier sustained steering;      │
+  │                │  0024...)          │ higher = twitchy self-center      │
+  ├────────────────┼────────────────────┼───────────────────────────────────┤
+  │ high-RPM curve │ 0x4A33, 256 words  │ zero these out to remove the      │
+  │                │                    │ top-speed steering reduction      │
+  ├────────────────┼────────────────────┼───────────────────────────────────┤
+  │                │ 0x3DFB (= the gear │ dual-use — changing these alters  │
+  │ per-gear scale │  ratio bytes!)     │ gearing and steering scale per    │
+  │                │                    │ gear                              │
+  ├────────────────┼────────────────────┼───────────────────────────────────┤
+  │ per-gear ramp  │ 0x3E13 (second     │ also dual-use: it's multiplied    │
+  │ factor         │ gear-table set 7F  │ into both the power curve and the │
+  │                │ 70 28 19 11...)    │  steering ramp                    │
+  ├────────────────┼────────────────────┼───────────────────────────────────┤
+  │ brake-steer    │ 0x10C5 (P1),       │ bigger = sharper steering while   │
+  │ bonus #$0200   │ 0x2927 (P2)        │ the configured button is held     │
+  └────────────────┴────────────────────┴───────────────────────────────────┘
+
+  Quickest test: bump 0x1141 and 0x29A3 from 70 to F0 — steering should feel
+  almost twice as fast on straights, with everything else (corner push,
+  centering) unchanged in character. If you want more than ×2, that path needs a
+  small code change since the constant maxes at FF (≈×2).
+
+  One caution from the dual-use entries: if you've been editing gear ratios at
+  0x3DFB for the gear experiments, you were silently changing steering scale too
+  — worth keeping in mind when judging feel.
+
+✻ Brewed for 4m 11s
+
+❯ /export
+  ⎿  Conversation copied to clipboard
+
+❯ Another question: it seems that there is a very strong rubber banding effect
+  for the CPU racer that is in 1st position. Sometimes it just constantly goes
+  so fast it's almost impossible to overtake. How is its speed determined? I
+  get the sense it is based on the players speed somehow.
+
+● Good target. Let me reconnoiter the two per-frame race-loop calls in bank $80
+  (JSL $808A41 and JSL $80D726 from the main loop) — one of them should be the
+  opponent/AI update.
+
+  Ran 16 shell commands (ctrl+o to expand)
+● Verdict: there is no actual rubber banding — the leader isn't reading your
+  speed at all. The sense of it is an illusion created by static per-slot stats.
+  Here's the full opponent model:
+
+  Car array: 20 records of 0x40 bytes at $7E:C400. Slot 0 = P1, slot 1 = P2
+  (their handlers E6C4/E6DE just add the real player speed $0212/$024E to their
+  array position; slot 0/1 even get your paint colour copied in at $80:D2CA).
+  Slots 2–19 are the 18 drones.
+
+  Drone speed (handler $80:E424 → cruise $80:E541): each drone accelerates by
+  its +0x30 parameter until its speed word hits the +0x32 cap, then holds. Both
+  are assigned once at race init ($80:D2B1-D2C2):
+
+  - top speed = $80:D6FC[slot] — a linear ascending table: 2199, 2332, 24CB, …
+  3CC2, 3E5B, 3E5B. The back-of-grid drones are slow, the front two slots are
+  nearly twice as fast.
+  - accel = $80:D6D4[slot] (also ascending, 1599…7F00) plus a random byte from
+  the RNG at $81:E25B — this is why some races the leader "just constantly goes"
+  and others it feels slightly more catchable.
+
+  The only player-coupled thing in the drone code is a proximity check (within
+  0x60 road units of either player → enable full lateral simulation with lane
+  edges from the pre-scanned track table at $7E:2000/$3300; otherwise the drone
+  is just position += speed). Player speed is never read. Confirmed by
+  exhaustive scan: the only writers of the speed cap in the whole ROM are the
+  init at $80:D2C0.
+
+  So the 1st-place car feels like rubber banding because: it has the highest
+  static cap, it never makes mistakes, and slot speeds are spread so the cars
+  near you are always roughly your pace (whichever speed you run, some slice of
+  the field matches you — classic ladder illusion), while the leader is simply
+  faster than your car until you've bought enough upgrades.
+
+  Patch targets (headerless file offsets, 20 little-endian words each):
+
+  ┌───────────────────┬────────┬────────────────────────────────────────────┐
+  │       table       │ offset │                  contents                  │
+  ├───────────────────┼────────┼────────────────────────────────────────────┤
+  │ drone top speed   │ 0x56FC │ 2199 → 3E5B ascending; lower the last few  │
+  │                   │        │ words to make the leaders catchable        │
+  ├───────────────────┼────────┼────────────────────────────────────────────┤
+  │ drone accel base  │ 0x56D4 │ 1599 → 7F00 + random byte per race         │
+  ├───────────────────┼────────┼────────────────────────────────────────────┤
+  │ starting grid     │ 0x5684 │ descending 3800 → 26EE                     │
+  │ offsets           │        │                                            │
+  ├───────────────────┼────────┼────────────────────────────────────────────┤
+  │ livery/colour per │ 0x56AC │ 0,1,2…7 repeating                          │
+  │  slot             │        │                                            │
+  └───────────────────┴────────┴────────────────────────────────────────────┘
+
+  Quick experiment: set the last two words at 0x5720/0x5722 (slots 18/19,
+  currently 3E5B 3E5B) down to e.g. 3000 — the front-runners should suddenly be
+  beatable mid-pack material. Conversely, flattening the whole table to one
+  value would make the entire field run nose-to-tail.
+
+✻ Cogitated for 6m 58s

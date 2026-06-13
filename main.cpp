@@ -250,6 +250,103 @@ int main(int argc, const char** argv) {
     //     std::swap(bytes[0x50000 + i], bytes[0x50008 + i]);
     // }
 
+    auto print = [&](char const * str, uint32_t addr, uint32_t len) {
+        while(len > 0) {
+            fmt::println("{} {:X}: {:X}", str, addr, static_cast<unsigned char>(bytes[addr]));
+            addr++;
+            len--;
+        }
+        fmt::println("");
+    };
+
+    print("engine?", 0x5036, 4);
+    print("engine nitro?", 0x503A, 4);
+
+    print("nitro count", 0x50C2, 8);
+    print("nitro time", 0x50CA, 8);
+    print("tire grip?", 0x50A2, 32);
+    print("gearbox count?", 0x50D2, 8);
+    print("gearbox offset?", 0x3DF3, 8);
+    print("gearbox ratios?", 0x3DFB, 24);
+    print("acceleration???", 0x3E2B, 8);
+    print("gearbox top-speed/RPM?", 0x3E33, 8);
+
+    // bytes[0x5036] = 0x34; // no idea
+    // bytes[0x5037] = 0x34;
+    // bytes[0x5038] = 0x34;
+    // bytes[0x5039] = 0x34;
+    //
+    // bytes[0x503A] = 0x74; // no idea
+    // bytes[0x503B] = 0x74;
+    // bytes[0x503C] = 0x74;
+    // bytes[0x503D] = 0x74;
+    //
+    // bytes[0x50C2] = 0x09; // confirmed nitro count, above 9 the graphics disappear but it still seems to work
+    // bytes[0x50C4] = 0x09;
+    // bytes[0x50C6] = 0x09;
+    // bytes[0x50C8] = 0x09;
+
+    bytes[0x50A2] = 0x10;
+    bytes[0x50A3] = 0x10;
+    bytes[0x50A4] = 0x10;
+    bytes[0x50A5] = 0x10;
+    bytes[0x50A6] = 0x10;
+    bytes[0x50A7] = 0x10;
+    bytes[0x50A8] = 0x10;
+    bytes[0x50A9] = 0x10;
+    bytes[0x50AA] = 0x10;
+    bytes[0x50AB] = 0x10;
+    bytes[0x50AC] = 0x10;
+    bytes[0x50AD] = 0x10;
+    bytes[0x50AE] = 0x10;
+    bytes[0x50AF] = 0x10;
+    bytes[0x50B0] = 0x10;
+    bytes[0x50B1] = 0x10;
+    bytes[0x50B2] = 0x10;
+    bytes[0x50B3] = 0x10;
+    bytes[0x50B4] = 0x10;
+    bytes[0x50B5] = 0x10;
+    bytes[0x50B6] = 0x10;
+    bytes[0x50B7] = 0x10;
+    bytes[0x50B8] = 0x10;
+    bytes[0x50B9] = 0x10;
+    bytes[0x50BA] = 0x10;
+    bytes[0x50BB] = 0x10;
+    bytes[0x50BC] = 0x10;
+    bytes[0x50BD] = 0x10;
+    bytes[0x50BE] = 0x10;
+    bytes[0x50BF] = 0x10;
+    bytes[0x50C0] = 0x10;
+    bytes[0x50C1] = 0x10;
+
+    bytes[0x1141] = 0xF0; // changes steering on straights
+    bytes[0x29A3] = 0xF0;
+
+    // bytes[0x50CB] = 0x00; // confirmed nitro time effect, lower is faster
+    // bytes[0x50CD] = 0x00;
+    // bytes[0x50CF] = 0x00;
+    // bytes[0x50D1] = 0x00;
+    //
+    // bytes[0x3DF3] = 0x11; // confirmed changes the number of gears (but not the graphics!)
+    // bytes[0x3DF5] = 0x11;
+    // bytes[0x3DF7] = 0x11;
+    // bytes[0x3DF9] = 0x11;
+    //
+    // bytes[0x3E2C] = 0x06; // changes something about the acceleration, maybe this is engine acceleration?
+    // bytes[0x3E2E] = 0x02;
+    // bytes[0x3E30] = 0x04;
+    // bytes[0x3E32] = 0x06;
+
+    // bytes[0x3E33] = 0xF8; // no idea
+    // bytes[0x3E34] = 0x58;
+
+    // bytes[0x50D2] = 0x06;
+    // bytes[0x50D4] = 0x07;
+    // bytes[0x50D6] = 0x07;
+    // bytes[0x50D8] = 0x08;
+
+    // return 1;
+
 
     if(randomize_tracks) {
         vector<uint32_t> perm(64);

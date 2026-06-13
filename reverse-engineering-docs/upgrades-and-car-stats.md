@@ -1,7 +1,8 @@
 # Upgrades / car stats (synthesis, 2026-06-12)
 
-Static analysis; file offsets assume NO copier header. LoROM: file = (bank-0x80)*0x8000 + (addr-0x8000).
-Bank $80 addr -> file = addr - 0x8000.
+Static analysis; offsets assume NO copier header. These are the zero-based `bytes[]`
+indices to use in `main.cpp` after its copier-header removal. LoROM:
+file = (bank-0x80)*0x8000 + (addr-0x8000). Bank $80 addr -> file = addr - 0x8000.
 
 ## Where the upgrade state lives
 
@@ -51,19 +52,19 @@ still holds P1's index and **P2's $06B0 always uses P1's FE36 level**.
 
 ## Effect tables (randomizer targets), bank $80
 
-| SNES | file | contents |
-|------|------|----------|
-| $80:D036 | 0x5036 | engine: base accel per level `28 2C 30 34` -> $0698 |
-| $80:D03A | 0x503A | engine: nitro accel per level `68 6C 70 74` -> $0699 |
-| $80:D03E | 0x503E | armour A/C: damage per level `18 10 0C 08 04` (5 entries) |
-| $80:D043 | 0x5043 | armour B: damage per level `20 1C 10 0C 08` |
-| $80:D048-D08D | 0x5048 | 7 tables x 5 words, FE2A-indexed (control/setup presets?) |
-| $80:D08E | 0x508E | FE36 effect `EC F0 F4 F8` -> $068E |
-| $80:D092 | 0x5092 | weather -> tire byte selector (words: `2 2 2 0 0 2 2 2`) |
-| $80:D0A2 | 0x50A2 | grip grid, 8 weathers x 4 levels (lower = grippier); rain row `40 38 32 28`, snow `48 40 38 30` |
-| $80:D0C2 | 0x50C2 | nitro charge count per level — constant `0006` |
-| $80:D0CA | 0x50CA | nitro effect per level `1000 0B00 0500 0000` -> $06C4 |
-| $80:D0D2 | 0x50D2 | gear count per level `0005 0006 0006 0007` -> $06C0 |
+| SNES | `main.cpp` offset | size | contents |
+|------|-------------------|------|----------|
+| $80:D036 | 0x5036-0x5039 | 4 bytes | engine: base accel per level `28 2C 30 34` -> $0698 |
+| $80:D03A | 0x503A-0x503D | 4 bytes | engine: nitro accel per level `68 6C 70 74` -> $0699 |
+| $80:D03E | 0x503E-0x5042 | 5 bytes | armour A/C: damage per level `18 10 0C 08 04` |
+| $80:D043 | 0x5043-0x5047 | 5 bytes | armour B: damage per level `20 1C 10 0C 08` |
+| $80:D048-D08D | 0x5048-0x508D | 70 bytes | 7 tables x 5 words, FE2A-indexed (control/setup presets?) |
+| $80:D08E | 0x508E-0x5091 | 4 bytes | FE36 effect `EC F0 F4 F8` -> $068E |
+| $80:D092 | 0x5092-0x50A1 | 16 bytes | weather -> tire byte selector (words: `2 2 2 0 0 2 2 2`) |
+| $80:D0A2 | 0x50A2-0x50C1 | 32 bytes | grip grid, 8 weathers x 4 levels (lower = grippier); rain row `40 38 32 28`, snow `48 40 38 30` |
+| $80:D0C2 | 0x50C2-0x50C9 | 8 bytes | nitro charge count per level — constant `0006` |
+| $80:D0CA | 0x50CA-0x50D1 | 8 bytes | nitro effect per level `1000 0B00 0500 0000` -> $06C4 |
+| $80:D0D2 | 0x50D2-0x50D9 | 8 bytes | gear count per level `0005 0006 0006 0007` -> $06C0 |
 
 ## Gears
 
@@ -71,15 +72,13 @@ still holds P1's index and **P2's $06B0 always uses P1's FE36 level**.
 LDA $80BDFB,X / STA $06DE / ... STA $4206` — gearbox level selects a per-level
 **gear table** used as hardware-division divisor (gear ratios):
 
-* offsets `$80:BDF3` (file 0x3DF3): `0000 0005 000B 0011` -> table lengths **5,6,6,7**
-* ratios `$80:BDFB` (file 0x3DFB):
-  * lvl 0: `E0 40 4D 5A 67` (neutral/reverse + 4 gears)
-  * lvl 1: `E0 40 4B 56 61 6F` (+5th gear)
-  * lvl 2: `E0 40 4D 5B 68 76` (still 6 — taller ratios instead of a new gear)
-  * lvl 3: `E0 40 4D 59 66 72 7F` (+6th gear)
-* second per-gear table set at file 0x3E13 (same 5/6/6/7 lengths, values `7F 70 28 19 11`...)
-* per-level word table at file 0x3E2B (offsets `0 2 4 6`) + values `5D88 58F8 58F8 57D4`
-  (file 0x3E33) — top-speed/RPM scale; levels 1 and 2 equal again.
+| SNES | `main.cpp` offset | size | contents |
+|------|-------------------|------|----------|
+| $80:BDF3 | 0x3DF3-0x3DFA | 8 bytes | word offsets `0000 0005 000B 0011` -> table lengths **5,6,6,7** |
+| $80:BDFB | 0x3DFB-0x3E12 | 24 bytes | gear ratios: lvl 0 `E0 40 4D 5A 67`; lvl 1 `E0 40 4B 56 61 6F`; lvl 2 `E0 40 4D 5B 68 76`; lvl 3 `E0 40 4D 59 66 72 7F` |
+| $80:BE13 | 0x3E13-0x3E2A | 24 bytes | second per-gear table set, same 5/6/6/7 lengths, values `7F 70 28 19 11`... |
+| $80:BE2B | 0x3E2B-0x3E32 | 8 bytes | per-level word offsets `0000 0002 0004 0006` |
+| $80:BE33 | 0x3E33-0x3E3A | 8 bytes | top-speed/RPM scale values `5D88 58F8 58F8 57D4`; levels 1 and 2 equal again |
 
 This matches the in-game behaviour exactly: 4 gears base, two upgrades add a gear
 (-> 5 -> 6), one upgrade improves ratios without adding a gear.
@@ -105,3 +104,22 @@ Charges start at 6 (`$80:D0C2`), `INC $01A6` on track pickups (`$80:9D95/9DAF`).
 * Armour zone order (front/side/rear): read collision handlers `$80:E9AA/EEF9/EFF9/F016`.
 * Where `$1CD7` gets its new-game defaults (the init template) — not yet located;
   likely a small ROM template copied by the title/name-entry code in bank $9F.
+
+### Confirmations during shop, monitoring WRAM:
+`$1D03` -> engine
+`$1D05` -> wet tires
+`$1D07` -> dry tires
+`$1D09` -> gearbox
+`$1D0B` -> nitro
+`$1D0F` -> side armour
+`$1D11` -> rear armour
+`$1D13` -> front armour
+`$1D15` -> paint
+`$1D19` -> money
+
+### Confirmations by modifying ROM:
+File offsets:
+`0x50C2` -> nitro count
+`0x50CB` -> nitro time
+`0x3DF3` -> number of gears (but not graphics)
+`0x3E2C` -> changes acceleration, I'm guessing this is the engine
