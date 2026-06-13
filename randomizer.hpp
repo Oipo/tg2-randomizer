@@ -97,6 +97,118 @@ inline uint32_t crc32_ieee(const std::vector<char>& data) {
     return crc ^ 0xFFFFFFFFu;
 }
 
+inline void print_track_starts(const std::vector<char>& data) {
+
+
+    // 0x084000 is not code, it looks like an index table
+    // 0x086C00 looks like planar graphic data
+    // 0x008000, 0x008400, 0x002E00, 0x009000 dissasembly as code routines
+    // 0x50400, 0x50600, 0x50A00, 0x50C00, where bytes 3..5 decode cleanly as lorom addresses for 35-52 rows
+
+    // use fmt::println to print the start and end of each track block
+    std::vector<uint32_t> block_starts;
+    std::vector<BlockInfo> blocks{};
+    block_starts.reserve(64);
+    for(uint32_t track = 0; track < 64; track++) {
+        const uint32_t row_offset = 0x50000 + track * 8;
+        const uint16_t block_addr = static_cast<unsigned char>(data[row_offset])
+                                    | (static_cast<uint16_t>(static_cast<unsigned char>(data[row_offset + 1])) << 8);
+        block_starts.push_back(0x50000 + (block_addr - 0x8000));
+    }
+
+    for(uint32_t track = 0; track < 64; track++) {
+        const uint32_t row_offset = 0x50000 + track * 8;
+        const uint16_t word1 = static_cast<unsigned char>(data[row_offset + 2])
+                               | (static_cast<uint16_t>(static_cast<unsigned char>(data[row_offset + 3])) << 8);
+        const uint32_t block_start = block_starts[track];
+
+        uint32_t block_end = data.size() - 1;
+        for(uint32_t other_block_start : block_starts) {
+            if(other_block_start > block_start) {
+                block_end = std::min(block_end, other_block_start - 1);
+            }
+        }
+
+        if(block_end == data.size() - 1) {
+            for(uint32_t off = block_start; off + 3 < data.size(); off += 4) {
+                const uint16_t record_word0 = static_cast<unsigned char>(data[off])
+                                              | (static_cast<uint16_t>(static_cast<unsigned char>(data[off + 1])) << 8);
+                const uint16_t record_word1 = static_cast<unsigned char>(data[off + 2])
+                                              | (static_cast<uint16_t>(static_cast<unsigned char>(data[off + 3])) << 8);
+                const bool looks_like_track_record = record_word0 >= 0x1000 && record_word1 <= 0x2000;
+                if(!looks_like_track_record) {
+                    block_end = off - 1;
+                    break;
+                }
+            }
+        }
+
+        uint32_t c000_count = 0;
+        uint32_t ec00_count = 0;
+        for(uint32_t off = block_start; off + 1 <= block_end; off += 2) {
+            const uint16_t word = static_cast<unsigned char>(data[off])
+                                  | (static_cast<uint16_t>(static_cast<unsigned char>(data[off + 1])) << 8);
+            if(word == 0xC000) {
+                c000_count++;
+            }
+            if(word == 0xEC00) {
+                ec00_count++;
+            }
+        }
+
+        auto bytes_start = data.begin() + block_start;
+        auto bytes_end = data.begin() + block_end;
+        blocks.emplace_back(track, block_start, block_end, block_end - block_start + 1, std::vector<char>(bytes_start, bytes_end));
+        const uint32_t block_length = block_end >= block_start ? (block_end - block_start + 1) : 0;
+        fmt::println(
+            "track {:02}: {:06X} - {:06X} len {:04X} word1 {:04X} C000 {} EC00 {}",
+            track,
+            block_start,
+            block_end,
+            block_length,
+            word1,
+            c000_count,
+            ec00_count
+        );
+    }
+    //
+    // sort(blocks.begin(), blocks.end(), [](const auto& a, const auto& b) {
+    //     return a.start < b.start;
+    // });
+    //
+    // vector<BlockInfo> source = blocks;
+    // reverse(source.begin(), source.end());
+    // uint32_t cursor = blocks.front().start;
+    //
+    // for (size_t i = 0; i < blocks.size(); i++) {
+    //     auto& dst_slot = blocks[i];
+    //     auto& src_block = source[i];
+    //
+    //     copy(src_block.data.begin(), src_block.data.end(), bytes.begin() + cursor);
+    //
+    //     uint16_t new_word0 = static_cast<uint16_t>(0x8000 + (cursor - 0x50000));
+    //     uint32_t row_offset = 0x50000 + dst_slot.track * 8;
+    //     bytes[row_offset + 0] = static_cast<char>(new_word0 & 0xFF);
+    //     bytes[row_offset + 1] = static_cast<char>(new_word0 >> 8);
+    //
+    //     cursor += static_cast<uint32_t>(src_block.data.size());
+    // }
+
+    // for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
+    //     bytes[addr] = 0x3D;
+    // }
+
+    // SNES_addr asset_table{.bank = 0x9B, .addr = 0x8000};
+    // auto asset_table_pc = asset_table.toPc();
+    //
+    // auto swap_words = [&](PC_addr a, PC_addr b) {
+    //     std::swap(bytes[a + 0], bytes[b + 0]);
+    //     std::swap(bytes[a + 1], bytes[b + 1]);
+    // };
+    //
+    // swap_words(asset_table_pc + 2, asset_table_pc + 4);
+}
+
 // CRC32 of "Top Gear 2 (USA)" with any copier header removed.
 inline constexpr uint32_t TG2_USA_CRC32 = 0x2B88BEE8u;
 
@@ -254,114 +366,6 @@ inline RandomizerResult randomize_rom(std::vector<char> bytes, const RandomizerO
         }
     }
 
-    // 0x084000 is not code, it looks like an index table
-    // 0x086C00 looks like planar graphic data
-    // 0x008000, 0x008400, 0x002E00, 0x009000 dissasembly as code routines
-    // 0x50400, 0x50600, 0x50A00, 0x50C00, where bytes 3..5 decode cleanly as lorom addresses for 35-52 rows
-
-    // use fmt::println to print the start and end of each track block
-    // vector<uint32_t> block_starts;
-    // vector<BlockInfo> blocks{};
-    // block_starts.reserve(64);
-    // for(uint32_t track = 0; track < 64; track++) {
-    //     const uint32_t row_offset = 0x50000 + track * 8;
-    //     const uint16_t block_addr = static_cast<unsigned char>(bytes[row_offset])
-    //                                 | (static_cast<uint16_t>(static_cast<unsigned char>(bytes[row_offset + 1])) << 8);
-    //     block_starts.push_back(0x50000 + (block_addr - 0x8000));
-    // }
-    //
-    // for(uint32_t track = 0; track < 64; track++) {
-    //     const uint32_t row_offset = 0x50000 + track * 8;
-    //     const uint16_t word1 = static_cast<unsigned char>(bytes[row_offset + 2])
-    //                            | (static_cast<uint16_t>(static_cast<unsigned char>(bytes[row_offset + 3])) << 8);
-    //     const uint32_t block_start = block_starts[track];
-    //
-    //     uint32_t block_end = bytes.size() - 1;
-    //     for(uint32_t other_block_start : block_starts) {
-    //         if(other_block_start > block_start) {
-    //             block_end = min(block_end, other_block_start - 1);
-    //         }
-    //     }
-    //
-    //     if(block_end == bytes.size() - 1) {
-    //         for(uint32_t off = block_start; off + 3 < bytes.size(); off += 4) {
-    //             const uint16_t record_word0 = static_cast<unsigned char>(bytes[off])
-    //                                           | (static_cast<uint16_t>(static_cast<unsigned char>(bytes[off + 1])) << 8);
-    //             const uint16_t record_word1 = static_cast<unsigned char>(bytes[off + 2])
-    //                                           | (static_cast<uint16_t>(static_cast<unsigned char>(bytes[off + 3])) << 8);
-    //             const bool looks_like_track_record = record_word0 >= 0x1000 && record_word1 <= 0x2000;
-    //             if(!looks_like_track_record) {
-    //                 block_end = off - 1;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //
-    //     uint32_t c000_count = 0;
-    //     uint32_t ec00_count = 0;
-    //     for(uint32_t off = block_start; off + 1 <= block_end; off += 2) {
-    //         const uint16_t word = static_cast<unsigned char>(bytes[off])
-    //                               | (static_cast<uint16_t>(static_cast<unsigned char>(bytes[off + 1])) << 8);
-    //         if(word == 0xC000) {
-    //             c000_count++;
-    //         }
-    //         if(word == 0xEC00) {
-    //             ec00_count++;
-    //         }
-    //     }
-    //
-    //     auto bytes_start = bytes.begin() + block_start;
-    //     auto bytes_end = bytes.begin() + block_end;
-    //     blocks.emplace_back(track, block_start, block_end, block_end - block_start + 1, vector<char>(bytes_start, bytes_end));
-    //     const uint32_t block_length = block_end >= block_start ? (block_end - block_start + 1) : 0;
-    //     fmt::println(
-    //         "track {:02}: {:06X} - {:06X} len {:04X} word1 {:04X} C000 {} EC00 {}",
-    //         track,
-    //         block_start,
-    //         block_end,
-    //         block_length,
-    //         word1,
-    //         c000_count,
-    //         ec00_count
-    //     );
-    // }
-    //
-    // sort(blocks.begin(), blocks.end(), [](const auto& a, const auto& b) {
-    //     return a.start < b.start;
-    // });
-    //
-    // vector<BlockInfo> source = blocks;
-    // reverse(source.begin(), source.end());
-    // uint32_t cursor = blocks.front().start;
-    //
-    // for (size_t i = 0; i < blocks.size(); i++) {
-    //     auto& dst_slot = blocks[i];
-    //     auto& src_block = source[i];
-    //
-    //     copy(src_block.data.begin(), src_block.data.end(), bytes.begin() + cursor);
-    //
-    //     uint16_t new_word0 = static_cast<uint16_t>(0x8000 + (cursor - 0x50000));
-    //     uint32_t row_offset = 0x50000 + dst_slot.track * 8;
-    //     bytes[row_offset + 0] = static_cast<char>(new_word0 & 0xFF);
-    //     bytes[row_offset + 1] = static_cast<char>(new_word0 >> 8);
-    //
-    //     cursor += static_cast<uint32_t>(src_block.data.size());
-    // }
-
-    // for(uint32_t addr = 0x84000; addr < 0x87000; addr += 1) {
-    //     bytes[addr] = 0x3D;
-    // }
-
-    // SNES_addr asset_table{.bank = 0x9B, .addr = 0x8000};
-    // auto asset_table_pc = asset_table.toPc();
-    //
-    // auto swap_words = [&](PC_addr a, PC_addr b) {
-    //     std::swap(bytes[a + 0], bytes[b + 0]);
-    //     std::swap(bytes[a + 1], bytes[b + 1]);
-    // };
-    //
-    // swap_words(asset_table_pc + 2, asset_table_pc + 4);
-
     // probably a 5 x 4 = 20 byte table, could be longer?
     // constexpr PC_addr track_audio_selector_table = 0x0FA20C;
     // std::swap(bytes[track_audio_selector_table + 0], bytes[track_audio_selector_table + 1]);
@@ -410,41 +414,41 @@ inline RandomizerResult randomize_rom(std::vector<char> bytes, const RandomizerO
     // bytes[0x50C6] = 0x09;
     // bytes[0x50C8] = 0x09;
 
-    bytes[0x50A2] = 0x10;
-    bytes[0x50A3] = 0x10;
-    bytes[0x50A4] = 0x10;
-    bytes[0x50A5] = 0x10;
-    bytes[0x50A6] = 0x10;
-    bytes[0x50A7] = 0x10;
-    bytes[0x50A8] = 0x10;
-    bytes[0x50A9] = 0x10;
-    bytes[0x50AA] = 0x10;
-    bytes[0x50AB] = 0x10;
-    bytes[0x50AC] = 0x10;
-    bytes[0x50AD] = 0x10;
-    bytes[0x50AE] = 0x10;
-    bytes[0x50AF] = 0x10;
-    bytes[0x50B0] = 0x10;
-    bytes[0x50B1] = 0x10;
-    bytes[0x50B2] = 0x10;
-    bytes[0x50B3] = 0x10;
-    bytes[0x50B4] = 0x10;
-    bytes[0x50B5] = 0x10;
-    bytes[0x50B6] = 0x10;
-    bytes[0x50B7] = 0x10;
-    bytes[0x50B8] = 0x10;
-    bytes[0x50B9] = 0x10;
-    bytes[0x50BA] = 0x10;
-    bytes[0x50BB] = 0x10;
-    bytes[0x50BC] = 0x10;
-    bytes[0x50BD] = 0x10;
-    bytes[0x50BE] = 0x10;
-    bytes[0x50BF] = 0x10;
-    bytes[0x50C0] = 0x10;
-    bytes[0x50C1] = 0x10;
-
-    bytes[0x1141] = 0xF0; // changes steering on straights
-    bytes[0x29A3] = 0xF0;
+    // bytes[0x50A2] = 0x10;
+    // bytes[0x50A3] = 0x10;
+    // bytes[0x50A4] = 0x10;
+    // bytes[0x50A5] = 0x10;
+    // bytes[0x50A6] = 0x10;
+    // bytes[0x50A7] = 0x10;
+    // bytes[0x50A8] = 0x10;
+    // bytes[0x50A9] = 0x10;
+    // bytes[0x50AA] = 0x10;
+    // bytes[0x50AB] = 0x10;
+    // bytes[0x50AC] = 0x10;
+    // bytes[0x50AD] = 0x10;
+    // bytes[0x50AE] = 0x10;
+    // bytes[0x50AF] = 0x10;
+    // bytes[0x50B0] = 0x10;
+    // bytes[0x50B1] = 0x10;
+    // bytes[0x50B2] = 0x10;
+    // bytes[0x50B3] = 0x10;
+    // bytes[0x50B4] = 0x10;
+    // bytes[0x50B5] = 0x10;
+    // bytes[0x50B6] = 0x10;
+    // bytes[0x50B7] = 0x10;
+    // bytes[0x50B8] = 0x10;
+    // bytes[0x50B9] = 0x10;
+    // bytes[0x50BA] = 0x10;
+    // bytes[0x50BB] = 0x10;
+    // bytes[0x50BC] = 0x10;
+    // bytes[0x50BD] = 0x10;
+    // bytes[0x50BE] = 0x10;
+    // bytes[0x50BF] = 0x10;
+    // bytes[0x50C0] = 0x10;
+    // bytes[0x50C1] = 0x10;
+    //
+    // bytes[0x1141] = 0xF0; // changes steering on straights
+    // bytes[0x29A3] = 0xF0;
 
     // bytes[0x50CB] = 0x00; // confirmed nitro time effect, lower is faster
     // bytes[0x50CD] = 0x00;

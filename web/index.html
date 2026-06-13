@@ -36,11 +36,20 @@
     .error { color: #f87171; }
     .ok { color: #4ade80; }
     code { background: #222; padding: 0.1rem 0.3rem; border-radius: 4px; }
+    #update-banner {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+        background: #3b82f6; color: #fff; padding: 0.6rem 1rem; text-align: center;
+    }
+    #update-banner button {
+        margin-left: 0.5rem; padding: 0.3rem 0.8rem; font-size: 0.9rem;
+        border: 0; border-radius: 6px; background: #fff; color: #1d4ed8;
+        font-weight: bold; cursor: pointer;
+    }
 </style>
 </head>
 <body>
     <h1>Top Gear 2 Randomizer</h1>
-    <p class="sub">Everything runs in your browser &mdash; your ROM never leaves your machine.</p>
+    <p class="sub">Find the source code on <a href="https://github.com/Oipo/tg2-randomizer">github</a>.</p>
 
     <fieldset>
         <legend>ROM</legend>
@@ -98,6 +107,39 @@
             goBtn.disabled = false;
         }).catch(function (e) {
             setStatus('Failed to load WASM module: ' + e, 'error');
+        });
+
+        // --- "new version available" notice --------------------------------
+        // APP_VERSION is a content hash stamped in by build-wasm.sh. version.json
+        // (written next to the files) carries the version currently on the server;
+        // if it differs from this loaded page, a newer build has been deployed.
+        const APP_VERSION = '__APP_VERSION__';
+
+        function showUpdateBanner() {
+            if (document.getElementById('update-banner')) return;
+            const bar = document.createElement('div');
+            bar.id = 'update-banner';
+            bar.innerHTML = 'A new version is available. <button id="reloadBtn">Reload</button>';
+            document.body.appendChild(bar);
+            document.getElementById('reloadBtn').addEventListener('click', function () {
+                location.reload();
+            });
+        }
+
+        async function checkForUpdate() {
+            if (APP_VERSION.charAt(0) === '_') return;  // unstamped (raw source) — skip
+            try {
+                const r = await fetch('version.json?t=' + Date.now(), { cache: 'no-store' });
+                if (!r.ok) return;
+                const latest = (await r.json()).version;
+                if (latest && latest !== APP_VERSION) showUpdateBanner();
+            } catch (e) { /* offline or no version.json — ignore */ }
+        }
+
+        checkForUpdate();
+        setInterval(checkForUpdate, 5 * 60 * 1000);
+        document.addEventListener('visibilitychange', function () {
+            if (!document.hidden) checkForUpdate();
         });
 
         function buildOptions() {
